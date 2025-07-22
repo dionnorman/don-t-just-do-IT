@@ -1,0 +1,184 @@
+/**
+ * Strategic Imperatives - Custom Header Backgrounds
+ * Provides visually stunning header images for each imperative card
+ */
+
+/* Custom card header backgrounds */
+.imperative-card {
+  position: relative;
+}
+
+.card-header {
+  position: relative;
+  z-index: 2;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.card-header-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 120px; /* Adjust height as needed */
+  background-size: cover;
+  background-position: center;
+  opacity: 0.15;
+  transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  pointer-events: none;
+}
+
+.imperative-card:hover .card-header-bg {
+  opacity: 0.25;
+  transform: scale(1.05);
+}
+
+/* Create gradient overlay for the header background */
+.card-header-bg::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 1));
+}
+
+/* Next-Gen AI Evolution */
+.imperative-card:nth-of-type(1) .card-header-bg {
+  background-image: url('https://public.youware.com/users-website-assets/prod/c0429c9d-fa1a-4ac7-8fd5-8fa86cf97e2c/gc69bfa8644332327272d6e0148edf679ba48e959ba4047b264eb599f3d72d3da75c172596ff3e5eec1ddf2f50df591581fa5e19b18528fc92a12556b1318e675_640.jpg');
+}
+
+/* AI-First Immersive Devices */
+.imperative-card:nth-of-type(2) .card-header-bg {
+  background-image: url('https://public.youware.com/users-website-assets/prod/c0429c9d-fa1a-4ac7-8fd5-8fa86cf97e2c/gaf1db950f9efaf765f0964d4243bcf5551eae2c051c3a46ec17ed1e3c8fc00ca137d7ff0dee2c9e546ee0eb48e36118795438e0e7c9dd90050f789c210e587a1_640.jpg');
+}
+
+/* Creative Democratization */
+.imperative-card:nth-of-type(3) .card-header-bg {
+  background-image: url('https://public.youware.com/users-website-assets/prod/c0429c9d-fa1a-4ac7-8fd5-8fa86cf97e2c/g0c16e2c70ad1d48c8b110bd97f8daba5b2fbe4c8b31d74b3f5f1c88e6ee1ae23b6804ef40103017f6502257af69036d84bc36b0fd7424e7f15a1f31e945b1af7_640.jpg');
+}
+
+/* Physical-Digital Convergence */
+.imperative-card:nth-of-type(4) .card-header-bg {
+  background-image: url('https://public.youware.com/users-website-assets/prod/c0429c9d-fa1a-4ac7-8fd5-8fa86cf97e2c/g0b9dc712ed0dfd35f86f7cd3ba559caf9005362171d7ea1b7147ddc0b400e30e25aad4afca6d3e5bc392e821e22f7fc20985f005faf7c478e919d44ba2fb49bf_640.jpg');
+}
+
+/* Quantum Computing Era */
+.imperative-card:nth-of-type(5) .card-header-bg {
+  background-image: url('https://public.youware.com/users-website-assets/prod/c0429c9d-fa1a-4ac7-8fd5-8fa86cf97e2c/g4eef748e94fbb7984e9a57f9714531ce28b81eccbc3335b906f4587751f7bc3d8978b089a11fcca54eef6398433688f48c459bcb17752397d78b3ab0477f7b5c_640.jpg');
+}
+
+/* Digital Ownership & Verification */
+.imperative-card:nth-of-type(6) .card-header-bg {
+  background-image: url('https://public.youware.com/users-website-assets/prod/c0429c9d-fa1a-4ac7-8fd5-8fa86cf97e2c/g2c2c1fc8b54edc39d54bd49cd75b061f9760fa1d96e7f7cdb4ce9565aa1926c50f7ee4a21bf9329128f1ee2f02df362df4d06dcf582c4d5a4bc6bcdd400d45b8_640.png');
+}
+
+/* Societal Transformation */
+.imperative-card:nth-of-type(7) .card-header-bg {
+  background-image: url('https://public.youware.com/users-website-assets/prod/c0429c9d-fa1a-4ac7-8fd5-8fa86cf97e2c/g49b1b97c4b098a030d2dd354b14be46ca221984c37cb5f7a151f3fecbfdceea268c7e46e8eb574aad1a4f46df972ba6550bcf828a6477ad236f95ae38fe52128_640.jpg');
+}
+
+/* Future-Ready Skills Revolution */
+.imperative-card:nth-of-type(8) .card-header-bg {
+  background-image: url('https://public.youware.com/users-website-assets/prod/c0429c9d-fa1a-4ac7-8fd5-8fa86cf97e2c/g8f32018a2d2a6fc3fa3c76f784a9710eeb5a5395ac1eab33d3192f1b51b9f56e4031f7daeae7cb30d539b982db4aaa50c3bffb99e2f0d226fea22cc017819c24_1280.jpg');
+}
+
+/* Enhanced icon styling with background header */
+.imperative-icon {
+  position: relative;
+  z-index: 2;
+  width: 60px;
+  height: 60px;
+  border-radius: 15px;
+  backdrop-filter: blur(2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.9), rgba(46, 94, 170, 0.9));
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.imperative-card:hover .imperative-icon {
+  transform: scale(1.1) rotate(10deg);
+  box-shadow: 0 12px 25px rgba(46, 94, 170, 0.3);
+}
+
+/* Unique gradient per icon for visual interest */
+.imperative-card:nth-of-type(1) .imperative-icon {
+  background: linear-gradient(135deg, #3b82f6, #1e40af);
+}
+
+.imperative-card:nth-of-type(2) .imperative-icon {
+  background: linear-gradient(135deg, #8b5cf6, #4c1d95);
+}
+
+.imperative-card:nth-of-type(3) .imperative-icon {
+  background: linear-gradient(135deg, #ec4899, #be185d);
+}
+
+.imperative-card:nth-of-type(4) .imperative-icon {
+  background: linear-gradient(135deg, #10b981, #065f46);
+}
+
+.imperative-card:nth-of-type(5) .imperative-icon {
+  background: linear-gradient(135deg, #6366f1, #4338ca);
+}
+
+.imperative-card:nth-of-type(6) .imperative-icon {
+  background: linear-gradient(135deg, #f59e0b, #b45309);
+}
+
+.imperative-card:nth-of-type(7) .imperative-icon {
+  background: linear-gradient(135deg, #ef4444, #b91c1c);
+}
+
+.imperative-card:nth-of-type(8) .imperative-icon {
+  background: linear-gradient(135deg, #0ea5e9, #0369a1);
+}
+
+/* Enhanced card styling to work with header backgrounds */
+.imperative-card {
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.95));
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.imperative-card:hover {
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.97));
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+.imperative-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1e3a8a;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  transition: all 0.3s ease;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+.imperative-card:hover .imperative-title {
+  color: #2563eb;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .card-header-bg {
+    height: 100px;
+  }
+  
+  .imperative-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.3rem;
+  }
+  
+  .imperative-title {
+    font-size: 1.3rem;
+  }
+}

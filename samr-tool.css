@@ -1,0 +1,1269 @@
+/* Enhanced SAMR Tool Styles */
+.samr-enhanced-tool {
+  margin-bottom: 3rem;
+}
+
+/* SAMR Ladder Styles */
+.samr-ladder {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.samr-ladder-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.05), rgba(37, 99, 235, 0.02));
+  border-radius: 16px;
+  border: 1px solid rgba(37, 99, 235, 0.1);
+}
+
+/* Individual SAMR Level Cards */
+.ladder-level {
+  position: relative;
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 2px solid transparent;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.ladder-level:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  border-color: rgba(37, 99, 235, 0.3);
+}
+
+.ladder-level.level-redefinition {
+  border-left: 6px solid #10b981;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(16, 185, 129, 0.02));
+}
+
+.ladder-level.level-modification {
+  border-left: 6px solid #f59e0b;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.05), rgba(245, 158, 11, 0.02));
+}
+
+.ladder-level.level-augmentation {
+  border-left: 6px solid #3b82f6;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(59, 130, 246, 0.02));
+}
+
+.ladder-level.level-substitution {
+  border-left: 6px solid #64748b;
+  background: linear-gradient(135deg, rgba(100, 116, 139, 0.05), rgba(100, 116, 139, 0.02));
+}
+
+.level-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.level-icon {
+  flex-shrink: 0;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: white;
+}
+
+.level-redefinition .level-icon {
+  background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.level-modification .level-icon {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+.level-augmentation .level-icon {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+}
+
+.level-substitution .level-icon {
+  background: linear-gradient(135deg, #64748b, #475569);
+}
+
+.level-text {
+  flex-grow: 1;
+}
+
+.level-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+  color: var(--text-dark);
+}
+
+.level-description {
+  margin: 0 0 0.5rem 0;
+  color: var(--text-medium);
+  line-height: 1.5;
+}
+
+.learn-more-hint {
+  font-size: 0.875rem;
+  color: #3b82f6;
+  font-weight: 500;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.ladder-level:hover .learn-more-hint {
+  opacity: 1;
+}
+
+/* SAMR Level Detail Panel - DISABLED (Clean system handles modals) */
+.level-detail-panel {
+  /* DISABLED: Old modal system completely disabled to prevent conflicts */
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  
+  /* Prevent any interference with the clean system */
+  position: absolute !important;
+  top: -9999px !important;
+  left: -9999px !important;
+  width: 0 !important;
+  height: 0 !important;
+  z-index: -1 !important;
+}
+
+/* DISABLED: Old modal system classes completely disabled */
+.level-detail-panel.active,
+.level-detail-panel .modal-content {
+  /* All old modal styles disabled to prevent conflicts */
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Remove all animations to prevent conflicts */
+@keyframes modalFadeInScale {
+  /* Disabled - animations cause jittering */
+}
+
+/* Remove active state animations */
+.level-detail-panel.active .modal-content {
+  /* No animations - JavaScript handles all styling */
+}
+
+/* Close button - Simplified and stable */
+.level-detail-panel .modal-close {
+  /* Basic styling - JavaScript will override with !important for positioning */
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 44px;
+  height: 44px;
+  border: none;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 100;
+  color: #666;
+  font-size: 1.2rem;
+  
+  /* Simplified transitions to prevent conflicts */
+  transition: background-color 0.3s ease;
+  
+  /* Ensure button works properly */
+  pointer-events: auto;
+  flex-shrink: 0;
+}
+
+.level-detail-panel .modal-close:hover {
+  background: rgba(0, 0, 0, 0.2);
+  color: #333;
+  /* Remove transform to prevent jittering */
+}
+
+.level-detail-panel .modal-close:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.level-detail-panel .modal-close:active {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+/* Modal header */
+.level-detail-panel .modal-title {
+  margin: 0 0 1.5rem 0;
+  padding: 2rem 2rem 0 2rem;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Modal body */
+.level-detail-panel .modal-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 2rem 2rem 2rem;
+  
+  /* Custom scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+
+.level-detail-panel .modal-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.level-detail-panel .modal-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.level-detail-panel .modal-body::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+.level-detail-panel .modal-body::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* Content styling within modal */
+.detail-panel-content h4 {
+  color: var(--primary);
+  margin: 2rem 0 1rem 0;
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.detail-panel-content p {
+  margin: 0 0 1.5rem 0;
+  line-height: 1.7;
+  color: var(--text-medium);
+}
+
+.detail-panel-content ul {
+  margin: 0 0 1.5rem 0;
+  padding-left: 1.5rem;
+}
+
+.detail-panel-content li {
+  margin: 0 0 0.75rem 0;
+  line-height: 1.6;
+  color: var(--text-medium);
+}
+
+.detail-panel-content strong {
+  color: var(--text-dark);
+  font-weight: 600;
+}
+
+/* Example items */
+.example-item {
+  background: rgba(37, 99, 235, 0.05);
+  border-left: 4px solid #3b82f6;
+  padding: 1.25rem;
+  margin: 0 0 1rem 0;
+  border-radius: 0 8px 8px 0;
+  line-height: 1.6;
+}
+
+.example-item strong {
+  color: #1e40af;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+/* Guidance grid */
+.guidance-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.guidance-item {
+  background: rgba(248, 250, 252, 0.8);
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.guidance-item h5 {
+  margin: 0 0 0.75rem 0;
+  color: var(--primary);
+  font-size: 1rem;
+}
+
+.guidance-item p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* Impact section */
+.impact-section {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05));
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 2rem 0 0 0;
+}
+
+.impact-section h4 {
+  color: #059669 !important;
+  margin-top: 0;
+}
+
+.impact-section p {
+  margin-bottom: 0;
+  color: var(--text-dark);
+  font-weight: 500;
+}
+
+/* Clean SAMR Overlay System Styles */
+#clean-samr-overlay {
+  /* The clean overlay is styled entirely with inline styles for maximum compatibility */
+  /* No CSS needed here - JavaScript handles all styling to prevent conflicts */
+}
+
+/* Ensure old modal systems don't interfere */
+body.samr-modal-open,
+.samr-modal-backdrop,
+.level-detail-panel {
+  /* All old classes disabled */
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Click handlers for ladder levels - Simplified */
+.ladder-level {
+  position: relative;
+  /* Remove any transforms or transitions that could cause jittering */
+}
+
+/* Simplified click feedback without pseudo-elements */
+.ladder-level:active {
+  /* Simple background change for click feedback */
+  background: rgba(0, 0, 0, 0.02);
+}
+
+/* Responsive Design for SAMR Modals */
+@media (max-width: 768px) {
+  .level-detail-panel {
+    padding: 0.5rem;
+    /* Adjust viewport units for mobile */
+    width: 100vw;
+    height: 100vh;
+  }
+  
+  .level-detail-panel .modal-content {
+    max-width: 100%;
+    max-height: 95vh;
+    margin: 0;
+    border-radius: 12px;
+    width: calc(100vw - 1rem);
+  }
+  
+  .level-detail-panel .modal-title {
+    font-size: 1.5rem;
+    padding: 1.5rem 1.5rem 0 1.5rem;
+  }
+  
+  .level-detail-panel .modal-body {
+    padding: 0 1.5rem 1.5rem 1.5rem;
+  }
+  
+  .level-detail-panel .modal-close {
+    top: 0.75rem;
+    right: 0.75rem;
+    width: 40px;
+    height: 40px;
+    font-size: 1.1rem;
+  }
+  
+  .guidance-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .samr-ladder-container {
+    padding: 1rem;
+  }
+  
+  .ladder-level {
+    padding: 1rem;
+  }
+  
+  .level-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.75rem;
+  }
+  
+  .level-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 1.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .level-detail-panel {
+    padding: 0.25rem;
+  }
+  
+  .level-detail-panel .modal-content {
+    width: calc(100vw - 0.5rem);
+    border-radius: 8px;
+  }
+  
+  .level-detail-panel .modal-title {
+    font-size: 1.25rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding: 1rem 1rem 0 1rem;
+  }
+  
+  .level-detail-panel .modal-body {
+    padding: 0 1rem 1rem 1rem;
+  }
+  
+  .level-detail-panel .modal-close {
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+  }
+  
+  .example-item {
+    padding: 1rem;
+  }
+  
+  .guidance-item {
+    padding: 1rem;
+  }
+  
+  .detail-panel-content h4 {
+    font-size: 1.1rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+}
+
+/* Assessment Introduction */
+.assessment-introduction {
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(37, 99, 235, 0.05) 100%);
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  border: 1px solid rgba(37, 99, 235, 0.2);
+}
+
+.assessment-introduction h4 {
+  color: var(--primary);
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.assessment-introduction p {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--text-medium);
+  margin-bottom: 1.5rem;
+}
+
+.key-benefits {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.benefit-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 8px;
+  border: 1px solid rgba(37, 99, 235, 0.1);
+}
+
+.benefit-item i {
+  color: var(--primary);
+  font-size: 1.1rem;
+  margin-top: 0.1rem;
+  flex-shrink: 0;
+}
+
+.benefit-item span {
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: var(--text-medium);
+}
+
+/* Progress Indicator */
+.progress-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: rgba(248, 250, 252, 0.8);
+  border-radius: 12px;
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.progress-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0 1rem;
+  position: relative;
+  opacity: 0.4;
+  transition: all 0.3s ease;
+}
+
+.progress-step.active {
+  opacity: 1;
+}
+
+.progress-step.completed {
+  opacity: 1;
+}
+
+.progress-step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 20px;
+  left: calc(100% + 0.5rem);
+  width: calc(100% + 1rem);
+  height: 2px;
+  background: rgba(226, 232, 240, 0.6);
+  z-index: 1;
+}
+
+.progress-step.completed:not(:last-child)::after {
+  background: var(--primary);
+}
+
+.step-number {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(226, 232, 240, 0.6);
+  color: var(--text-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+  position: relative;
+  z-index: 2;
+  transition: all 0.3s ease;
+}
+
+.progress-step.active .step-number {
+  background: var(--primary);
+  color: white;
+}
+
+.progress-step.completed .step-number {
+  background: var(--primary);
+  color: white;
+}
+
+.step-label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-medium);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.progress-step.active .step-label {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+/* Form Steps */
+.form-step {
+  display: none;
+  animation: fadeInUp 0.3s ease;
+}
+
+.form-step.active {
+  display: block;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.step-header {
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid rgba(226, 232, 240, 0.8);
+}
+
+.step-header h4 {
+  color: var(--primary);
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.step-header p {
+  color: var(--text-medium);
+  margin-bottom: 0;
+  font-size: 1.05rem;
+  line-height: 1.5;
+}
+
+/* Form Elements */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--text-dark);
+  font-size: 1rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.form-group.error input,
+.form-group.error select,
+.form-group.error textarea {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.help-text {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+}
+
+/* Checkbox Groups */
+.checkbox-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.checkbox-group label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: rgba(248, 250, 252, 0.6);
+  border: 1px solid rgba(226, 232, 240, 0.6);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 0;
+  font-weight: normal;
+}
+
+.checkbox-group label:hover {
+  background: rgba(37, 99, 235, 0.05);
+  border-color: rgba(37, 99, 235, 0.3);
+}
+
+.checkbox-group input[type="checkbox"] {
+  width: auto;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.checkbox-group input[type="checkbox"]:checked + span {
+  color: var(--primary);
+  font-weight: 500;
+}
+
+/* Navigation Buttons */
+.form-navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid rgba(226, 232, 240, 0.8);
+}
+
+.nav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.next-btn,
+.submit-btn {
+  background: var(--primary);
+  color: white;
+}
+
+.next-btn:hover,
+.submit-btn:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(37, 99, 235, 0.3);
+}
+
+.prev-btn {
+  background: rgba(148, 163, 184, 0.1);
+  color: var(--text-medium);
+  border: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+.prev-btn:hover {
+  background: rgba(148, 163, 184, 0.2);
+  color: var(--text-dark);
+}
+
+/* Results Section */
+.samr-enhanced-results {
+  background: rgba(248, 250, 252, 0.6);
+  border-radius: 12px;
+  padding: 2rem;
+  margin-top: 2rem;
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.results-header {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid rgba(226, 232, 240, 0.8);
+}
+
+.results-title {
+  color: var(--primary);
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.6rem;
+}
+
+.results-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.summary-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.summary-label {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  font-weight: 500;
+}
+
+.summary-value {
+  font-size: 1rem;
+  color: var(--text-dark);
+  font-weight: 600;
+}
+
+/* Result Sections */
+.result-section {
+  margin-bottom: 2.5rem;
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid rgba(226, 232, 240, 0.6);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.result-section h4 {
+  color: var(--primary);
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Personalized SAMR Ladder */
+.personalized-ladder {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.ladder-level-personalized {
+  background: rgba(248, 250, 252, 0.8);
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 2px solid rgba(226, 232, 240, 0.6);
+  transition: all 0.3s ease;
+}
+
+.ladder-level-personalized.current-level {
+  border-color: var(--primary);
+  background: rgba(37, 99, 235, 0.05);
+  box-shadow: 0 4px 20px rgba(37, 99, 235, 0.1);
+}
+
+.ladder-level-personalized.redefinition {
+  border-left: 4px solid #10b981;
+}
+
+.ladder-level-personalized.modification {
+  border-left: 4px solid #f59e0b;
+}
+
+.ladder-level-personalized.augmentation {
+  border-left: 4px solid #3b82f6;
+}
+
+.ladder-level-personalized.substitution {
+  border-left: 4px solid #64748b;
+}
+
+.level-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.level-header h5 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: var(--text-dark);
+}
+
+.current-badge {
+  background: var(--primary);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.level-examples h6 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+  color: var(--text-medium);
+}
+
+.level-examples ul {
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+.level-examples li {
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+  color: var(--text-medium);
+}
+
+/* Suggestion Items */
+.suggestion-item {
+  background: rgba(248, 250, 252, 0.8);
+  border-radius: 8px;
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+  border-left: 4px solid var(--primary);
+}
+
+.suggestion-item h6 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  color: var(--primary);
+  font-size: 1.1rem;
+}
+
+.suggestion-item p {
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+  color: var(--text-medium);
+}
+
+.suggestion-item p:last-child {
+  margin-bottom: 0;
+  font-size: 0.9rem;
+  color: var(--text-light);
+  font-style: italic;
+}
+
+/* Timeline */
+.timeline-item {
+  background: rgba(248, 250, 252, 0.8);
+  border-radius: 8px;
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+  border-left: 4px solid #10b981;
+}
+
+.timeline-item h6 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  color: #10b981;
+  font-size: 1.1rem;
+}
+
+.timeline-item ul {
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+.timeline-item li {
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+  color: var(--text-medium);
+}
+
+/* Export Section */
+.export-section {
+  background: rgba(37, 99, 235, 0.05);
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid rgba(37, 99, 235, 0.2);
+  margin-top: 2rem;
+}
+
+.export-section h4 {
+  color: var(--primary);
+  margin-top: 0;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.export-buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.export-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: white;
+  border: 1px solid rgba(37, 99, 235, 0.3);
+  border-radius: 8px;
+  color: var(--primary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.export-btn:hover {
+  background: var(--primary);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+}
+
+.export-note {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  margin: 0;
+  font-style: italic;
+}
+
+/* Reset Section */
+.reset-section {
+  text-align: center;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.reset-enhanced-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: rgba(148, 163, 184, 0.1);
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  border-radius: 8px;
+  color: var(--text-medium);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.reset-enhanced-btn:hover {
+  background: rgba(148, 163, 184, 0.2);
+  color: var(--text-dark);
+}
+
+/* Loading State */
+.loading-state {
+  text-align: center;
+  padding: 3rem;
+}
+
+.loading-state .spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(37, 99, 235, 0.2);
+  border-top: 4px solid var(--primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 1rem auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-state p {
+  color: var(--text-medium);
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .progress-indicator {
+    padding: 1rem;
+  }
+  
+  .progress-step {
+    padding: 0 0.5rem;
+  }
+  
+  .step-label {
+    font-size: 0.75rem;
+  }
+  
+  .checkbox-group {
+    grid-template-columns: 1fr;
+  }
+  
+  .form-navigation {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .nav-btn {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .export-buttons {
+    grid-template-columns: 1fr;
+  }
+  
+  .results-summary {
+    grid-template-columns: 1fr;
+  }
+  
+  .key-benefits {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Original SAMR Tool Styles (for backward compatibility) */
+.samr-tool-card {
+  margin-bottom: 3rem;
+}
+
+.samr-overview {
+  margin-bottom: 3rem;
+}
+
+.samr-overview-title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--gray-800);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.samr-overview-description {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--text-medium);
+  margin-bottom: 1.5rem;
+}
+
+.samr-benefits {
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(37, 99, 235, 0.05) 100%);
+  border-left: 4px solid var(--primary);
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.samr-benefits h5 {
+  font-size: 1.2rem;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.benefits-list {
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+.benefits-list li {
+  margin-bottom: 0.75rem;
+  line-height: 1.5;
+}
+
+.model-connections {
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.08) 0%, rgba(79, 70, 229, 0.03) 100%);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.model-connections h5 {
+  font-size: 1.2rem;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: var(--nav-purple);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.model-connections p {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.model-connections p:last-child {
+  margin-bottom: 0;
+}
+
+.framework-resources {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(79, 70, 229, 0.2);
+}
+
+.framework-resources h6 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: var(--nav-purple);
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.resource-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.resource-links li {
+  margin-bottom: 0.5rem;
+}
+
+.resource-links a {
+  color: var(--nav-purple);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.resource-links a:hover {
+  color: var(--primary);
+}
+
+.samr-levels-intro {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-medium);
+  font-weight: 500;
+}
