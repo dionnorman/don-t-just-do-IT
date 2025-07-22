@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Main ISTE Button</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f8fafc;
+        }
+        .test-box {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(46, 94, 170, 0.08);
+            margin: 20px 0;
+        }
+        .status {
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-weight: 500;
+        }
+        .success { background: #dcfce7; color: #166534; border: 1px solid #22c55e; }
+        .error { background: #fef2f2; color: #991b1b; border: 1px solid #ef4444; }
+        .info { background: #eff6ff; color: #1e40af; border: 1px solid #3b82f6; }
+        .warning { background: #fefce8; color: #854d0e; border: 1px solid #eab308; }
+        .test-button {
+            background: linear-gradient(135deg, #2e5eaa 0%, #4c7cbf 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 15px 0;
+            display: inline-block;
+            text-decoration: none;
+        }
+        .test-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(46, 94, 170, 0.3);
+        }
+        h1 { color: #2e5eaa; text-align: center; }
+        h2 { color: #2e5eaa; border-bottom: 2px solid #2e5eaa; padding-bottom: 10px; }
+        .instructions {
+            background: #f0f9ff;
+            border: 1px solid #0ea5e9;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .instructions h3 {
+            color: #0369a1;
+            margin-top: 0;
+        }
+        .step {
+            margin: 10px 0;
+            padding: 8px 0;
+            border-left: 3px solid #0ea5e9;
+            padding-left: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 ISTE Button Functionality Test</h1>
+    
+    <div class="test-box">
+        <h2>📋 Testing Instructions</h2>
+        <div class="instructions">
+            <h3>How to Test the ISTE Button:</h3>
+            <div class="step"><strong>Step 1:</strong> Click the button below to open the main site</div>
+            <div class="step"><strong>Step 2:</strong> Scroll down to find the "Assessment Tools" section</div>
+            <div class="step"><strong>Step 3:</strong> Look for "ISTE Essential Conditions Assessment"</div>
+            <div class="step"><strong>Step 4:</strong> Fill out some radio button responses (any values)</div>
+            <div class="step"><strong>Step 5:</strong> Click the "Get ISTE Advice" button</div>
+            <div class="step"><strong>Step 6:</strong> You should see a loading animation, then a comprehensive report</div>
+            <div class="step"><strong>Step 7:</strong> Test the export buttons (PDF, Google Doc, PowerPoint)</div>
+        </div>
+        
+        <a href="index.html" target="_blank" class="test-button">
+            🚀 Open Main Site for Testing
+        </a>
+    </div>
+    
+    <div class="test-box">
+        <h2>🔧 Function Availability Check</h2>
+        <div id="function-status">
+            <div class="status info">Checking if ISTE functions are available...</div>
+        </div>
+    </div>
+    
+    <div class="test-box">
+        <h2>📊 Expected Results</h2>
+        <div class="status success">
+            <strong>✅ SUCCESS INDICATORS:</strong>
+            <ul>
+                <li>Loading animation appears when button is clicked</li>
+                <li>Comprehensive report appears with professional styling</li>
+                <li>Report includes Executive Summary with overall score</li>
+                <li>Detailed condition analysis with color-coded scores</li>
+                <li>Strategic recommendations section</li>
+                <li>Phased implementation plan</li>
+                <li>Export buttons work (PDF, Google Doc, PowerPoint)</li>
+                <li>Beautiful, responsive design</li>
+            </ul>
+        </div>
+        
+        <div class="status error">
+            <strong>❌ FAILURE INDICATORS:</strong>
+            <ul>
+                <li>Nothing happens when button is clicked</li>
+                <li>Loading animation shows but no report appears</li>
+                <li>JavaScript errors in browser console</li>
+                <li>Export buttons don't work</li>
+                <li>Report has broken styling</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="test-box">
+        <h2>🐛 Troubleshooting</h2>
+        <div class="status warning">
+            <strong>If the button doesn't work:</strong>
+            <ol>
+                <li>Open browser developer tools (F12)</li>
+                <li>Check the Console tab for JavaScript errors</li>
+                <li>Look for any error messages when clicking the button</li>
+                <li>Verify that all form fields have values selected</li>
+                <li>Check that the loading animation appears</li>
+            </ol>
+        </div>
+    </div>
+    
+    <script>
+        // Test function availability
+        setTimeout(() => {
+            const statusElement = document.getElementById('function-status');
+            let html = '';
+            
+            const functionsToCheck = [
+                'calculateIsteAssessment',
+                'generateComprehensiveIsteReport',
+                'setupIsteExportHandlers',
+                'exportToPDF',
+                'exportToGoogleDoc',
+                'exportToPowerPoint'
+            ];
+            
+            let allAvailable = true;
+            
+            functionsToCheck.forEach(funcName => {
+                // We can't check functions in main.js from here since they're in different scope
+                // But we can provide guidance
+                html += `<div class="status info">📋 ${funcName} - Should be available in main site</div>`;
+            });
+            
+            if (typeof window.html2pdf === 'function') {
+                html += '<div class="status success">✅ html2pdf library - Available</div>';
+            } else {
+                html += '<div class="status warning">⚠️ html2pdf library - Not loaded in this test page</div>';
+            }
+            
+            html += '<div class="status info">💡 <strong>Note:</strong> Function availability can only be fully tested on the main site where main.js is loaded.</div>';
+            
+            statusElement.innerHTML = html;
+        }, 500);
+    </script>
+</body>
+</html>

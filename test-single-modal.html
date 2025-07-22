@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Single Modal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Outfit', sans-serif;
+            background: #f8fafc;
+        }
+        
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .test-button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 10px;
+        }
+        
+        .test-button:hover {
+            background: #1d4ed8;
+        }
+        
+        .status {
+            margin: 20px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        /* Debug overlay styles */
+        .debug-overlay {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 12px;
+            z-index: 3000;
+            max-width: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Strategic Imperative Modal Test</h1>
+        <p>Click the button below to test the AI Evolution modal:</p>
+        
+        <button class="test-button" onclick="testModal()">Test AI Evolution Modal</button>
+        
+        <div class="status" id="status">
+            Ready to test. Click the button above.
+        </div>
+    </div>
+    
+    <div class="debug-overlay" id="debug">
+        Debug info will appear here
+    </div>
+
+    <!-- Test Modal -->
+    <div id="ai-evolution-details" class="imperative-details">
+        <div class="modal-content">
+            <div class="modal-decoration"></div>
+            <button class="modal-close"><i class="fas fa-times"></i></button>
+            <div class="modal-number">1</div>
+            <h3 class="modal-title">Advanced Computing Evolution</h3>
+            <div class="modal-body">
+                <p>Next-generation computing systems transform learning through intelligent automation, multimodal processing, and adaptive interfaces. These technologies become collaborative partners in education.</p>
+                
+                <h4>Technology Breakthroughs</h4>
+                <ul>
+                    <li><strong>Multi-Modal Systems:</strong> Advanced platforms that understand text, images, audio, and video simultaneously</li>
+                    <li><strong>Autonomous Processing:</strong> Systems that can plan, execute complex tasks, and learn from feedback independently</li>
+                    <li><strong>Content Generation:</strong> Sophisticated tools that create realistic educational content from simple instructions</li>
+                    <li><strong>Development Assistance:</strong> Intelligent assistants that can build applications, debug code, and teach programming concepts</li>
+                    <li><strong>Adaptive Interfaces:</strong> Systems that adjust complexity and presentation based on user needs and context</li>
+                </ul>
+                
+                <h4>Educational Applications</h4>
+                <ul>
+                    <li><strong>Creative Content Production:</strong> Students can create professional-quality content without traditional technical barriers</li>
+                    <li><strong>24/7 Personalized Learning:</strong> Intelligent tutoring becomes available with understanding of individual learning styles</li>
+                    <li><strong>Complex Visualization:</strong> Abstract concepts can be visualized and explained through technology-generated simulations</li>
+                    <li><strong>Teacher Augmentation:</strong> Educators gain powerful co-creation partners for curriculum development and assessment</li>
+                    <li><strong>Collaborative Intelligence:</strong> Human creativity enhanced by computational capabilities for breakthrough innovation</li>
+                </ul>
+                
+                <p>This evolution requires schools to shift from teaching about technology to teaching alongside intelligent systems that understand context, nuance, and individual learner needs.</p>
+                
+                <div class="modal-keywords">
+                    <div class="modal-keywords-title">Key Concepts</div>
+                    <div class="modal-keywords-list">
+                        <span class="modal-keyword">Artificial Intelligence</span>
+                        <span class="modal-keyword">Machine Learning</span>
+                        <span class="modal-keyword">Automation</span>
+                        <span class="modal-keyword">Multimodal Processing</span>
+                        <span class="modal-keyword">Adaptive Systems</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function testModal() {
+            const modal = document.getElementById('ai-evolution-details');
+            const status = document.getElementById('status');
+            const debug = document.getElementById('debug');
+            
+            status.innerHTML = 'Opening modal...';
+            debug.innerHTML = 'Testing modal...<br>';
+            
+            // Close any existing modals
+            document.querySelectorAll('.imperative-details.active').forEach(m => {
+                m.classList.remove('active');
+            });
+            
+            // Prevent scrolling
+            document.body.style.overflow = 'hidden';
+            
+            // Show modal
+            setTimeout(() => {
+                modal.classList.add('active');
+                
+                // Check positioning after animation
+                setTimeout(() => {
+                    const modalRect = modal.getBoundingClientRect();
+                    const content = modal.querySelector('.modal-content');
+                    const contentRect = content.getBoundingClientRect();
+                    
+                    debug.innerHTML = `Modal positioned:<br>
+                        Modal: ${Math.round(modalRect.width)}x${Math.round(modalRect.height)}<br>
+                        Content: ${Math.round(contentRect.width)}x${Math.round(contentRect.height)}<br>
+                        Content pos: (${Math.round(contentRect.left)}, ${Math.round(contentRect.top)})<br>
+                        Viewport: ${window.innerWidth}x${window.innerHeight}<br>
+                        Right edge: ${Math.round(contentRect.right)}<br>
+                        Bottom edge: ${Math.round(contentRect.bottom)}<br>`;
+                    
+                    const fullyVisible = 
+                        contentRect.top >= 0 && 
+                        contentRect.bottom <= window.innerHeight &&
+                        contentRect.left >= 0 && 
+                        contentRect.right <= window.innerWidth;
+                    
+                    if (fullyVisible) {
+                        status.innerHTML = '✅ Modal is fully visible within viewport!';
+                        debug.innerHTML += '<br>✅ FULLY VISIBLE';
+                    } else {
+                        status.innerHTML = '❌ Modal has positioning issues!';
+                        debug.innerHTML += '<br>❌ POSITIONING ISSUES:';
+                        
+                        if (contentRect.top < 0) debug.innerHTML += '<br>- Top cut off';
+                        if (contentRect.bottom > window.innerHeight) debug.innerHTML += '<br>- Bottom cut off';
+                        if (contentRect.left < 0) debug.innerHTML += '<br>- Left cut off';
+                        if (contentRect.right > window.innerWidth) debug.innerHTML += '<br>- Right cut off';
+                    }
+                }, 400);
+            }, 10);
+        }
+        
+        // Close modal functionality
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal-close') || e.target.closest('.modal-close')) {
+                const modal = e.target.closest('.imperative-details');
+                if (modal) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = '';
+                    document.getElementById('status').innerHTML = 'Modal closed.';
+                }
+            }
+            
+            if (e.target.classList.contains('imperative-details')) {
+                e.target.classList.remove('active');
+                document.body.style.overflow = '';
+                document.getElementById('status').innerHTML = 'Modal closed (backdrop click).';
+            }
+        });
+        
+        // ESC key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.imperative-details.active').forEach(modal => {
+                    modal.classList.remove('active');
+                });
+                document.body.style.overflow = '';
+                document.getElementById('status').innerHTML = 'Modal closed (ESC key).';
+            }
+        });
+    </script>
+</body>
+</html>

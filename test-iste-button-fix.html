@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISTE Button Fix Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #0f0f23;
+            color: white;
+        }
+        .test-container {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .rating-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .rating-group label {
+            color: #cbd5e1;
+            cursor: pointer;
+        }
+        .tool-button {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+        .assessment-result {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .hidden {
+            display: none;
+        }
+        .loader {
+            text-align: center;
+            padding: 20px;
+        }
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top-color: #6366f1;
+            border-radius: 50%;
+            animation: spin 1s infinite linear;
+            margin: 0 auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .status {
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+        }
+        .success { background-color: #22c55e; color: white; }
+        .error { background-color: #ef4444; color: white; }
+        .warning { background-color: #eab308; color: black; }
+    </style>
+</head>
+<body>
+    <h1>ISTE Assessment Button Fix Test</h1>
+    
+    <div class="test-container">
+        <h2>Quick Test Form</h2>
+        <div class="assessment-container">
+            <div class="assessment-form">
+                <div class="form-group">
+                    <label>Shared Vision</label>
+                    <div class="rating-group">
+                        <label><input type="radio" name="shared-vision" value="1"> Initiates</label>
+                        <label><input type="radio" name="shared-vision" value="2"> Approaches</label>
+                        <label><input type="radio" name="shared-vision" value="3" checked> Meets</label>
+                        <label><input type="radio" name="shared-vision" value="4"> Exceeds</label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Implementation Planning</label>
+                    <div class="rating-group">
+                        <label><input type="radio" name="implementation" value="1"> Initiates</label>
+                        <label><input type="radio" name="implementation" value="2" checked> Approaches</label>
+                        <label><input type="radio" name="implementation" value="3"> Meets</label>
+                        <label><input type="radio" name="implementation" value="4"> Exceeds</label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Equitable Access</label>
+                    <div class="rating-group">
+                        <label><input type="radio" name="equitable-access" value="1"> Initiates</label>
+                        <label><input type="radio" name="equitable-access" value="2"> Approaches</label>
+                        <label><input type="radio" name="equitable-access" value="3"> Meets</label>
+                        <label><input type="radio" name="equitable-access" value="4" checked> Exceeds</label>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="tool-button" id="test-iste-btn">Get ISTE Advice (Test)</button>
+        </div>
+        
+        <div class="assessment-result hidden" id="test-result">
+            <div class="loader">
+                <div class="spinner"></div>
+            </div>
+            <div class="result-content"></div>
+        </div>
+    </div>
+    
+    <div id="debug-info" class="test-container">
+        <h3>Debug Information</h3>
+        <div id="debug-output"></div>
+    </div>
+
+    <script>
+        // Test the fixed functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const debugOutput = document.getElementById('debug-output');
+            
+            // Check if functions exist
+            const functionsToCheck = [
+                'calculateIsteAssessment',
+                'generateComprehensiveIsteReport', 
+                'setupIsteExportHandlers',
+                'getConditionAnalysis'
+            ];
+            
+            functionsToCheck.forEach(funcName => {
+                if (typeof window[funcName] === 'function') {
+                    debugOutput.innerHTML += `<div class="status success">✅ ${funcName} function is available</div>`;
+                } else {
+                    debugOutput.innerHTML += `<div class="status error">❌ ${funcName} function is missing</div>`;
+                }
+            });
+            
+            // Test button click
+            const testBtn = document.getElementById('test-iste-btn');
+            if (testBtn) {
+                debugOutput.innerHTML += '<div class="status success">✅ Test button found</div>';
+                
+                testBtn.addEventListener('click', function() {
+                    debugOutput.innerHTML += '<div class="status warning">🔄 Button clicked, testing functionality...</div>';
+                    
+                    const assessmentContainer = document.querySelector('.assessment-container');
+                    const resultElement = document.getElementById('test-result');
+                    
+                    if (resultElement && assessmentContainer) {
+                        debugOutput.innerHTML += '<div class="status success">✅ Elements found</div>';
+                        
+                        resultElement.classList.remove('hidden');
+                        resultElement.querySelector('.loader').style.display = 'flex';
+                        
+                        // Collect form data directly from radio buttons
+                        const responses = {};
+                        const radioGroups = ['shared-vision', 'implementation', 'equitable-access'];
+                        
+                        radioGroups.forEach(group => {
+                            const radioButton = assessmentContainer.querySelector(`input[name="${group}"]:checked`);
+                            responses[group] = radioButton ? parseInt(radioButton.value) : 0;
+                            debugOutput.innerHTML += `<div class="status">📊 ${group}: ${responses[group]}</div>`;
+                        });
+                        
+                        try {
+                            // Calculate assessment
+                            if (typeof window.calculateIsteAssessment === 'function') {
+                                const assessment = window.calculateIsteAssessment(responses);
+                                debugOutput.innerHTML += '<div class="status success">✅ Assessment calculated successfully</div>';
+                                
+                                setTimeout(() => {
+                                    resultElement.querySelector('.loader').style.display = 'none';
+                                    
+                                    if (typeof window.generateComprehensiveIsteReport === 'function') {
+                                        const resultContent = window.generateComprehensiveIsteReport(assessment, responses);
+                                        resultElement.querySelector('.result-content').innerHTML = resultContent;
+                                        debugOutput.innerHTML += '<div class="status success">✅ Report generated successfully!</div>';
+                                    } else {
+                                        debugOutput.innerHTML += '<div class="status error">❌ Report generation function missing</div>';
+                                    }
+                                }, 1500);
+                            } else {
+                                debugOutput.innerHTML += '<div class="status error">❌ Assessment calculation function missing</div>';
+                            }
+                        } catch (error) {
+                            debugOutput.innerHTML += `<div class="status error">❌ Error: ${error.message}</div>`;
+                        }
+                    } else {
+                        debugOutput.innerHTML += '<div class="status error">❌ Required elements not found</div>';
+                    }
+                });
+            } else {
+                debugOutput.innerHTML += '<div class="status error">❌ Test button not found</div>';
+            }
+        });
+    </script>
+    
+    <!-- Include the main.js file to get all the functions -->
+    <script src="js/main.js"></script>
+</body>
+</html>

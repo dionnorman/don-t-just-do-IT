@@ -1,0 +1,244 @@
+/* COMPLETELY NEW AND CLEAN STRATEGIC IMPERATIVES MODAL IMPLEMENTATION */
+/* This file completely replaces all previous modal styles for Strategic Imperatives section */
+
+/* 1. Basic Modal Overlay Structure */
+.imperative-details {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 2000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  pointer-events: none;
+}
+
+/* 2. Active Modal State */
+.imperative-details.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* 3. Modal Content Box */
+.imperative-details .modal-content {
+  position: relative;
+  width: 80%;
+  max-width: 800px;
+  max-height: 85vh;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+  overflow-y: auto;
+  transform: translateY(20px);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* 4. Modal Content Animation When Active */
+.imperative-details.active .modal-content {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* 5. Close Button */
+.modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(46, 94, 170, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: #333333;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.modal-close:hover {
+  background-color: #2563eb;
+  color: white;
+  transform: rotate(90deg);
+}
+
+/* 6. Modal Title */
+.modal-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(46, 94, 170, 0.1);
+  padding-right: 40px; /* Make room for close button */
+}
+
+/* 7. Decorative Elements */
+.modal-decoration {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+  border-radius: 0 12px 12px 0;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+.imperative-details.active .modal-decoration {
+  opacity: 1;
+  width: 6px;
+}
+
+.modal-number {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+  box-shadow: 0 4px 10px rgba(46, 94, 170, 0.3);
+}
+
+/* 8. Modal Content Styles */
+.modal-body {
+  color: #4b5563;
+  line-height: 1.7;
+}
+
+.modal-body p {
+  margin-bottom: 1.2em;
+}
+
+.modal-body h4 {
+  color: #1e293b;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 1.8em 0 0.8em;
+  position: relative;
+  padding-left: 15px;
+}
+
+.modal-body h4::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 20px;
+  background-color: #2563eb;
+  border-radius: 2px;
+}
+
+.modal-body ul {
+  margin: 1em 0;
+  padding-left: 0;
+}
+
+.modal-body li {
+  margin-bottom: 0.8em;
+  padding-left: 24px;
+  position: relative;
+  list-style: none;
+}
+
+.modal-body li::before {
+  content: '▶';
+  position: absolute;
+  left: 0;
+  top: 2px;
+  font-size: 10px;
+  color: #2563eb;
+}
+
+/* 9. Keywords Section */
+.modal-keywords {
+  margin-top: 1.8em;
+  background-color: rgba(46, 94, 170, 0.05);
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.modal-keywords-title {
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 10px;
+}
+
+.modal-keywords-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.modal-keyword {
+  background-color: rgba(46, 94, 170, 0.1);
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  color: #2563eb;
+}
+
+/* 10. Mobile Responsive Styles */
+@media (max-width: 768px) {
+  .imperative-details .modal-content {
+    width: 90%;
+    padding: 20px;
+  }
+  
+  .modal-title {
+    font-size: 1.5rem;
+  }
+  
+  .modal-close {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .modal-body h4 {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .imperative-details .modal-content {
+    width: 95%;
+    padding: 15px;
+    max-height: 90vh;
+  }
+  
+  .modal-title {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+  }
+  
+  .modal-close {
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+  }
+}

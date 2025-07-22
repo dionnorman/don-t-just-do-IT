@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Site Load Test</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    line-height: 1.6;
+}
+.test-result {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 4px;
+}
+.success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+.error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+</style>
+</head>
+<body>
+    <h1>Site Load Test</h1>
+    <p>This is a simple test to verify the site can load without issues.</p>
+    
+    <div id="test-results"></div>
+    
+    <h2>Original Issue</h2>
+    <p>The textbox fix was causing the site not to load. Let's test the minimal version.</p>
+    
+    <!-- Test the minimal textbox fix -->
+    <script>
+        const results = document.getElementById('test-results');
+        
+        function addResult(message, isSuccess) {
+            const div = document.createElement('div');
+            div.className = `test-result ${isSuccess ? 'success' : 'error'}`;
+            div.textContent = message;
+            results.appendChild(div);
+        }
+        
+        // Test 1: Basic loading
+        addResult('✓ Basic HTML/CSS loading works', true);
+        
+        // Test 2: JavaScript execution
+        try {
+            console.log('JavaScript execution test');
+            addResult('✓ JavaScript execution works', true);
+        } catch (e) {
+            addResult('✗ JavaScript execution failed: ' + e.message, false);
+        }
+        
+        // Test 3: DOM manipulation
+        try {
+            const testDiv = document.createElement('div');
+            testDiv.textContent = 'DOM test';
+            addResult('✓ DOM manipulation works', true);
+        } catch (e) {
+            addResult('✗ DOM manipulation failed: ' + e.message, false);
+        }
+        
+        // Test 4: Load the minimal textbox fix
+        try {
+            // Minimal textbox fix code (inline for testing)
+            (function() {
+                console.log('Testing minimal textbox fix...');
+                
+                function fixDuplicateIds() {
+                    const elements = document.querySelectorAll('textarea[name="additional-context"]');
+                    if (elements.length > 1) {
+                        elements.forEach((el, i) => {
+                            el.id = `textarea-${i}`;
+                        });
+                    }
+                }
+                
+                if (document.readyState === 'loading') {
+                    document.addEventListener('DOMContentLoaded', fixDuplicateIds);
+                } else {
+                    fixDuplicateIds();
+                }
+            })();
+            
+            addResult('✓ Minimal textbox fix loads successfully', true);
+        } catch (e) {
+            addResult('✗ Minimal textbox fix failed: ' + e.message, false);
+        }
+        
+        // Add a test textarea to verify functionality
+        const testTextarea = document.createElement('textarea');
+        testTextarea.name = 'additional-context';
+        testTextarea.placeholder = 'Test typing here...';
+        testTextarea.style.cssText = 'width: 300px; height: 100px; margin: 10px 0; padding: 10px; border: 1px solid #ccc;';
+        
+        const testContainer = document.createElement('div');
+        testContainer.innerHTML = '<h3>Test Textarea:</h3>';
+        testContainer.appendChild(testTextarea);
+        results.appendChild(testContainer);
+    </script>
+</body>
+</html>

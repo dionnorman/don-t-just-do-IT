@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strategic Imperatives - Complete Rebuild</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap">
+    <style>
+        /* CSS Variables */
+        :root {
+            --primary: #2563eb;
+            --primary-light: #3b82f6;
+            --foundation-base: #ffffff;
+            --text-dark: #1e293b;
+            --text-medium: #475569;
+            --radius-lg: 12px;
+            --spacing-4: 16px;
+            --spacing-6: 24px;
+            --spacing-8: 32px;
+            --shadow-xl: 0 25px 50px rgba(0, 0, 0, 0.25);
+            --transition-all: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f8fafc;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-tag {
+            color: var(--primary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-medium);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Card Grid */
+        .imperative-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        /* Imperative Cards */
+        .imperative-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+        }
+
+        .imperative-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .card-header {
+            position: relative;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .imperative-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            opacity: 0.9;
+        }
+
+        .imperative-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin: 0;
+            line-height: 1.3;
+        }
+
+        .card-body {
+            padding: 30px;
+        }
+
+        .imperative-text {
+            color: var(--text-medium);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .card-footer {
+            padding: 0 30px 30px;
+        }
+
+        .imperative-learn-more {
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        .imperative-learn-more:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+
+        /* Modal Overlay Styles - Based on working implementation */
+        .imperative-details {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            pointer-events: none;
+        }
+
+        .imperative-details.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            width: 80%;
+            max-width: 900px;
+            max-height: 80vh;
+            background: var(--foundation-base);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-8);
+            position: relative;
+            overflow-y: auto;
+            transform: translateY(30px);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            box-shadow: var(--shadow-xl);
+            border: 1px solid rgba(46, 94, 170, 0.1);
+        }
+
+        .imperative-details.active .modal-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(46, 94, 170, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-dark);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition-all);
+            z-index: 10;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-close:hover {
+            background: var(--primary);
+            color: white;
+            transform: rotate(90deg) scale(1.1);
+        }
+
+        .modal-decoration {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            opacity: 0.8;
+            transition: var(--transition-all);
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+        }
+
+        .imperative-details.active .modal-decoration {
+            opacity: 1;
+            width: 6px;
+        }
+
+        .modal-number {
+            position: absolute;
+            top: -12px;
+            left: -12px;
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 12px rgba(46, 94, 170, 0.3);
+        }
+
+        .modal-title {
+            color: var(--text-dark);
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-6);
+            padding-bottom: var(--spacing-4);
+            border-bottom: 2px solid rgba(46, 94, 170, 0.1);
+            font-family: 'Outfit', sans-serif;
+            letter-spacing: -0.02em;
+            position: relative;
+            padding-right: 50px;
+            line-height: 1.3;
+        }
+
+        .modal-body {
+            color: var(--text-medium);
+            line-height: 1.7;
+        }
+
+        .modal-body p {
+            margin-bottom: 1.2em;
+        }
+
+        .modal-body h4 {
+            color: var(--text-dark);
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: var(--spacing-6) 0 var(--spacing-4) 0;
+            position: relative;
+            padding-left: var(--spacing-4);
+        }
+
+        .modal-body h4::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 20px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .modal-body ul {
+            margin: 1em 0;
+            padding-left: 0;
+        }
+
+        .modal-body li {
+            margin-bottom: 0.8em;
+            padding-left: 24px;
+            position: relative;
+            list-style: none;
+        }
+
+        .modal-body li::before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            top: 2px;
+            font-size: 10px;
+            color: var(--primary);
+        }
+
+        .modal-keywords {
+            margin-top: var(--spacing-8);
+            background: rgba(46, 94, 170, 0.05);
+            padding: var(--spacing-6);
+            border-radius: 8px;
+        }
+
+        .modal-keywords-title {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+
+        .modal-keywords-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .modal-keyword {
+            background: rgba(46, 94, 170, 0.1);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            color: var(--primary);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .imperative-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .modal-content {
+                width: 95%;
+                padding: 20px;
+            }
+
+            .modal-title {
+                font-size: 1.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* Test Controls */
+        .test-controls {
+            background: white;
+            padding: 30px;
+            border-radius: var(--radius-lg);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 40px;
+        }
+
+        .test-button {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .test-log {
+            background: #f1f5f9;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 14px;
+            max-height: 200px;
+            overflow-y: auto;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Test Controls -->
+        <div class="test-controls">
+            <h2>Strategic Imperatives - Complete Rebuild Test</h2>
+            <p>This is a complete rebuild of the Strategic Imperatives section using the exact same structure and styling as the working roadmap overlays.</p>
+            <button class="test-button" id="test-all-overlays">Test All Overlays</button>
+            <button class="test-button" id="clear-log">Clear Log</button>
+            <div class="test-log" id="test-log">Ready to test overlays...</div>
+        </div>
+
+        <!-- Strategic Imperatives Section -->
+        <div class="section-header">
+            <div class="section-tag">Beyond Integration</div>
+            <h2 class="section-title">Strategic Imperatives for Innovative Educational Ecosystems</h2>
+            <p class="section-subtitle">Beyond individual tools, these imperatives outline how emerging technologies reshape learning environments, skill development, teaching roles, assessment, and knowledge generation.</p>
+        </div>
+
+        <div class="imperative-grid">
+            <!-- Card 1: Advanced Computing Evolution -->
+            <div class="imperative-card">
+                <div class="card-header">
+                    <div class="imperative-icon"><i class="fas fa-microchip"></i></div>
+                    <h3 class="imperative-title">Advanced Computing Evolution</h3>
+                </div>
+                <div class="card-body">
+                    <p class="imperative-text">Next-generation computing systems transform learning through intelligent automation, multimodal processing, and adaptive interfaces. These technologies become collaborative partners in education.</p>
+                </div>
+                <div class="card-footer">
+                    <button class="imperative-learn-more" data-target="ai-evolution-details">Learn more</button>
+                </div>
+            </div>
+
+            <!-- Card 2: Next-Generation Interface Technologies -->
+            <div class="imperative-card">
+                <div class="card-header">
+                    <div class="imperative-icon"><i class="fas fa-glasses"></i></div>
+                    <h3 class="imperative-title">Next-Generation Interface Technologies</h3>
+                </div>
+                <div class="card-body">
+                    <p class="imperative-text">Smart glasses, spatial computing devices, and advanced wearables create new paradigms for how we access and interact with information in educational environments.</p>
+                </div>
+                <div class="card-footer">
+                    <button class="imperative-learn-more" data-target="immersive-devices-details">Learn more</button>
+                </div>
+            </div>
+
+            <!-- Card 3: Creative Democratization -->
+            <div class="imperative-card">
+                <div class="card-header">
+                    <div class="imperative-icon"><i class="fas fa-magic"></i></div>
+                    <h3 class="imperative-title">Creative Democratization</h3>
+                </div>
+                <div class="card-body">
+                    <p class="imperative-text">Intuitive creation platforms and intelligent tools for audio, video, and multimedia generation transform students from consumers to creators at unprecedented scale.</p>
+                </div>
+                <div class="card-footer">
+                    <button class="imperative-learn-more" data-target="creative-democratization-details">Learn more</button>
+                </div>
+            </div>
+
+            <!-- Card 4: Physical-Digital Convergence -->
+            <div class="imperative-card">
+                <div class="card-header">
+                    <div class="imperative-icon"><i class="fas fa-robot"></i></div>
+                    <h3 class="imperative-title">Physical-Digital Convergence</h3>
+                </div>
+                <div class="card-body">
+                    <p class="imperative-text">Intelligent systems merge with robotics and automation, creating responsive physical environments. From classroom assistants to smart lab equipment, the physical and digital worlds converge in educational spaces.</p>
+                </div>
+                <div class="card-footer">
+                    <button class="imperative-learn-more" data-target="physical-digital-details">Learn more</button>
+                </div>
+            </div>
+
+            <!-- Card 5: Quantum Computing Era -->
+            <div class="imperative-card">
+                <div class="card-header">
+                    <div class="imperative-icon"><i class="fas fa-atom"></i></div>
+                    <h3 class="imperative-title">Quantum Computing Era</h3>
+                </div>
+                <div class="card-body">
+                    <p class="imperative-text">Quantum computing and supercomputers unlock unprecedented processing power. Complex simulations, molecular modeling, and real-time climate analysis become accessible educational tools.</p>
+                </div>
+                <div class="card-footer">
+                    <button class="imperative-learn-more" data-target="quantum-era-details">Learn more</button>
+                </div>
+            </div>
+
+            <!-- Card 6: Digital Ownership & Verification -->
+            <div class="imperative-card">
+                <div class="card-header">
+                    <div class="imperative-icon"><i class="fas fa-link"></i></div>
+                    <h3 class="imperative-title">Digital Ownership & Verification</h3>
+                </div>
+                <div class="card-body">
+                    <p class="imperative-text">Blockchain enables digital credentials, intellectual property protection, and decentralized learning platforms. Students own their learning records and creative outputs in verifiable ways.</p>
+                </div>
+                <div class="card-footer">
+                    <button class="imperative-learn-more" data-target="digital-ownership-details">Learn more</button>
+                </div>
+            </div>
+
+            <!-- Card 7: Societal Transformation -->
+            <div class="imperative-card">
+                <div class="card-header">
+                    <div class="imperative-icon"><i class="fas fa-balance-scale"></i></div>
+                    <h3 class="imperative-title">Societal Transformation</h3>
+                </div>
+                <div class="card-body">
+                    <p class="imperative-text">Rapid technological change reshapes jobs, skills, and society. Schools must prepare students for a world of both tremendous opportunity and unprecedented disruption in employment and social structures.</p>
+                </div>
+                <div class="card-footer">
+                    <button class="imperative-learn-more" data-target="societal-transformation-details">Learn more</button>
+                </div>
+            </div>
+
+            <!-- Card 8: Future-Ready Skills Revolution -->
+            <div class="imperative-card">
+                <div class="card-header">
+                    <div class="imperative-icon"><i class="fas fa-brain"></i></div>
+                    <h3 class="imperative-title">Future-Ready Skills Revolution</h3>
+                </div>
+                <div class="card-body">
+                    <p class="imperative-text">Beyond traditional literacy, students need digital collaboration skills, systems thinking, ethical reasoning, adaptability, and the ability to work alongside intelligent technologies in rapidly evolving fields.</p>
+                </div>
+                <div class="card-footer">
+                    <button class="imperative-learn-more" data-target="skills-revolution-details">Learn more</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Overlays -->
+    <!-- Modal 1: AI Evolution -->
+    <div id="ai-evolution-details" class="imperative-details">
+        <div class="modal-content">
+            <div class="modal-decoration"></div>
+            <button class="modal-close"><i class="fas fa-times"></i></button>
+            <div class="modal-number">1</div>
+            <h3 class="modal-title">Advanced Computing Evolution</h3>
+            <div class="modal-body">
+                <p>Next-generation computing systems transform learning through intelligent automation, multimodal processing, and adaptive interfaces. These technologies become collaborative partners in education rather than mere tools.</p>
+                
+                <h4>Technology Breakthroughs</h4>
+                <ul>
+                    <li><strong>Multi-Modal Systems:</strong> Advanced platforms that understand text, images, audio, and video simultaneously, creating more natural human-computer interactions</li>
+                    <li><strong>Autonomous Processing:</strong> Systems that can plan, execute complex tasks, and learn from feedback independently</li>
+                    <li><strong>Content Generation:</strong> Sophisticated tools that create realistic educational content from simple instructions</li>
+                    <li><strong>Development Assistance:</strong> Intelligent assistants that can build applications, debug code, and teach programming concepts</li>
+                    <li><strong>Adaptive Interfaces:</strong> Systems that adjust complexity and presentation based on user needs and context</li>
+                </ul>
+                
+                <h4>Educational Applications</h4>
+                <ul>
+                    <li><strong>Creative Content Production:</strong> Students can create professional-quality content without traditional technical barriers</li>
+                    <li><strong>24/7 Personalized Learning:</strong> Intelligent tutoring becomes available with understanding of individual learning styles</li>
+                    <li><strong>Complex Visualization:</strong> Abstract concepts can be visualized and explained through technology-generated simulations</li>
+                    <li><strong>Teacher Augmentation:</strong> Educators gain powerful co-creation partners for curriculum development and assessment</li>
+                    <li><strong>Collaborative Intelligence:</strong> Human creativity enhanced by computational capabilities for breakthrough innovation</li>
+                </ul>
+                
+                <p>This evolution requires schools to shift from teaching about technology to teaching alongside intelligent systems that understand context, nuance, and individual learner needs.</p>
+                
+                <div class="modal-keywords">
+                    <div class="modal-keywords-title">Key Concepts</div>
+                    <div class="modal-keywords-list">
+                        <span class="modal-keyword">Artificial Intelligence</span>
+                        <span class="modal-keyword">Machine Learning</span>
+                        <span class="modal-keyword">Automation</span>
+                        <span class="modal-keyword">Multimodal Processing</span>
+                        <span class="modal-keyword">Adaptive Systems</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 2: Immersive Devices -->
+    <div id="immersive-devices-details" class="imperative-details">
+        <div class="modal-content">
+            <div class="modal-decoration"></div>
+            <button class="modal-close"><i class="fas fa-times"></i></button>
+            <div class="modal-number">2</div>
+            <h3 class="modal-title">Next-Generation Interface Technologies</h3>
+            <div class="modal-body">
+                <p>Smart glasses, spatial computing devices, and advanced wearables create new paradigms for how we access and interact with information in educational environments.</p>
+                
+                <h4>Current Breakthrough Devices</h4>
+                <ul>
+                    <li><strong>Smart Glasses:</strong> Advanced visual recognition and contextual information overlay</li>
+                    <li><strong>Spatial Computing:</strong> Interactive platforms with enhanced object recognition and environment understanding</li>
+                    <li><strong>Translation Devices:</strong> Real-time translation, object identification, and contextual assistance</li>
+                    <li><strong>Mixed Computing Systems:</strong> Enterprise-focused platforms with intelligent collaboration tools</li>
+                </ul>
+                
+                <h4>Future Developments</h4>
+                <ul>
+                    <li><strong>Next-Generation Wearables:</strong> Revolutionary devices designed for seamless human-technology interaction</li>
+                    <li><strong>Neural Interfaces:</strong> Direct brain-computer interfaces for thought-to-action computing</li>
+                    <li><strong>Ambient Computing:</strong> Environments that respond intelligently to user presence and intent</li>
+                </ul>
+                
+                <h4>Educational Applications</h4>
+                <ul>
+                    <li>Historical sites come alive with digital overlays providing contextual information</li>
+                    <li>Science experiments conducted in virtual labs with real-time intelligent guidance</li>
+                    <li>Language immersion through real-time translation and cultural context</li>
+                    <li>Collaborative problem-solving in shared virtual spaces with intelligent facilitation</li>
+                </ul>
+                
+                <p>These devices transform learning from a scheduled activity to a continuous, contextual experience integrated into daily life.</p>
+                
+                <div class="modal-keywords">
+                    <div class="modal-keywords-title">Key Concepts</div>
+                    <div class="modal-keywords-list">
+                        <span class="modal-keyword">Spatial Computing</span>
+                        <span class="modal-keyword">Augmented Reality</span>
+                        <span class="modal-keyword">Wearable Technology</span>
+                        <span class="modal-keyword">Mixed Reality</span>
+                        <span class="modal-keyword">Ambient Computing</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 3: Creative Democratization -->
+    <div id="creative-democratization-details" class="imperative-details">
+        <div class="modal-content">
+            <div class="modal-decoration"></div>
+            <button class="modal-close"><i class="fas fa-times"></i></button>
+            <div class="modal-number">3</div>
+            <h3 class="modal-title">Creative Democratization</h3>
+            <div class="modal-body">
+                <p>Intuitive creation platforms and intelligent tools for audio, video, and multimedia generation transform students from consumers to creators at unprecedented scale.</p>
+                
+                <h4>Revolutionary Platforms</h4>
+                <ul>
+                    <li><strong>Conversational Development:</strong> Natural language programming enabling students to build apps through conversation</li>
+                    <li><strong>Intelligent Development Environments:</strong> Platforms that teach coding while building projects</li>
+                    <li><strong>Automated Builders:</strong> Systems that create functional applications from simple descriptions</li>
+                    <li><strong>Smart Code Editors:</strong> Development tools that assist with programming and collaboration</li>
+                    <li><strong>No-Code Solutions:</strong> Visual development platforms that make complex applications accessible to all learners</li>
+                </ul>
+                
+                <h4>Multi-Media Creation Tools</h4>
+                <ul>
+                    <li><strong>Audio:</strong> Automated voice synthesis, music composition, and podcast generation</li>
+                    <li><strong>Video:</strong> Intelligent editing, scene generation, and personalized content creation</li>
+                    <li><strong>Image:</strong> Concept art, infographics, and educational illustrations from text prompts</li>
+                    <li><strong>Interactive Content:</strong> Games, simulations, and learning experiences built through natural language</li>
+                    <li><strong>3D Creation:</strong> Virtual worlds and objects designed through conversational interfaces</li>
+                </ul>
+                
+                <h4>Educational Impact</h4>
+                <ul>
+                    <li>Students become creators rather than just consumers of digital content</li>
+                    <li>Personalized learning materials generated on-demand for individual needs</li>
+                    <li>Rapid prototyping of ideas without technical skill barriers</li>
+                    <li>Cross-curricular projects combining art, technology, and subject matter expertise</li>
+                    <li>Authentic assessment through creative portfolio development</li>
+                </ul>
+                
+                <p>This democratization fundamentally changes the relationship between creativity and technical skill, enabling focus on conceptual thinking and problem-solving rather than tool mastery.</p>
+                
+                <div class="modal-keywords">
+                    <div class="modal-keywords-title">Key Concepts</div>
+                    <div class="modal-keywords-list">
+                        <span class="modal-keyword">Content Creation</span>
+                        <span class="modal-keyword">No-Code Development</span>
+                        <span class="modal-keyword">Digital Creation</span>
+                        <span class="modal-keyword">Creative Tools</span>
+                        <span class="modal-keyword">Media Generation</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add remaining modals 4-8 here with similar structure -->
+    <!-- Modal 4: Physical-Digital Convergence -->
+    <div id="physical-digital-details" class="imperative-details">
+        <div class="modal-content">
+            <div class="modal-decoration"></div>
+            <button class="modal-close"><i class="fas fa-times"></i></button>
+            <div class="modal-number">4</div>
+            <h3 class="modal-title">Physical-Digital Convergence</h3>
+            <div class="modal-body">
+                <p>Intelligent systems merge with robotics and automation, creating responsive physical environments. From classroom assistants to smart lab equipment, the physical and digital worlds converge in educational spaces.</p>
+                
+                <h4>Emerging Technologies</h4>
+                <ul>
+                    <li><strong>Intelligent Robotics:</strong> Classroom assistants and learning companions</li>
+                    <li><strong>Smart Infrastructure:</strong> Buildings that adapt to occupancy and learning needs</li>
+                    <li><strong>IoT Integration:</strong> Connected devices creating responsive learning environments</li>
+                    <li><strong>Automated Systems:</strong> Self-managing resources and equipment</li>
+                </ul>
+                
+                <div class="modal-keywords">
+                    <div class="modal-keywords-title">Key Concepts</div>
+                    <div class="modal-keywords-list">
+                        <span class="modal-keyword">Robotics</span>
+                        <span class="modal-keyword">IoT</span>
+                        <span class="modal-keyword">Smart Environments</span>
+                        <span class="modal-keyword">Automation</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 5: Quantum Era -->
+    <div id="quantum-era-details" class="imperative-details">
+        <div class="modal-content">
+            <div class="modal-decoration"></div>
+            <button class="modal-close"><i class="fas fa-times"></i></button>
+            <div class="modal-number">5</div>
+            <h3 class="modal-title">Quantum Computing Era</h3>
+            <div class="modal-body">
+                <p>Quantum computing and supercomputers unlock unprecedented processing power. Complex simulations, molecular modeling, and real-time climate analysis become accessible educational tools.</p>
+                
+                <h4>Quantum Applications</h4>
+                <ul>
+                    <li><strong>Complex Simulations:</strong> Molecular and climate modeling in education</li>
+                    <li><strong>Cryptography:</strong> Advanced security and privacy concepts</li>
+                    <li><strong>Optimization:</strong> Resource allocation and scheduling problems</li>
+                    <li><strong>Research:</strong> Accelerated scientific discovery</li>
+                </ul>
+                
+                <div class="modal-keywords">
+                    <div class="modal-keywords-title">Key Concepts</div>
+                    <div class="modal-keywords-list">
+                        <span class="modal-keyword">Quantum Computing</span>
+                        <span class="modal-keyword">Supercomputing</span>
+                        <span class="modal-keyword">Complex Modeling</span>
+                        <span class="modal-keyword">Advanced Algorithms</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 6: Digital Ownership -->
+    <div id="digital-ownership-details" class="imperative-details">
+        <div class="modal-content">
+            <div class="modal-decoration"></div>
+            <button class="modal-close"><i class="fas fa-times"></i></button>
+            <div class="modal-number">6</div>
+            <h3 class="modal-title">Digital Ownership & Verification</h3>
+            <div class="modal-body">
+                <p>Blockchain enables digital credentials, intellectual property protection, and decentralized learning platforms. Students own their learning records and creative outputs in verifiable ways.</p>
+                
+                <h4>Blockchain Applications</h4>
+                <ul>
+                    <li><strong>Digital Credentials:</strong> Verifiable certificates and achievements</li>
+                    <li><strong>Intellectual Property:</strong> Student work protection and ownership</li>
+                    <li><strong>Decentralized Learning:</strong> Peer-to-peer educational platforms</li>
+                    <li><strong>Portfolio Management:</strong> Lifetime learning records</li>
+                </ul>
+                
+                <div class="modal-keywords">
+                    <div class="modal-keywords-title">Key Concepts</div>
+                    <div class="modal-keywords-list">
+                        <span class="modal-keyword">Blockchain</span>
+                        <span class="modal-keyword">Digital Credentials</span>
+                        <span class="modal-keyword">Decentralization</span>
+                        <span class="modal-keyword">Verification</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 7: Societal Transformation -->
+    <div id="societal-transformation-details" class="imperative-details">
+        <div class="modal-content">
+            <div class="modal-decoration"></div>
+            <button class="modal-close"><i class="fas fa-times"></i></button>
+            <div class="modal-number">7</div>
+            <h3 class="modal-title">Societal Transformation</h3>
+            <div class="modal-body">
+                <p>Rapid technological change reshapes jobs, skills, and society. Schools must prepare students for a world of both tremendous opportunity and unprecedented disruption in employment and social structures.</p>
+                
+                <h4>Key Challenges</h4>
+                <ul>
+                    <li><strong>Job Displacement:</strong> Automation changing the workforce</li>
+                    <li><strong>New Opportunities:</strong> Emerging careers and industries</li>
+                    <li><strong>Social Impact:</strong> Technology's effect on communities</li>
+                    <li><strong>Ethical Considerations:</strong> Responsible technology development</li>
+                </ul>
+                
+                <div class="modal-keywords">
+                    <div class="modal-keywords-title">Key Concepts</div>
+                    <div class="modal-keywords-list">
+                        <span class="modal-keyword">Future Work</span>
+                        <span class="modal-keyword">Social Change</span>
+                        <span class="modal-keyword">Technology Ethics</span>
+                        <span class="modal-keyword">Disruption</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 8: Skills Revolution -->
+    <div id="skills-revolution-details" class="imperative-details">
+        <div class="modal-content">
+            <div class="modal-decoration"></div>
+            <button class="modal-close"><i class="fas fa-times"></i></button>
+            <div class="modal-number">8</div>
+            <h3 class="modal-title">Future-Ready Skills Revolution</h3>
+            <div class="modal-body">
+                <p>Beyond traditional literacy, students need digital collaboration skills, systems thinking, ethical reasoning, adaptability, and the ability to work alongside intelligent technologies in rapidly evolving fields.</p>
+                
+                <h4>Essential Skills</h4>
+                <ul>
+                    <li><strong>Digital Collaboration:</strong> Working effectively with AI and human teams</li>
+                    <li><strong>Systems Thinking:</strong> Understanding complex interconnections</li>
+                    <li><strong>Ethical Reasoning:</strong> Making responsible technology decisions</li>
+                    <li><strong>Adaptability:</strong> Thriving in rapidly changing environments</li>
+                    <li><strong>Creative Problem-Solving:</strong> Developing innovative solutions</li>
+                </ul>
+                
+                <div class="modal-keywords">
+                    <div class="modal-keywords-title">Key Concepts</div>
+                    <div class="modal-keywords-list">
+                        <span class="modal-keyword">21st Century Skills</span>
+                        <span class="modal-keyword">Digital Literacy</span>
+                        <span class="modal-keyword">Critical Thinking</span>
+                        <span class="modal-keyword">Collaboration</span>
+                        <span class="modal-keyword">Innovation</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const log = document.getElementById('test-log');
+            
+            function addLog(message) {
+                const timestamp = new Date().toLocaleTimeString();
+                log.textContent += `\n[${timestamp}] ${message}`;
+                log.scrollTop = log.scrollHeight;
+            }
+
+            // Handle overlay opening
+            document.querySelectorAll('.imperative-learn-more').forEach(button => {
+                button.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
+                    const overlay = document.getElementById(targetId);
+                    
+                    if (overlay) {
+                        // Close any open overlays
+                        document.querySelectorAll('.imperative-details.active').forEach(modal => {
+                            modal.classList.remove('active');
+                        });
+                        
+                        // Prevent scrolling
+                        document.body.style.overflow = 'hidden';
+                        
+                        // Show overlay
+                        overlay.classList.add('active');
+                        
+                        addLog(`Opened overlay: ${targetId}`);
+                    } else {
+                        addLog(`Error: Overlay not found: ${targetId}`);
+                    }
+                });
+            });
+
+            // Handle overlay closing
+            document.addEventListener('click', function(e) {
+                // Close via close button
+                if (e.target.closest('.modal-close')) {
+                    const overlay = e.target.closest('.imperative-details');
+                    if (overlay) {
+                        overlay.classList.remove('active');
+                        document.body.style.overflow = '';
+                        addLog('Closed overlay via close button');
+                    }
+                }
+                
+                // Close via backdrop
+                if (e.target.classList.contains('imperative-details')) {
+                    e.target.classList.remove('active');
+                    document.body.style.overflow = '';
+                    addLog('Closed overlay via backdrop click');
+                }
+            });
+
+            // Close with ESC key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    const activeOverlays = document.querySelectorAll('.imperative-details.active');
+                    if (activeOverlays.length > 0) {
+                        activeOverlays.forEach(overlay => {
+                            overlay.classList.remove('active');
+                        });
+                        document.body.style.overflow = '';
+                        addLog('Closed overlay via ESC key');
+                    }
+                }
+            });
+
+            // Test all overlays
+            document.getElementById('test-all-overlays').addEventListener('click', async function() {
+                addLog('Starting comprehensive test of all overlays...');
+                
+                const overlayIds = [
+                    'ai-evolution-details',
+                    'immersive-devices-details', 
+                    'creative-democratization-details',
+                    'physical-digital-details',
+                    'quantum-era-details',
+                    'digital-ownership-details',
+                    'societal-transformation-details',
+                    'skills-revolution-details'
+                ];
+                
+                let successCount = 0;
+                
+                for (const overlayId of overlayIds) {
+                    const overlay = document.getElementById(overlayId);
+                    if (!overlay) {
+                        addLog(`❌ Overlay not found: ${overlayId}`);
+                        continue;
+                    }
+                    
+                    // Open overlay
+                    overlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                    
+                    // Wait for animation
+                    await new Promise(resolve => setTimeout(resolve, 300));
+                    
+                    // Check positioning
+                    const content = overlay.querySelector('.modal-content');
+                    const rect = content.getBoundingClientRect();
+                    
+                    const isVisible = 
+                        rect.top >= 0 && 
+                        rect.bottom <= window.innerHeight &&
+                        rect.left >= 0 && 
+                        rect.right <= window.innerWidth;
+                    
+                    if (isVisible) {
+                        addLog(`✅ ${overlayId}: Correctly positioned and visible`);
+                        successCount++;
+                    } else {
+                        addLog(`❌ ${overlayId}: Positioning issues detected`);
+                    }
+                    
+                    // Close overlay
+                    overlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                    
+                    // Wait between tests
+                    await new Promise(resolve => setTimeout(resolve, 200));
+                }
+                
+                addLog(`\n=== TEST COMPLETE ===`);
+                addLog(`${successCount}/${overlayIds.length} overlays passed positioning test`);
+                addLog(successCount === overlayIds.length ? '🎉 All tests passed!' : '⚠️ Some overlays need attention');
+            });
+
+            // Clear log
+            document.getElementById('clear-log').addEventListener('click', function() {
+                log.textContent = 'Test log cleared. Ready to test overlays...';
+            });
+
+            addLog('Strategic Imperatives rebuild initialized successfully');
+        });
+    </script>
+</body>
+</html>

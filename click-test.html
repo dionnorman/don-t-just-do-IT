@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Click Test</title>
+<script>
+// Auto-click the test button after page loads
+window.addEventListener('load', function() {
+    setTimeout(function() {
+        // Try to click the test button
+        const testButton = document.querySelector('.test-button');
+        if (testButton) {
+            testButton.click();
+        }
+    }, 1000);
+});
+</script>
+</head>
+<body>
+<script>
+// Redirect to test page
+window.location.href = 'test-single-modal.html';
+</script>
+</body>
+</html>

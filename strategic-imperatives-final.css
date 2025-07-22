@@ -1,0 +1,308 @@
+/* STRATEGIC IMPERATIVES - ENHANCED DESIGN */
+/* Professional, clean, modern styling without text highlighting issues */
+
+/* Base modal with clean, subtle background */
+.imperative-details {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: rgba(15, 23, 42, 0.8) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: 2000 !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transition: opacity 0.25s ease, visibility 0.25s ease !important;
+    
+    /* Explicitly disable any blur effects */
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    filter: none !important;
+}
+
+/* Active state - simple toggle */
+.imperative-details.active {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+}
+
+/* Modal content with elegant, professional styling */
+.imperative-details .modal-content {
+    width: 90% !important;
+    max-width: 900px !important;
+    max-height: 85vh !important;
+    background: #ffffff !important;
+    border-radius: 20px !important;
+    box-shadow: 
+        0 25px 50px rgba(0, 0, 0, 0.18),
+        0 0 0 1px rgba(255, 255, 255, 0.08) !important;
+    padding: 40px !important;
+    position: relative !important;
+    overflow-y: auto !important;
+    opacity: 0 !important;
+    transform: translateY(20px) !important;
+    transition: opacity 0.3s ease, transform 0.3s ease !important;
+    border: 1px solid rgba(226, 232, 240, 0.8) !important;
+}
+
+/* Modal content active state */
+.imperative-details.active .modal-content {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+/* Elegant scrollbar styling */
+.imperative-details .modal-content::-webkit-scrollbar {
+    width: 8px !important;
+}
+
+.imperative-details .modal-content::-webkit-scrollbar-track {
+    background: #f1f5f9 !important;
+    border-radius: 4px !important;
+}
+
+.imperative-details .modal-content::-webkit-scrollbar-thumb {
+    background: #cbd5e1 !important;
+    border-radius: 4px !important;
+}
+
+.imperative-details .modal-content::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8 !important;
+}
+
+/* Professional close button */
+.modal-close {
+    position: absolute !important;
+    top: 20px !important;
+    right: 20px !important;
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 50% !important;
+    background: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: #64748b !important;
+    font-size: 18px !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    z-index: 10 !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
+}
+
+.modal-close:hover {
+    background: #3b82f6 !important;
+    color: #ffffff !important;
+    border-color: #3b82f6 !important;
+    transform: rotate(90deg) !important;
+    box-shadow: 0 3px 10px rgba(59, 130, 246, 0.3) !important;
+}
+
+/* Modern typography styling */
+.modal-title {
+    color: #0f172a !important;
+    font-size: 2rem !important;
+    font-weight: 700 !important;
+    margin-bottom: 24px !important;
+    padding-bottom: 16px !important;
+    border-bottom: 2px solid #e2e8f0 !important;
+    font-family: 'Outfit', sans-serif !important;
+    padding-right: 48px !important;
+    line-height: 1.3 !important;
+    user-select: none !important; /* Prevent text highlighting */
+    letter-spacing: -0.02em !important;
+}
+
+.modal-body {
+    color: #334155 !important;
+    line-height: 1.7 !important;
+    font-size: 1.05rem !important;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+}
+
+.modal-body p {
+    margin-bottom: 20px !important;
+    color: #334155 !important;
+}
+
+.modal-body h4 {
+    color: #0f172a !important;
+    font-size: 1.4rem !important;
+    font-weight: 600 !important;
+    margin: 28px 0 16px 0 !important;
+    position: relative !important;
+    padding-left: 16px !important;
+    border-left: 3px solid #3b82f6 !important;
+    user-select: none !important; /* Prevent text highlighting */
+    letter-spacing: -0.01em !important;
+}
+
+/* Clean list styling */
+.modal-body ul {
+    margin: 20px 0 28px 0 !important;
+    padding: 24px 28px !important;
+    background: linear-gradient(to right, #f8fafc, #f1f5f9) !important;
+    border-radius: 12px !important;
+    border: 1px solid #e2e8f0 !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03) !important;
+}
+
+.modal-body li {
+    margin-bottom: 14px !important;
+    padding-left: 26px !important;
+    position: relative !important;
+    list-style: none !important;
+    color: #334155 !important;
+}
+
+.modal-body li:last-child {
+    margin-bottom: 0 !important;
+}
+
+.modal-body li::before {
+    content: '' !important;
+    position: absolute !important;
+    left: 0 !important;
+    top: 0.6em !important;
+    width: 6px !important;
+    height: 6px !important;
+    border-radius: 50% !important;
+    background: #3b82f6 !important;
+}
+
+.modal-body li strong {
+    color: #0f172a !important;
+    font-weight: 600 !important;
+    user-select: text !important; /* Allow text selection for important content */
+}
+
+/* Elegant opening paragraph */
+.modal-body p:first-of-type {
+    font-size: 1.15rem !important;
+    color: #1e293b !important;
+    padding: 20px 24px !important;
+    background: linear-gradient(to right, rgba(59, 130, 246, 0.05), rgba(59, 130, 246, 0.02)) !important;
+    border-radius: 12px !important;
+    border-left: 3px solid #3b82f6 !important;
+    margin-bottom: 28px !important;
+    font-weight: 450 !important;
+    line-height: 1.6 !important;
+    font-style: normal !important;
+}
+
+/* Professional links styling */
+.modal-body a {
+    color: #3b82f6 !important;
+    text-decoration: none !important;
+    border-bottom: 1px solid rgba(59, 130, 246, 0.3) !important;
+    transition: color 0.2s ease, border-bottom-color 0.2s ease !important;
+    font-weight: 500 !important;
+}
+
+.modal-body a:hover {
+    color: #2563eb !important;
+    border-bottom-color: #2563eb !important;
+}
+
+/* Prevent unwanted text selection */
+.modal-title, 
+.modal-body h4,
+.modal-close {
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+}
+
+/* Allow text selection for content */
+.modal-body p,
+.modal-body li,
+.modal-body a {
+    user-select: text !important;
+    -webkit-user-select: text !important;
+    -moz-user-select: text !important;
+}
+
+/* Subtle fade-in animations for content */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.modal-body h4 {
+    animation: fadeIn 0.4s ease-out forwards !important;
+}
+
+.modal-body p {
+    animation: fadeIn 0.5s ease-out forwards !important;
+}
+
+.modal-body ul {
+    animation: fadeIn 0.6s ease-out forwards !important;
+}
+
+/* Professional image styling if present */
+.modal-body img {
+    max-width: 100% !important;
+    height: auto !important;
+    border-radius: 8px !important;
+    margin: 24px 0 !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .imperative-details .modal-content {
+        width: 92% !important;
+        padding: 32px 24px !important;
+        max-height: 88vh !important;
+    }
+    
+    .modal-title {
+        font-size: 1.6rem !important;
+        padding-right: 40px !important;
+    }
+    
+    .modal-body {
+        font-size: 1rem !important;
+    }
+    
+    .modal-body h4 {
+        font-size: 1.25rem !important;
+    }
+    
+    .modal-close {
+        top: 16px !important;
+        right: 16px !important;
+        width: 36px !important;
+        height: 36px !important;
+    }
+}
+
+/* Ensure clean removal of blur */
+html.modal-open,
+body.modal-open {
+    overflow: hidden !important;
+    filter: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+/* Fix for any backdrop elements */
+.modal-backdrop {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: transparent !important;
+    z-index: 1999 !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    filter: none !important;
+}

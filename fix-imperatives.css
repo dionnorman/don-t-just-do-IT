@@ -1,0 +1,237 @@
+/* Strategic Imperatives Overlay - Exact copy of working step-details-overlay implementation */
+.imperative-details {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  pointer-events: none;
+}
+
+.imperative-details.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.imperative-details .modal-content {
+  width: 80%;
+  max-width: 900px;
+  max-height: 80vh;
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  position: relative;
+  overflow-y: auto;
+  transform: translateY(30px);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(46, 94, 170, 0.1);
+}
+
+.imperative-details.active .modal-content {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(46, 94, 170, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #333;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.modal-close:hover {
+  background: #2563eb;
+  color: white;
+  transform: rotate(90deg);
+}
+
+.modal-decoration {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+  opacity: 0.8;
+  transition: all 0.3s ease;
+  border-radius: 0 12px 12px 0;
+}
+
+.imperative-details.active .modal-decoration {
+  opacity: 1;
+  width: 6px;
+}
+
+.modal-title {
+  color: #1e293b;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid rgba(46, 94, 170, 0.1);
+  padding-right: 40px;
+  line-height: 1.3;
+}
+
+.modal-number {
+  position: absolute;
+  top: -12px;
+  left: -12px;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 18px;
+  box-shadow: 0 4px 12px rgba(46, 94, 170, 0.3);
+}
+
+.modal-body {
+  color: #475569;
+  line-height: 1.7;
+}
+
+.modal-body h4 {
+  color: #1e293b;
+  font-size: 20px;
+  font-weight: 600;
+  margin: 30px 0 16px 0;
+  position: relative;
+  padding-left: 16px;
+}
+
+.modal-body h4::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 20px;
+  background: #2563eb;
+  border-radius: 2px;
+}
+
+.modal-body ul {
+  margin: 16px 0;
+  padding-left: 0;
+}
+
+.modal-body li {
+  margin-bottom: 12px;
+  padding-left: 24px;
+  position: relative;
+  list-style: none;
+}
+
+.modal-body li::before {
+  content: '▶';
+  position: absolute;
+  left: 0;
+  top: 2px;
+  font-size: 10px;
+  color: #2563eb;
+}
+
+.modal-keywords {
+  margin-top: 30px;
+  background: rgba(46, 94, 170, 0.05);
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.modal-keywords-title {
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 10px;
+}
+
+.modal-keywords-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.modal-keyword {
+  background: rgba(46, 94, 170, 0.1);
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  color: #2563eb;
+}
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 768px) {
+  .imperative-details .modal-content {
+    width: 95%;
+    max-width: none;
+    max-height: 85vh;
+    padding: 20px;
+  }
+  
+  .modal-title {
+    font-size: 22px;
+    padding-right: 40px;
+  }
+  
+  .modal-number {
+    width: 35px;
+    height: 35px;
+    font-size: 16px;
+    top: -8px;
+    left: -8px;
+  }
+  
+  .modal-body h4 {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .imperative-details .modal-content {
+    width: 100%;
+    max-height: 90vh;
+    padding: 15px;
+  }
+  
+  .modal-title {
+    font-size: 20px;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+  }
+  
+  .modal-close {
+    width: 36px;
+    height: 36px;
+    top: 10px;
+    right: 10px;
+  }
+}

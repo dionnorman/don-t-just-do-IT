@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CBAM Functionality Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-result {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+        
+        /* Slider styles */
+        .concern-slider {
+            width: 100%;
+            margin: 10px 0;
+        }
+        .slider-value {
+            font-weight: bold;
+            color: #333;
+            margin-left: 10px;
+        }
+        .concern-item {
+            margin: 15px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .test-button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+        .test-button:hover {
+            background: #0056b3;
+        }
+        #comprehensive-cbam-result {
+            margin-top: 20px;
+            padding: 20px;
+            border: 2px solid #28a745;
+            border-radius: 10px;
+            background: #f8fff9;
+        }
+        .hidden { display: none; }
+        
+        .loader {
+            text-align: center;
+            padding: 20px;
+        }
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #333;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🧪 CBAM Slider & Report Test</h1>
+        
+        <div class="test-result info">
+            <strong>Testing:</strong> CBAM slider value updates and comprehensive report generation
+        </div>
+
+        <!-- Minimal CBAM form for testing -->
+        <div id="cbam-tool">
+            <h3>Test CBAM Assessment</h3>
+            
+            <div style="margin: 20px 0;">
+                <label>Technology/Innovation:</label>
+                <select name="technology">
+                    <option value="AI Tools">AI Tools (ChatGPT, Claude, etc.)</option>
+                    <option value="Custom">Custom Technology</option>
+                </select>
+            </div>
+
+            <div style="margin: 20px 0;">
+                <label>Role:</label>
+                <select name="role">
+                    <option value="teacher">Teacher</option>
+                    <option value="administrator">Administrator</option>
+                </select>
+            </div>
+
+            <div style="margin: 20px 0;">
+                <label>Experience Level:</label>
+                <select name="experience">
+                    <option value="beginner">Beginner</option>
+                    <option value="intermediate">Intermediate</option>
+                    <option value="advanced">Advanced</option>
+                </select>
+            </div>
+
+            <h4>Concern Statements (Test Sliders)</h4>
+            
+            <div class="concern-item" data-stage="0">
+                <div class="concern-statement">I am more concerned about another innovation/initiative.</div>
+                <div class="concern-rating">
+                    <input type="range" min="0" max="7" value="0" class="concern-slider" name="concern-item-1">
+                    <span>Value: </span><span class="slider-value">0</span>
+                </div>
+            </div>
+
+            <div class="concern-item" data-stage="1">
+                <div class="concern-statement">I would like to know more about this innovation.</div>
+                <div class="concern-rating">
+                    <input type="range" min="0" max="7" value="0" class="concern-slider" name="concern-item-2">
+                    <span>Value: </span><span class="slider-value">0</span>
+                </div>
+            </div>
+
+            <div class="concern-item" data-stage="2">
+                <div class="concern-statement">I am concerned about how this will affect my role.</div>
+                <div class="concern-rating">
+                    <input type="range" min="0" max="7" value="0" class="concern-slider" name="concern-item-3">
+                    <span>Value: </span><span class="slider-value">0</span>
+                </div>
+            </div>
+
+            <div class="concern-item" data-stage="3">
+                <div class="concern-statement">I am concerned about managing time and logistics.</div>
+                <div class="concern-rating">
+                    <input type="range" min="0" max="7" value="0" class="concern-slider" name="concern-item-4">
+                    <span>Value: </span><span class="slider-value">0</span>
+                </div>
+            </div>
+
+            <textarea name="additional-context" placeholder="Additional context..." rows="3" style="width: 100%; margin: 20px 0;"></textarea>
+
+            <button type="button" id="comprehensive-cbam-btn" class="test-button">
+                Generate Comprehensive CBAM Report
+            </button>
+
+            <div class="assessment-result hidden" id="comprehensive-cbam-result">
+                <div class="loader">
+                    <div class="spinner"></div>
+                    <p>Generating comprehensive CBAM report...</p>
+                </div>
+                <div class="result-content"></div>
+            </div>
+        </div>
+
+        <div class="test-result" id="test-results">
+            <h3>Test Results:</h3>
+            <div id="slider-test">Slider Test: <span style="color: orange;">Waiting...</span></div>
+            <div id="button-test">Button Test: <span style="color: orange;">Waiting...</span></div>
+            <div id="report-test">Report Generation Test: <span style="color: orange;">Waiting...</span></div>
+        </div>
+    </div>
+
+    <!-- Include the necessary JavaScript -->
+    <script>
+        // Include minimal notification system
+        window.showNotification = function(message, type) {
+            console.log(`[${type.toUpperCase()}] ${message}`);
+            const testResults = document.getElementById('test-results');
+            const notification = document.createElement('div');
+            notification.className = `test-result ${type}`;
+            notification.innerHTML = `<strong>${type.toUpperCase()}:</strong> ${message}`;
+            testResults.appendChild(notification);
+        };
+
+        // Include the handleExportWithLoading function
+        window.handleExportWithLoading = function(button, exportFunction) {
+            console.log('Export function called');
+            return exportFunction();
+        };
+
+        // Run tests when DOM loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Test 1: Check if sliders work
+            const sliders = document.querySelectorAll('.concern-slider');
+            let sliderWorking = false;
+            
+            sliders.forEach(slider => {
+                slider.addEventListener('input', function() {
+                    const valueDisplay = this.parentElement.querySelector('.slider-value');
+                    if (valueDisplay) {
+                        valueDisplay.textContent = this.value;
+                        sliderWorking = true;
+                        document.getElementById('slider-test').innerHTML = 
+                            'Slider Test: <span style="color: green;">✓ Working</span>';
+                    }
+                });
+
+                slider.addEventListener('change', function() {
+                    const valueDisplay = this.parentElement.querySelector('.slider-value');
+                    if (valueDisplay) {
+                        valueDisplay.textContent = this.value;
+                    }
+                });
+            });
+
+            // Test 2: Check if button exists and is clickable
+            const button = document.getElementById('comprehensive-cbam-btn');
+            if (button) {
+                document.getElementById('button-test').innerHTML = 
+                    'Button Test: <span style="color: green;">✓ Button Found</span>';
+                
+                button.addEventListener('click', function() {
+                    document.getElementById('report-test').innerHTML = 
+                        'Report Generation Test: <span style="color: blue;">⏳ Report generation clicked</span>';
+                });
+            } else {
+                document.getElementById('button-test').innerHTML = 
+                    'Button Test: <span style="color: red;">✗ Button Not Found</span>';
+            }
+
+            // Auto-test sliders after 2 seconds
+            setTimeout(() => {
+                if (!sliderWorking) {
+                    document.getElementById('slider-test').innerHTML = 
+                        'Slider Test: <span style="color: red;">✗ No slider events detected</span>';
+                }
+            }, 2000);
+        });
+    </script>
+    
+    <!-- Include the main.js functions we need -->
+    <script src="js/main.js"></script>
+</body>
+</html>

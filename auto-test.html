@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Test Modal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Outfit', sans-serif;
+            background: #f8fafc;
+        }
+    </style>
+    <script>
+        // Auto test when page loads
+        window.addEventListener('load', function() {
+            console.log('Page loaded, starting auto test...');
+            
+            setTimeout(function() {
+                console.log('Testing modal...');
+                
+                const modal = document.getElementById('ai-evolution-details');
+                if (modal) {
+                    console.log('Modal found, opening...');
+                    
+                    // Prevent scrolling
+                    document.body.style.overflow = 'hidden';
+                    
+                    // Show modal
+                    setTimeout(() => {
+                        modal.classList.add('active');
+                        console.log('Modal should be visible now');
+                        
+                        // Check positioning after animation
+                        setTimeout(() => {
+                            const modalRect = modal.getBoundingClientRect();
+                            const content = modal.querySelector('.modal-content');
+                            const contentRect = content ? content.getBoundingClientRect() : null;
+                            
+                            console.log('Modal positioning check:');
+                            console.log('Viewport:', window.innerWidth + 'x' + window.innerHeight);
+                            console.log('Modal rect:', modalRect);
+                            console.log('Content rect:', contentRect);
+                            
+                            if (contentRect) {
+                                const fullyVisible = 
+                                    contentRect.top >= 0 && 
+                                    contentRect.bottom <= window.innerHeight &&
+                                    contentRect.left >= 0 && 
+                                    contentRect.right <= window.innerWidth;
+                                
+                                console.log('Fully visible:', fullyVisible);
+                                
+                                if (!fullyVisible) {
+                                    console.log('POSITIONING ISSUES DETECTED:');
+                                    if (contentRect.top < 0) console.log('- Top cut off by', Math.abs(contentRect.top), 'px');
+                                    if (contentRect.bottom > window.innerHeight) console.log('- Bottom cut off by', contentRect.bottom - window.innerHeight, 'px');
+                                    if (contentRect.left < 0) console.log('- Left cut off by', Math.abs(contentRect.left), 'px');
+                                    if (contentRect.right > window.innerWidth) console.log('- Right cut off by', contentRect.right - window.innerWidth, 'px');
+                                }
+                            }
+                        }, 500);
+                    }, 10);
+                } else {
+                    console.log('Modal not found!');
+                }
+            }, 1000);
+        });
+    </script>
+</head>
+<body>
+    <h1>Auto Testing Modal Position</h1>
+    <p>Check console for results...</p>
+
+    <!-- Test Modal -->
+    <div id="ai-evolution-details" class="imperative-details">
+        <div class="modal-content">
+            <div class="modal-decoration"></div>
+            <button class="modal-close"><i class="fas fa-times"></i></button>
+            <div class="modal-number">1</div>
+            <h3 class="modal-title">Advanced Computing Evolution</h3>
+            <div class="modal-body">
+                <p>Next-generation computing systems transform learning through intelligent automation, multimodal processing, and adaptive interfaces. These technologies become collaborative partners in education.</p>
+                
+                <h4>Technology Breakthroughs</h4>
+                <ul>
+                    <li><strong>Multi-Modal Systems:</strong> Advanced platforms that understand text, images, audio, and video simultaneously</li>
+                    <li><strong>Autonomous Processing:</strong> Systems that can plan, execute complex tasks, and learn from feedback independently</li>
+                    <li><strong>Content Generation:</strong> Sophisticated tools that create realistic educational content from simple instructions</li>
+                    <li><strong>Development Assistance:</strong> Intelligent assistants that can build applications, debug code, and teach programming concepts</li>
+                    <li><strong>Adaptive Interfaces:</strong> Systems that adjust complexity and presentation based on user needs and context</li>
+                </ul>
+                
+                <h4>Educational Applications</h4>
+                <ul>
+                    <li><strong>Creative Content Production:</strong> Students can create professional-quality content without traditional technical barriers</li>
+                    <li><strong>24/7 Personalized Learning:</strong> Intelligent tutoring becomes available with understanding of individual learning styles</li>
+                    <li><strong>Complex Visualization:</strong> Abstract concepts can be visualized and explained through technology-generated simulations</li>
+                    <li><strong>Teacher Augmentation:</strong> Educators gain powerful co-creation partners for curriculum development and assessment</li>
+                    <li><strong>Collaborative Intelligence:</strong> Human creativity enhanced by computational capabilities for breakthrough innovation</li>
+                </ul>
+                
+                <p>This evolution requires schools to shift from teaching about technology to teaching alongside intelligent systems that understand context, nuance, and individual learner needs.</p>
+                
+                <div class="modal-keywords">
+                    <div class="modal-keywords-title">Key Concepts</div>
+                    <div class="modal-keywords-list">
+                        <span class="modal-keyword">Artificial Intelligence</span>
+                        <span class="modal-keyword">Machine Learning</span>
+                        <span class="modal-keyword">Automation</span>
+                        <span class="modal-keyword">Multimodal Processing</span>
+                        <span class="modal-keyword">Adaptive Systems</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

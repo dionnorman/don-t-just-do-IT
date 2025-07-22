@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Single Overlay</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Outfit', sans-serif;
+            background: #f8fafc;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .test-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .test-btn {
+            padding: 12px 24px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            margin: 5px;
+        }
+        .test-btn:hover {
+            background: #1d4ed8;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Strategic Imperatives Overlay Test</h1>
+        
+        <div class="test-card">
+            <h2>Test Individual Overlays</h2>
+            <button class="test-btn" onclick="showOverlay('ai-evolution-details')">AI Evolution</button>
+            <button class="test-btn" onclick="showOverlay('immersive-devices-details')">Immersive Devices</button>
+            <button class="test-btn" onclick="showOverlay('creative-democratization-details')">Creative Democratization</button>
+            <button class="test-btn" onclick="showOverlay('physical-digital-details')">Physical-Digital</button>
+            <button class="test-btn" onclick="showOverlay('quantum-era-details')">Quantum Era</button>
+            <button class="test-btn" onclick="showOverlay('digital-ownership-details')">Digital Ownership</button>
+            <button class="test-btn" onclick="showOverlay('societal-transformation-details')">Societal Transformation</button>
+            <button class="test-btn" onclick="showOverlay('skills-revolution-details')">Skills Revolution</button>
+        </div>
+    </div>
+
+    <!-- Include all the imperative modal HTML from the main page -->
+    <div id="ai-evolution-details" class="imperative-details">
+        <div class="modal-content">
+            <div class="modal-decoration"></div>
+            <button class="modal-close"><i class="fas fa-times"></i></button>
+            <div class="modal-number">1</div>
+            <h3 class="modal-title">Advanced Computing Evolution</h3>
+            <div class="modal-body">
+                <p>Next-generation computing systems transform learning through intelligent automation, multimodal processing, and adaptive interfaces. These technologies become collaborative partners in education.</p>
+                
+                <h4>Technology Breakthroughs</h4>
+                <ul>
+                    <li><strong>Multi-Modal Systems:</strong> Advanced platforms that understand text, images, audio, and video simultaneously</li>
+                    <li><strong>Autonomous Processing:</strong> Systems that can plan, execute complex tasks, and learn from feedback independently</li>
+                    <li><strong>Content Generation:</strong> Sophisticated tools that create realistic educational content from simple instructions</li>
+                </ul>
+                
+                <h4>Educational Applications</h4>
+                <ul>
+                    <li><strong>Creative Content Production:</strong> Students can create professional-quality content without traditional technical barriers</li>
+                    <li><strong>24/7 Personalized Learning:</strong> Intelligent tutoring becomes available with understanding of individual learning styles</li>
+                    <li><strong>Complex Visualization:</strong> Abstract concepts can be visualized and explained through technology-generated simulations</li>
+                </ul>
+                
+                <div class="modal-keywords">
+                    <div class="modal-keywords-title">Key Concepts</div>
+                    <div class="modal-keywords-list">
+                        <span class="modal-keyword">Artificial Intelligence</span>
+                        <span class="modal-keyword">Machine Learning</span>
+                        <span class="modal-keyword">Automation</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="immersive-devices-details" class="imperative-details">
+        <div class="modal-content">
+            <div class="modal-decoration"></div>
+            <button class="modal-close"><i class="fas fa-times"></i></button>
+            <div class="modal-number">2</div>
+            <h3 class="modal-title">Next-Generation Interface Technologies</h3>
+            <div class="modal-body">
+                <p>Smart glasses, spatial computing devices, and advanced wearables create new paradigms for how we access and interact with information in educational environments.</p>
+                
+                <h4>Current Breakthrough Devices:</h4>
+                <ul>
+                    <li><strong>Smart Glasses:</strong> Advanced visual recognition and contextual information overlay</li>
+                    <li><strong>Spatial Computing:</strong> Interactive platforms with enhanced object recognition</li>
+                </ul>
+                
+                <div class="modal-keywords">
+                    <div class="modal-keywords-title">Key Concepts</div>
+                    <div class="modal-keywords-list">
+                        <span class="modal-keyword">Spatial Computing</span>
+                        <span class="modal-keyword">Augmented Reality</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showOverlay(overlayId) {
+            // Close any open modals first
+            document.querySelectorAll('.imperative-details.active').forEach(modal => {
+                modal.classList.remove('active');
+            });
+            
+            // Show the requested overlay
+            const overlay = document.getElementById(overlayId);
+            if (overlay) {
+                document.body.style.overflow = 'hidden';
+                setTimeout(() => {
+                    overlay.classList.add('active');
+                }, 10);
+            }
+        }
+
+        // Close modal functionality
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal-close') || e.target.closest('.modal-close')) {
+                const modal = e.target.closest('.imperative-details');
+                if (modal) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            }
+            
+            // Close when clicking backdrop
+            if (e.target.classList.contains('imperative-details')) {
+                e.target.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Close with ESC key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.imperative-details.active').forEach(modal => {
+                    modal.classList.remove('active');
+                });
+                document.body.style.overflow = '';
+            }
+        });
+    </script>
+</body>
+</html>

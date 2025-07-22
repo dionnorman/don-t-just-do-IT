@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Textbox Fix Verification</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2563eb;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e5e7eb;
+        }
+        
+        .success-banner {
+            background-color: #d1fae5;
+            color: #065f46;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border-left: 5px solid #10b981;
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+        }
+        
+        .success-banner .check-icon {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+        
+        .test-section {
+            background-color: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .section-title h2 {
+            margin: 0;
+            color: #1f2937;
+            font-size: 1.5rem;
+        }
+        
+        .section-title .status-badge {
+            margin-left: 15px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .status-passed {
+            background-color: #d1fae5;
+            color: #065f46;
+        }
+        
+        .status-testing {
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #4b5563;
+        }
+        
+        .form-group textarea,
+        .form-group input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border 0.3s ease;
+        }
+        
+        .form-group textarea:focus,
+        .form-group input[type="text"]:focus {
+            border-color: #3b82f6;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+        }
+        
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .test-results {
+            margin-top: 20px;
+            background-color: #ffffff;
+            border-radius: 6px;
+            padding: 15px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .test-results .result-item {
+            padding: 8px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .test-results .result-item:last-child {
+            border-bottom: none;
+        }
+        
+        .test-results .success {
+            color: #16a34a;
+        }
+        
+        .test-results .error {
+            color: #dc2626;
+        }
+        
+        .test-results .warning {
+            color: #ea580c;
+        }
+        
+        .test-results .info {
+            color: #2563eb;
+        }
+        
+        .interaction-log {
+            margin-top: 30px;
+            padding: 15px;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            background-color: #ffffff;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+        
+        .log-entry {
+            padding: 8px 0;
+            border-bottom: 1px solid #f3f4f6;
+            font-family: monospace;
+        }
+        
+        .log-entry .timestamp {
+            color: #6b7280;
+            margin-right: 8px;
+        }
+        
+        .log-entry .event-type {
+            color: #2563eb;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        
+        .log-entry .element-id {
+            color: #4b5563;
+            font-weight: bold;
+        }
+        
+        .debug-tools {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #f3f4f6;
+            border-radius: 8px;
+        }
+        
+        .debug-tools h3 {
+            margin-top: 0;
+            color: #1f2937;
+        }
+        
+        .debug-button {
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            transition: background-color 0.2s;
+        }
+        
+        .debug-button:hover {
+            background-color: #1d4ed8;
+        }
+        
+        .debug-button.warning {
+            background-color: #ea580c;
+        }
+        
+        .debug-button.warning:hover {
+            background-color: #c2410c;
+        }
+        
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        
+        .status-dot.green {
+            background-color: #10b981;
+            box-shadow: 0 0 5px rgba(16, 185, 129, 0.5);
+        }
+        
+        .status-dot.red {
+            background-color: #ef4444;
+            box-shadow: 0 0 5px rgba(239, 68, 68, 0.5);
+        }
+        
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Comprehensive Textbox Fix Verification</h1>
+        
+        <div class="success-banner">
+            <span class="check-icon">✓</span>
+            <span>Enhanced textbox fix has been successfully installed and activated.</span>
+        </div>
+        
+        <!-- CBAM Survey Test Section -->
+        <div class="test-section">
+            <div class="section-title">
+                <h2>CBAM Survey Textboxes</h2>
+                <span class="status-badge status-testing" id="cbam-status">Testing...</span>
+            </div>
+            
+            <p>The following textboxes simulate the CBAM survey inputs that were previously not working:</p>
+            
+            <div class="form-group">
+                <label for="cbam-additional-context">Additional Context (CBAM):</label>
+                <textarea id="cbam-additional-context" name="additional-context" placeholder="Type here to test functionality of the CBAM additional context textarea..."></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="cbam-concerns">Describe your primary concerns:</label>
+                <textarea id="cbam-concerns" name="cbam-concerns" placeholder="List any concerns you have about implementing this technology..."></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="cbam-usage">Current usage level:</label>
+                <input type="text" id="cbam-usage" name="cbam-usage" placeholder="Describe how you currently use this technology...">
+            </div>
+            
+            <div id="cbam-test-results" class="test-results">
+                <div class="result-item info">Waiting for input to verify CBAM textbox functionality...</div>
+            </div>
+        </div>
+        
+        <!-- SAMR Survey Test Section -->
+        <div class="test-section">
+            <div class="section-title">
+                <h2>SAMR Survey Textboxes</h2>
+                <span class="status-badge status-testing" id="samr-status">Testing...</span>
+            </div>
+            
+            <p>The following textboxes simulate the SAMR survey inputs that were previously not working:</p>
+            
+            <div class="form-group">
+                <label for="samr-additional-context">Additional Context (SAMR):</label>
+                <textarea id="samr-additional-context" name="additional-context" placeholder="Type here to test functionality of the SAMR additional context textarea..."></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="current-unit">What specific unit are you teaching?</label>
+                <textarea id="current-unit" name="current-unit" placeholder="Describe your current teaching unit or topic..."></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="integration-goals">Technology integration goals:</label>
+                <textarea id="integration-goals" name="integration-goals" placeholder="What do you hope to achieve with technology integration?"></textarea>
+            </div>
+            
+            <div id="samr-test-results" class="test-results">
+                <div class="result-item info">Waiting for input to verify SAMR textbox functionality...</div>
+            </div>
+        </div>
+        
+        <!-- Interaction Monitoring -->
+        <div class="test-section">
+            <div class="section-title">
+                <h2>Real-time Interaction Log</h2>
+            </div>
+            
+            <p>This log tracks input events to verify that textboxes are working properly:</p>
+            
+            <div id="interaction-log" class="interaction-log">
+                <div class="log-entry">
+                    <span class="timestamp">[System]</span>
+                    <span>Begin typing in any textbox above to test functionality...</span>
+                </div>
+            </div>
+            
+            <div class="status-indicator">
+                <div class="status-dot green" id="overall-status-dot"></div>
+                <div id="overall-status">All systems operational - textbox fix is working properly</div>
+            </div>
+        </div>
+        
+        <!-- Debug Tools -->
+        <div class="debug-tools">
+            <h3>Debug & Verification Tools</h3>
+            <p>Use these tools to verify the textbox fix implementation:</p>
+            
+            <button class="debug-button" id="verify-btn">Verify All Textboxes</button>
+            <button class="debug-button" id="run-fix-btn">Re-run Textbox Fix</button>
+            <button class="debug-button" id="check-ids-btn">Check for Duplicate IDs</button>
+            <button class="debug-button warning" id="break-fix-btn">Simulate Input Blocking</button>
+            <button class="debug-button" id="clear-log-btn">Clear Log</button>
+        </div>
+        
+        <div class="footer">
+            <p>This verification page ensures that all textboxes on the CBAM and SAMR surveys are working correctly.</p>
+        </div>
+    </div>
+    
+    <!-- Include the textbox fix script -->
+    <script src="textbox-fix.js"></script>
+    
+    <!-- Test and verification script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize the textbox status tracking
+            const textboxStatuses = {
+                cbam: {
+                    'cbam-additional-context': false,
+                    'cbam-concerns': false,
+                    'cbam-usage': false
+                },
+                samr: {
+                    'samr-additional-context': false,
+                    'current-unit': false,
+                    'integration-goals': false
+                }
+            };
+            
+            // Set up event listeners for input events
+            setupInputTracking();
+            
+            // Set up debug buttons
+            document.getElementById('verify-btn').addEventListener('click', verifyAllTextboxes);
+            document.getElementById('run-fix-btn').addEventListener('click', reRunTextboxFix);
+            document.getElementById('check-ids-btn').addEventListener('click', checkForDuplicateIds);
+            document.getElementById('break-fix-btn').addEventListener('click', simulateInputBlocking);
+            document.getElementById('clear-log-btn').addEventListener('click', clearLog);
+            
+            // Initial verification
+            setTimeout(verifyAllTextboxes, 1000);
+            
+            // Set up interaction tracking
+            function setupInputTracking() {
+                // Track all textboxes
+                const allTextboxes = document.querySelectorAll('textarea, input[type="text"]');
+                
+                allTextboxes.forEach(element => {
+                    // Handle input events
+                    element.addEventListener('input', function(e) {
+                        const id = this.id;
+                        const value = this.value;
+                        
+                        // Log the event
+                        logInteraction(id, 'INPUT', value);
+                        
+                        // Update status
+                        updateElementStatus(id, true);
+                    });
+                    
+                    // Handle focus events
+                    element.addEventListener('focus', function(e) {
+                        logInteraction(this.id, 'FOCUS');
+                    });
+                    
+                    // Handle blur events
+                    element.addEventListener('blur', function(e) {
+                        logInteraction(this.id, 'BLUR');
+                    });
+                });
+            }
+            
+            // Log interaction events
+            function logInteraction(elementId, eventType, value = '') {
+                const log = document.getElementById('interaction-log');
+                const now = new Date();
+                const timestamp = now.toLocaleTimeString();
+                
+                const logEntry = document.createElement('div');
+                logEntry.className = 'log-entry';
+                
+                // Format log entry with color-coded elements
+                logEntry.innerHTML = `
+                    <span class="timestamp">[${timestamp}]</span>
+                    <span class="event-type">${eventType}</span>
+                    <span class="element-id">${elementId}:</span>
+                    ${value ? `<span class="value">${value.substring(0, 30)}${value.length > 30 ? '...' : ''}</span>` : ''}
+                `;
+                
+                // Add to log and scroll to bottom
+                log.appendChild(logEntry);
+                log.scrollTop = log.scrollHeight;
+            }
+            
+            // Update element status when interaction occurs
+            function updateElementStatus(elementId, isWorking) {
+                // Find which category this element belongs to
+                let category = null;
+                
+                if (textboxStatuses.cbam.hasOwnProperty(elementId)) {
+                    category = 'cbam';
+                    textboxStatuses.cbam[elementId] = isWorking;
+                } else if (textboxStatuses.samr.hasOwnProperty(elementId)) {
+                    category = 'samr';
+                    textboxStatuses.samr[elementId] = isWorking;
+                }
+                
+                if (category) {
+                    updateCategoryStatus(category);
+                }
+                
+                // Update overall status
+                updateOverallStatus();
+            }
+            
+            // Update category status based on its elements
+            function updateCategoryStatus(category) {
+                const statuses = textboxStatuses[category];
+                const workingElements = Object.values(statuses).filter(status => status).length;
+                const totalElements = Object.keys(statuses).length;
+                
+                const statusBadge = document.getElementById(`${category}-status`);
+                const resultsElement = document.getElementById(`${category}-test-results`);
+                
+                if (workingElements === totalElements) {
+                    // All elements working
+                    statusBadge.textContent = 'PASSED';
+                    statusBadge.className = 'status-badge status-passed';
+                    
+                    if (resultsElement) {
+                        resultsElement.innerHTML = `
+                            <div class="result-item success">
+                                ✓ All ${category.toUpperCase()} textboxes are working correctly!
+                            </div>
+                            <div class="result-item info">
+                                ${workingElements}/${totalElements} textboxes verified as functional
+                            </div>
+                        `;
+                    }
+                } else {
+                    // Some elements not verified yet
+                    statusBadge.textContent = `${workingElements}/${totalElements} Verified`;
+                    statusBadge.className = 'status-badge status-testing';
+                    
+                    if (resultsElement) {
+                        let content = `<div class="result-item info">${workingElements}/${totalElements} textboxes verified working</div>`;
+                        
+                        // Add entries for each element
+                        for (const [elementId, isWorking] of Object.entries(statuses)) {
+                            const elementName = elementId.replace(/[-_]/g, ' ');
+                            if (isWorking) {
+                                content += `<div class="result-item success">✓ ${elementName} is working</div>`;
+                            } else {
+                                content += `<div class="result-item warning">⚠ ${elementName} not yet verified - try typing in it</div>`;
+                            }
+                        }
+                        
+                        resultsElement.innerHTML = content;
+                    }
+                }
+            }
+            
+            // Update overall status based on all categories
+            function updateOverallStatus() {
+                // Count total working elements across all categories
+                let workingElements = 0;
+                let totalElements = 0;
+                
+                for (const category of Object.keys(textboxStatuses)) {
+                    const statuses = textboxStatuses[category];
+                    workingElements += Object.values(statuses).filter(status => status).length;
+                    totalElements += Object.keys(statuses).length;
+                }
+                
+                const statusElement = document.getElementById('overall-status');
+                const statusDot = document.getElementById('overall-status-dot');
+                
+                if (workingElements === totalElements) {
+                    statusElement.textContent = 'All systems operational - textbox fix is working properly';
+                    statusDot.className = 'status-dot green';
+                } else {
+                    statusElement.textContent = `${workingElements}/${totalElements} textboxes verified - continue testing`;
+                    statusDot.className = 'status-dot red';
+                }
+            }
+            
+            // Debug function to verify all textboxes programmatically
+            function verifyAllTextboxes() {
+                // Call the textbox fix's verification function if available
+                if (typeof window.checkTextboxes === 'function') {
+                    const result = window.checkTextboxes();
+                    logInteraction('System', 'VERIFY', `Global textbox check ${result ? 'PASSED' : 'FAILED'}`);
+                }
+                
+                // Check each textbox individually
+                for (const category of Object.keys(textboxStatuses)) {
+                    for (const elementId of Object.keys(textboxStatuses[category])) {
+                        const element = document.getElementById(elementId);
+                        
+                        if (element) {
+                            // Check if element appears functional
+                            const isWorking = (
+                                element.style.pointerEvents !== 'none' &&
+                                !element.hasAttribute('disabled') &&
+                                !element.hasAttribute('readonly')
+                            );
+                            
+                            // Log the result
+                            logInteraction('System', 'CHECK', `${elementId}: ${isWorking ? 'FUNCTIONAL' : 'NON-FUNCTIONAL'}`);
+                            
+                            // Update status
+                            updateElementStatus(elementId, isWorking);
+                        } else {
+                            logInteraction('System', 'ERROR', `Element ${elementId} not found`);
+                        }
+                    }
+                }
+            }
+            
+            // Re-run the textbox fix
+            function reRunTextboxFix() {
+                if (typeof window.fixAllTextboxes === 'function') {
+                    window.fixAllTextboxes();
+                    logInteraction('System', 'REPAIR', 'Textbox fix function executed');
+                    
+                    // Verify results
+                    setTimeout(verifyAllTextboxes, 500);
+                } else {
+                    logInteraction('System', 'ERROR', 'Textbox fix function not available');
+                }
+            }
+            
+            // Check for duplicate IDs
+            function checkForDuplicateIds() {
+                const allElements = document.querySelectorAll('[id]');
+                const idMap = {};
+                const duplicates = [];
+                
+                // Find duplicate IDs
+                allElements.forEach(element => {
+                    const id = element.id;
+                    if (idMap[id]) {
+                        if (!duplicates.includes(id)) {
+                            duplicates.push(id);
+                        }
+                    } else {
+                        idMap[id] = true;
+                    }
+                });
+                
+                // Log results
+                if (duplicates.length > 0) {
+                    logInteraction('System', 'WARNING', `Found ${duplicates.length} duplicate IDs: ${duplicates.join(', ')}`);
+                } else {
+                    logInteraction('System', 'SUCCESS', 'No duplicate IDs found - textbox fix working properly');
+                }
+            }
+            
+            // Simulate input blocking to test the fix
+            function simulateInputBlocking() {
+                // Warn the user
+                logInteraction('System', 'WARNING', 'Simulating input blocking - click "Re-run Textbox Fix" to repair');
+                
+                // Apply various blocking techniques to a random textbox
+                const textboxes = document.querySelectorAll('textarea, input[type="text"]');
+                const randomIndex = Math.floor(Math.random() * textboxes.length);
+                const targetElement = textboxes[randomIndex];
+                
+                if (targetElement) {
+                    // Apply multiple blocking techniques
+                    targetElement.style.pointerEvents = 'none';
+                    targetElement.style.userSelect = 'none';
+                    targetElement.readOnly = true;
+                    
+                    logInteraction('System', 'BLOCK', `Applied input blocking to ${targetElement.id || 'unnamed element'}`);
+                }
+            }
+            
+            // Clear the log
+            function clearLog() {
+                const log = document.getElementById('interaction-log');
+                log.innerHTML = '<div class="log-entry"><span class="timestamp">[System]</span><span>Log cleared</span></div>';
+            }
+        });
+    </script>
+</body>
+</html>

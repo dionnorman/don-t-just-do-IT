@@ -1,0 +1,122 @@
+/* Authors section styling */
+.authors-section {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.authors-grid {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin: 15px 0;
+  flex-wrap: wrap;
+}
+
+.author-profile {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 15px 20px;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.author-profile:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(99, 102, 241, 0.3);
+}
+
+.author-image {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 15px;
+  border: 2px solid rgba(99, 102, 241, 0.6);
+}
+
+.author-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.author-name {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: white;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.author-title {
+  font-size: 0.9rem;
+  color: var(--gray-300);
+  margin-bottom: 8px;
+  display: block;
+}
+
+.author-social {
+  color: var(--gray-300);
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.author-social:hover {
+  color: var(--primary);
+  transform: scale(1.2);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .authors-grid {
+    gap: 20px;
+  }
+  
+  .author-profile {
+    padding: 12px 15px;
+  }
+  
+  .author-image {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .author-name {
+    font-size: 1rem;
+  }
+  
+  .author-title {
+    font-size: 0.8rem;
+  }
+}
+
+/* Light mode adjustments */
+body.light-mode .author-profile {
+  background: rgba(0, 0, 0, 0.03);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode .author-profile:hover {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: rgba(99, 102, 241, 0.3);
+}
+
+body.light-mode .author-name {
+  color: var(--dark-800);
+}
+
+body.light-mode .author-title {
+  color: var(--dark-600);
+}
+
+body.light-mode .author-social {
+  color: var(--dark-500);
+}
+
+body.light-mode .author-social:hover {
+  color: var(--primary);
+}

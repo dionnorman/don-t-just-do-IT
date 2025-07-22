@@ -1,0 +1,307 @@
+/* Implementation Bridge Styles */
+.bridge-interactive {
+  margin: 30px 0 50px;
+  position: relative;
+  background: linear-gradient(180deg, var(--foundation-light) 0%, var(--foundation-blue) 100%);
+  border-radius: var(--radius-lg);
+  padding: 40px 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  min-height: 500px;
+}
+
+.bridge-interactive::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(46, 94, 170, 0.05) 0%,
+    rgba(52, 176, 197, 0.05) 25%,
+    rgba(61, 123, 108, 0.05) 50%,
+    rgba(238, 108, 77, 0.05) 75%,
+    rgba(245, 183, 0, 0.05) 100%
+  );
+  z-index: 1;
+}
+
+.bridge-banks {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  z-index: 2;
+  margin-bottom: 50px;
+}
+
+.bridge-bank {
+  width: 180px;
+  height: 100px;
+  background: var(--foundation-cream);
+  border-radius: var(--radius-md);
+  padding: 15px;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+
+.bridge-bank:first-child {
+  background: linear-gradient(145deg, var(--foundation-light), var(--foundation-cream));
+  border-left: 4px solid var(--primary-dark);
+}
+
+.bridge-bank:last-child {
+  background: linear-gradient(145deg, var(--foundation-blue), var(--foundation-light));
+  border-right: 4px solid var(--accent);
+}
+
+.bank-label {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text-dark);
+  margin-bottom: 5px;
+}
+
+.bank-sublabel {
+  font-size: 0.8rem;
+  color: var(--text-medium);
+}
+
+.bridge-pillars-container {
+  display: flex;
+  justify-content: space-evenly;
+  position: relative;
+  z-index: 3;
+  height: 200px;
+  margin-bottom: 20px;
+}
+
+.bridge-pillar-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100px;
+  position: relative;
+}
+
+.bridge-pillar {
+  width: 40px;
+  height: 180px;
+  background: linear-gradient(180deg, var(--primary-light) 0%, var(--primary) 100%);
+  border-radius: 6px;
+  position: relative;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.bridge-pillar:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-lg);
+}
+
+.bridge-pillar::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 5px;
+  right: 5px;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+}
+
+.bridge-pillar::after {
+  content: '';
+  position: absolute;
+  bottom: 30px;
+  left: 5px;
+  right: 5px;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+}
+
+.pillar-info {
+  position: absolute;
+  top: -110px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 180px;
+  background: white;
+  border-radius: var(--radius);
+  padding: 10px;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  text-align: center;
+  pointer-events: none;
+}
+
+.bridge-pillar-group:hover .pillar-info {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(-5px);
+}
+
+.pillar-title {
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+  color: var(--primary);
+}
+
+.pillar-desc {
+  font-size: 0.7rem;
+  color: var(--text-medium);
+  margin-bottom: 5px;
+}
+
+.pillar-impact {
+  font-size: 0.7rem;
+  font-style: italic;
+  color: var(--accent);
+}
+
+/* Custom pillar styles */
+.pillar-iste {
+  background: linear-gradient(180deg, #3b82f6 0%, #2563eb 100%);
+}
+
+.pillar-cbam {
+  background: linear-gradient(180deg, #a855f7 0%, #9333ea 100%);
+}
+
+.pillar-vision {
+  background: linear-gradient(180deg, #6366f1 0%, #4f46e5 100%);
+}
+
+.pillar-capacity {
+  background: linear-gradient(180deg, #22c55e 0%, #16a34a 100%);
+}
+
+.pillar-ethics {
+  background: linear-gradient(180deg, #f97316 0%, #ea580c 100%);
+}
+
+.bridge-span {
+  height: 20px;
+  background: linear-gradient(90deg, var(--primary-dark), var(--accent-dark));
+  border-radius: 10px;
+  position: relative;
+  z-index: 4;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bridge-span-text {
+  font-size: 0.8rem;
+  color: white;
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.bridge-gap {
+  position: absolute;
+  bottom: 80px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  z-index: 2;
+}
+
+.gap-label {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 5px;
+}
+
+.gap-sublabel {
+  font-size: 0.7rem;
+  color: var(--text-medium);
+  font-style: italic;
+}
+
+.bridge-reference {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  font-size: 0.8rem;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  z-index: 5;
+}
+
+.bridge-reference:hover {
+  text-decoration: underline;
+}
+
+/* Animation effects */
+@keyframes pillarGlow {
+  0%, 100% { box-shadow: 0 0 10px rgba(46, 94, 170, 0.5); }
+  50% { box-shadow: 0 0 20px rgba(46, 94, 170, 0.8); }
+}
+
+.bridge-pillar.active {
+  animation: pillarGlow 2s infinite;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .bridge-interactive {
+    padding: 30px 15px;
+    min-height: 400px;
+  }
+  
+  .bridge-banks {
+    margin-bottom: 30px;
+  }
+  
+  .bridge-bank {
+    width: 140px;
+    height: 80px;
+    padding: 10px;
+  }
+  
+  .bank-label {
+    font-size: 0.9rem;
+  }
+  
+  .bank-sublabel {
+    font-size: 0.7rem;
+  }
+  
+  .bridge-pillars-container {
+    height: 150px;
+  }
+  
+  .bridge-pillar {
+    width: 25px;
+    height: 130px;
+  }
+  
+  .pillar-info {
+    width: 150px;
+    top: -90px;
+  }
+  
+  .pillar-title {
+    font-size: 0.8rem;
+  }
+  
+  .pillar-desc, .pillar-impact {
+    font-size: 0.65rem;
+  }
+}

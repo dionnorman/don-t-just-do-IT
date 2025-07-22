@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Direct Test - Strategic Imperatives</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .test-controls {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 3000;
+            max-width: 300px;
+        }
+        .test-btn {
+            display: block;
+            width: 100%;
+            margin: 5px 0;
+            padding: 8px 12px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .test-btn:hover {
+            background: #1d4ed8;
+        }
+        .status {
+            margin-top: 10px;
+            padding: 8px;
+            background: #f3f4f6;
+            border-radius: 4px;
+            font-size: 11px;
+        }
+        .imperatives-section {
+            padding: 60px 20px;
+            background: #f8fafc;
+            min-height: 100vh;
+        }
+        .imperative-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .imperative-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .imperative-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: 16px 0;
+            color: #1e293b;
+        }
+        .imperative-text {
+            color: #64748b;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+        .imperative-learn-more {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        .imperative-learn-more:hover {
+            background: #1d4ed8;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-controls">
+        <h4 style="margin: 0 0 10px 0; font-size: 14px;">Test Controls</h4>
+        <button class="test-btn" onclick="testOverlay('ai-evolution-details')">Test AI Evolution</button>
+        <button class="test-btn" onclick="testOverlay('immersive-devices-details')">Test Immersive Devices</button>
+        <button class="test-btn" onclick="testOverlay('creative-democratization-details')">Test Creative Demo</button>
+        <button class="test-btn" onclick="testOverlay('physical-digital-details')">Test Physical-Digital</button>
+        <button class="test-btn" onclick="testOverlay('quantum-era-details')">Test Quantum Era</button>
+        <button class="test-btn" onclick="testOverlay('digital-ownership-details')">Test Digital Owner</button>
+        <button class="test-btn" onclick="testOverlay('societal-transformation-details')">Test Societal Trans</button>
+        <button class="test-btn" onclick="testOverlay('skills-revolution-details')">Test Skills Rev</button>
+        <div class="status" id="status">Ready to test</div>
+    </div>
+
+    <div class="imperatives-section">
+        <h1 style="text-align: center; margin-bottom: 48px; font-size: 2.5rem; color: #1e293b;">Strategic Imperatives Test</h1>
+        
+        <div class="imperative-grid">
+            <div class="imperative-card">
+                <div class="imperative-icon"><i class="fas fa-microchip"></i></div>
+                <h3 class="imperative-title">Advanced Computing Evolution</h3>
+                <p class="imperative-text">Next-generation computing systems transform learning through intelligent automation, multimodal processing, and adaptive interfaces.</p>
+                <button class="imperative-learn-more" data-target="ai-evolution-details">Learn more</button>
+            </div>
+
+            <div class="imperative-card">
+                <div class="imperative-icon"><i class="fas fa-glasses"></i></div>
+                <h3 class="imperative-title">Next-Generation Interface Technologies</h3>
+                <p class="imperative-text">Smart glasses, spatial computing devices, and advanced wearables create new paradigms for information interaction.</p>
+                <button class="imperative-learn-more" data-target="immersive-devices-details">Learn more</button>
+            </div>
+
+            <div class="imperative-card">
+                <div class="imperative-icon"><i class="fas fa-magic"></i></div>
+                <h3 class="imperative-title">Creative Democratization</h3>
+                <p class="imperative-text">Intuitive creation platforms transform students from consumers to creators at unprecedented scale.</p>
+                <button class="imperative-learn-more" data-target="creative-democratization-details">Learn more</button>
+            </div>
+
+            <div class="imperative-card">
+                <div class="imperative-icon"><i class="fas fa-robot"></i></div>
+                <h3 class="imperative-title">Physical-Digital Convergence</h3>
+                <p class="imperative-text">Intelligent systems merge with robotics and automation, creating responsive physical environments.</p>
+                <button class="imperative-learn-more" data-target="physical-digital-details">Learn more</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Test overlay 1 -->
+    <div id="ai-evolution-details" class="imperative-details">
+        <div class="modal-content">
+            <div class="modal-decoration"></div>
+            <button class="modal-close"><i class="fas fa-times"></i></button>
+            <div class="modal-number">1</div>
+            <h3 class="modal-title">Advanced Computing Evolution</h3>
+            <div class="modal-body">
+                <p>Next-generation computing systems transform learning through intelligent automation, multimodal processing, and adaptive interfaces. These technologies become collaborative partners in education.</p>
+                
+                <h4>Technology Breakthroughs</h4>
+                <ul>
+                    <li><strong>Multi-Modal Systems:</strong> Advanced platforms that understand text, images, audio, and video simultaneously</li>
+                    <li><strong>Autonomous Processing:</strong> Systems that can plan, execute complex tasks, and learn from feedback independently</li>
+                    <li><strong>Content Generation:</strong> Sophisticated tools that create realistic educational content from simple instructions</li>
+                </ul>
+                
+                <h4>Educational Applications</h4>
+                <ul>
+                    <li><strong>Creative Content Production:</strong> Students can create professional-quality content without traditional technical barriers</li>
+                    <li><strong>24/7 Personalized Learning:</strong> Intelligent tutoring becomes available with understanding of individual learning styles</li>
+                </ul>
+                
+                <div class="modal-keywords">
+                    <div class="modal-keywords-title">Key Concepts</div>
+                    <div class="modal-keywords-list">
+                        <span class="modal-keyword">Artificial Intelligence</span>
+                        <span class="modal-keyword">Machine Learning</span>
+                        <span class="modal-keyword">Automation</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Minimal test overlays for other buttons -->
+    <div id="immersive-devices-details" class="imperative-details">
+        <div class="modal-content">
+            <div class="modal-decoration"></div>
+            <button class="modal-close"><i class="fas fa-times"></i></button>
+            <div class="modal-number">2</div>
+            <h3 class="modal-title">Next-Generation Interface Technologies</h3>
+            <div class="modal-body">
+                <p>Smart glasses, spatial computing devices, and advanced wearables create new paradigms for how we access and interact with information in educational environments.</p>
+                <h4>Current Breakthrough Devices:</h4>
+                <ul>
+                    <li><strong>Smart Glasses:</strong> Advanced visual recognition and contextual information overlay</li>
+                    <li><strong>Spatial Computing:</strong> Interactive platforms with enhanced object recognition</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function testOverlay(overlayId) {
+            const status = document.getElementById('status');
+            status.innerHTML = `Testing: ${overlayId}`;
+            
+            // Close any open modals
+            document.querySelectorAll('.imperative-details.active').forEach(modal => {
+                modal.classList.remove('active');
+            });
+            
+            // Show the overlay
+            const overlay = document.getElementById(overlayId);
+            if (overlay) {
+                document.body.style.overflow = 'hidden';
+                setTimeout(() => {
+                    overlay.classList.add('active');
+                    
+                    // Check positioning
+                    setTimeout(() => {
+                        const rect = overlay.getBoundingClientRect();
+                        const content = overlay.querySelector('.modal-content');
+                        const contentRect = content ? content.getBoundingClientRect() : null;
+                        
+                        let result = `<strong>${overlayId}</strong><br>`;
+                        result += `Overlay: ${rect.width}x${rect.height}<br>`;
+                        if (contentRect) {
+                            result += `Content: ${Math.round(contentRect.width)}x${Math.round(contentRect.height)}<br>`;
+                            result += `Position: ${Math.round(contentRect.left)}, ${Math.round(contentRect.top)}<br>`;
+                            
+                            const withinBounds = 
+                                contentRect.top >= 0 && 
+                                contentRect.bottom <= window.innerHeight &&
+                                contentRect.left >= 0 && 
+                                contentRect.right <= window.innerWidth;
+                            
+                            result += `Within viewport: ${withinBounds ? '✅' : '❌'}<br>`;
+                            
+                            if (!withinBounds) {
+                                result += `Issues: `;
+                                if (contentRect.top < 0) result += 'Top cut off ';
+                                if (contentRect.bottom > window.innerHeight) result += 'Bottom cut off ';
+                                if (contentRect.left < 0) result += 'Left cut off ';
+                                if (contentRect.right > window.innerWidth) result += 'Right cut off ';
+                            }
+                        }
+                        
+                        status.innerHTML = result;
+                    }, 100);
+                }, 10);
+            } else {
+                status.innerHTML = `❌ Overlay ${overlayId} not found`;
+            }
+        }
+
+        // Set up click handlers for Learn More buttons
+        document.addEventListener('DOMContentLoaded', function() {
+            const learnMoreButtons = document.querySelectorAll('.imperative-learn-more');
+            
+            learnMoreButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    const targetId = this.getAttribute('data-target');
+                    testOverlay(targetId);
+                });
+            });
+
+            // Close modal functionality
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('modal-close') || e.target.closest('.modal-close')) {
+                    const modal = e.target.closest('.imperative-details');
+                    if (modal) {
+                        modal.classList.remove('active');
+                        document.body.style.overflow = '';
+                        document.getElementById('status').innerHTML = 'Modal closed';
+                    }
+                }
+                
+                // Close when clicking backdrop
+                if (e.target.classList.contains('imperative-details')) {
+                    e.target.classList.remove('active');
+                    document.body.style.overflow = '';
+                    document.getElementById('status').innerHTML = 'Modal closed (backdrop)';
+                }
+            });
+
+            // Close with ESC key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    document.querySelectorAll('.imperative-details.active').forEach(modal => {
+                        modal.classList.remove('active');
+                    });
+                    document.body.style.overflow = '';
+                    document.getElementById('status').innerHTML = 'Modal closed (ESC)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

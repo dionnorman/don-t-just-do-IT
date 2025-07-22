@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CBAM Textbox Test</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .test-section {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+        }
+        .results {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 20px;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+            resize: vertical;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .status {
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <h1>CBAM Textbox Isolated Test</h1>
+    
+    <div class="status success">This is an isolated test to diagnose the CBAM textbox issue</div>
+    
+    <div class="test-section" id="cbam-tool">
+        <h2>Test Version of CBAM Form</h2>
+        
+        <div class="form-group">
+            <label for="additional-context">Additional Context (Optional):</label>
+            <p>Share any specific challenges, successes, or unique circumstances that might help us provide more tailored recommendations.</p>
+            <textarea id="additional-context" name="additional-context" placeholder="Describe any specific challenges, successes, or unique circumstances related to your use of this technology..." rows="4"></textarea>
+        </div>
+        
+        <button id="test-input">Test Input Event</button>
+        <button id="check-value">Check Current Value</button>
+    </div>
+    
+    <div class="results" id="results"></div>
+    
+    <script>
+        // Log function
+        function log(message) {
+            const results = document.getElementById('results');
+            const timestamp = new Date().toLocaleTimeString();
+            results.innerHTML += `[${timestamp}] ${message}\n`;
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const textarea = document.getElementById('additional-context');
+            
+            // Test if basic event listener works
+            textarea.addEventListener('input', function(e) {
+                log(`Input event fired. Current value: "${textarea.value}"`);
+            });
+            
+            // Check for disabled or readonly status
+            log(`Textarea disabled: ${textarea.disabled}`);
+            log(`Textarea readonly: ${textarea.readOnly}`);
+            
+            // Set up test buttons
+            document.getElementById('test-input').addEventListener('click', function() {
+                log('Testing programmatic input...');
+                const oldValue = textarea.value;
+                textarea.value = "Test value " + new Date().toLocaleTimeString();
+                log(`Value changed from "${oldValue}" to "${textarea.value}"`);
+                
+                // Manually trigger input event
+                const inputEvent = new Event('input', { bubbles: true });
+                textarea.dispatchEvent(inputEvent);
+            });
+            
+            document.getElementById('check-value').addEventListener('click', function() {
+                log(`Current textarea value: "${textarea.value}"`);
+            });
+            
+            // Initial setup
+            log('Test page initialized');
+            log('Try typing in the textarea above');
+            
+            // Check current focus/blur events
+            textarea.addEventListener('focus', () => log('Textarea received focus'));
+            textarea.addEventListener('blur', () => log('Textarea lost focus'));
+            
+            // Monitor all changes
+            const observer = new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                    if (mutation.type === 'attributes') {
+                        log(`Attribute "${mutation.attributeName}" changed on textarea`);
+                    }
+                });
+            });
+            
+            observer.observe(textarea, { 
+                attributes: true, 
+                attributeOldValue: true 
+            });
+        });
+    </script>
+</body>
+</html>

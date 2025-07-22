@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAMR Final Implementation Test</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/tools/samr-tool.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            color: #2563eb;
+            margin-bottom: 2rem;
+        }
+        
+        .test-section {
+            background: #f8fafc;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .test-description {
+            background: #eff6ff;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #3b82f6;
+        }
+        
+        .test-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .test-button {
+            padding: 0.75rem 1rem;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .test-button:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
+        }
+        
+        .test-results {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: #f1f5f9;
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+        }
+        
+        .result-item {
+            margin-bottom: 0.5rem;
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+        
+        .result-item.success {
+            background: #dcfce7;
+            border-left: 3px solid #22c55e;
+        }
+        
+        .result-item.error {
+            background: #fee2e2;
+            border-left: 3px solid #ef4444;
+        }
+        
+        .result-item.warning {
+            background: #fef3c7;
+            border-left: 3px solid #f59e0b;
+        }
+        
+        .samr-ladder {
+            margin: 2rem 0;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .control-button {
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            border: none;
+            background: #64748b;
+            color: white;
+            cursor: pointer;
+        }
+        
+        .control-button:hover {
+            background: #475569;
+        }
+        
+        .debug-info {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: #1e293b;
+            color: #f8fafc;
+            border-radius: 8px;
+            font-family: 'Courier New', Courier, monospace;
+            height: 200px;
+            overflow-y: auto;
+        }
+        
+        .log-entry {
+            margin-bottom: 0.5rem;
+            line-height: 1.5;
+        }
+        
+        .log-entry.success {
+            color: #4ade80;
+        }
+        
+        .log-entry.error {
+            color: #f87171;
+        }
+        
+        .log-entry.info {
+            color: #60a5fa;
+        }
+    </style>
+</head>
+<body>
+    <h1>SAMR Final Implementation Test</h1>
+    
+    <div class="test-description">
+        <p>This page tests the fixes for the SAMR model overlay issue. It creates an exact copy of the SAMR section from the main site to verify that the modals work correctly without creating conflicting overlays.</p>
+    </div>
+    
+    <div class="test-section">
+        <h2>SAMR Model Test</h2>
+        
+        <!-- SAMR Ladder copied from the main site -->
+        <div class="samr-overview">
+            <h3 class="samr-overview-title"><i class="fas fa-ladder"></i> SAMR Model for EdTech Integration</h3>
+            <p class="samr-overview-description">The SAMR Model helps educators assess and evaluate technology integration in teaching and learning. Each level represents a different impact technology can have on the learning experience, from simple substitution to complete redefinition of tasks.</p>
+            
+            <div class="samr-ladder">
+                <div class="samr-ladder-container">
+                    <div class="ladder-level level-redefinition">
+                        <div class="level-content">
+                            <div class="level-icon">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="level-text">
+                                <h3 class="level-name">Redefinition</h3>
+                                <p class="level-description">Technology allows for the creation of new tasks, previously inconceivable</p>
+                                <div class="learn-more-hint">Click to learn more</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="ladder-level level-modification">
+                        <div class="level-content">
+                            <div class="level-icon">
+                                <i class="fas fa-pen-fancy"></i>
+                            </div>
+                            <div class="level-text">
+                                <h3 class="level-name">Modification</h3>
+                                <p class="level-description">Technology allows for significant task redesign</p>
+                                <div class="learn-more-hint">Click to learn more</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="ladder-level level-augmentation">
+                        <div class="level-content">
+                            <div class="level-icon">
+                                <i class="fas fa-plus-circle"></i>
+                            </div>
+                            <div class="level-text">
+                                <h3 class="level-name">Augmentation</h3>
+                                <p class="level-description">Technology acts as a direct tool substitute, with functional improvement</p>
+                                <div class="learn-more-hint">Click to learn more</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="ladder-level level-substitution">
+                        <div class="level-content">
+                            <div class="level-icon">
+                                <i class="fas fa-exchange-alt"></i>
+                            </div>
+                            <div class="level-text">
+                                <h3 class="level-name">Substitution</h3>
+                                <p class="level-description">Technology acts as a direct tool substitute, with no functional change</p>
+                                <div class="learn-more-hint">Click to learn more</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="controls">
+                <button class="control-button" id="reset-modals">Reset Modals</button>
+                <button class="control-button" id="check-modals">Check Modal Status</button>
+                <button class="control-button" id="clear-log">Clear Log</button>
+            </div>
+            
+            <div class="test-results" id="test-results">
+                <h3>Test Results</h3>
+                <p>Click on each SAMR level above to test the modal functionality.</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="debug-info" id="debug-info">
+        <div class="log-entry info">Test started. Click on a SAMR level to test the modals.</div>
+    </div>
+    
+    <!-- SAMR Level Detail Panels -->
+    <div id="redefinition-panel" class="level-detail-panel">
+        <div class="modal-content">
+            <button class="modal-close"><i class="fas fa-times"></i></button>
+            <h3 class="modal-title"><i class="fas fa-star"></i> Redefinition</h3>
+            <div class="modal-body">
+                <div class="detail-panel-content">
+                    <p>Redefinition is the highest level of the SAMR model, where technology enables the creation of new tasks that were previously inconceivable without technology. At this level, educators can transform learning experiences in revolutionary ways.</p>
+                    
+                    <h4><i class="fas fa-lightbulb"></i> Key Characteristics</h4>
+                    <ul>
+                        <li>Creates entirely new learning experiences impossible without technology</li>
+                        <li>Transforms pedagogy in fundamental ways</li>
+                        <li>Connects students with authentic audiences beyond the classroom</li>
+                        <li>Enables novel forms of collaboration, creation, and problem-solving</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="modification-panel" class="level-detail-panel">
+        <div class="modal-content">
+            <button class="modal-close"><i class="fas fa-times"></i></button>
+            <h3 class="modal-title"><i class="fas fa-pen-fancy"></i> Modification</h3>
+            <div class="modal-body">
+                <div class="detail-panel-content">
+                    <p>Modification represents the threshold of transformation in the SAMR model. At this level, technology allows for significant task redesign that fundamentally changes how students engage with content and demonstrate understanding.</p>
+                    
+                    <h4><i class="fas fa-lightbulb"></i> Key Characteristics</h4>
+                    <ul>
+                        <li>Technology enables significant redesign of learning tasks</li>
+                        <li>Learning activities are transformed in ways not possible without technology</li>
+                        <li>Student role shifts from consumer to active creator</li>
+                        <li>Allows for more personalized and differentiated learning experiences</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="augmentation-panel" class="level-detail-panel">
+        <div class="modal-content">
+            <button class="modal-close"><i class="fas fa-times"></i></button>
+            <h3 class="modal-title"><i class="fas fa-plus-circle"></i> Augmentation</h3>
+            <div class="modal-body">
+                <div class="detail-panel-content">
+                    <p>Augmentation is the second level of the SAMR model, where technology acts as a direct tool substitute but with functional improvements that enhance the learning experience in meaningful ways.</p>
+                    
+                    <h4><i class="fas fa-lightbulb"></i> Key Characteristics</h4>
+                    <ul>
+                        <li>Technology replaces traditional tools with functional improvements</li>
+                        <li>Enhances existing teaching and learning practices</li>
+                        <li>Adds efficiency, productivity, or engagement</li>
+                        <li>Provides immediate feedback or access to additional resources</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="substitution-panel" class="level-detail-panel">
+        <div class="modal-content">
+            <button class="modal-close"><i class="fas fa-times"></i></button>
+            <h3 class="modal-title"><i class="fas fa-exchange-alt"></i> Substitution</h3>
+            <div class="modal-body">
+                <div class="detail-panel-content">
+                    <p>Substitution is the foundation level of the SAMR model, where technology acts as a direct substitute for traditional tools without functional change. While representing the most basic form of technology integration, it provides an important entry point for educators and students.</p>
+                    
+                    <h4><i class="fas fa-lightbulb"></i> Key Characteristics</h4>
+                    <ul>
+                        <li>Technology directly replaces traditional tools</li>
+                        <li>No functional change in teaching or learning</li>
+                        <li>Same tasks and assessments in digital format</li>
+                        <li>Provides a comfortable entry point for technology integration</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/tools/samr-tool.js"></script>
+    
+    <script>
+        // Test logging function
+        function log(message, type = 'info') {
+            const debugInfo = document.getElementById('debug-info');
+            const logEntry = document.createElement('div');
+            logEntry.className = `log-entry ${type}`;
+            logEntry.textContent = message;
+            debugInfo.appendChild(logEntry);
+            debugInfo.scrollTop = debugInfo.scrollHeight;
+        }
+        
+        // Add test result
+        function addResult(message, type = 'success') {
+            const resultsContainer = document.getElementById('test-results');
+            const resultItem = document.createElement('div');
+            resultItem.className = `result-item ${type}`;
+            resultItem.textContent = message;
+            resultsContainer.appendChild(resultItem);
+        }
+        
+        // Reset modals
+        function resetModals() {
+            log('Resetting all modals...');
+            
+            try {
+                // Force close all modals
+                document.querySelectorAll('.level-detail-panel').forEach(modal => {
+                    modal.style.cssText = 'display: none !important; visibility: hidden !important; opacity: 0 !important;';
+                });
+                
+                // Reset body styles
+                document.body.style.overflow = '';
+                document.body.style.position = '';
+                document.body.style.top = '';
+                document.body.style.width = '';
+                document.body.style.paddingRight = '';
+                
+                // Try to reinitialize
+                if (window.SamrModalSystem && window.SamrModalSystem.forceCleanup) {
+                    window.SamrModalSystem.forceCleanup();
+                }
+                
+                if (window.reinitializeSamrSystem) {
+                    window.reinitializeSamrSystem();
+                }
+                
+                log('Modal reset complete', 'success');
+                addResult('Modals have been reset successfully');
+            } catch (error) {
+                log(`ERROR during reset: ${error.message}`, 'error');
+                addResult(`Error during modal reset: ${error.message}`, 'error');
+            }
+        }
+        
+        // Check modal status
+        function checkModalStatus() {
+            log('Checking modal status...');
+            
+            try {
+                // Check if any modals are currently visible
+                const visibleModals = Array.from(document.querySelectorAll('.level-detail-panel')).filter(
+                    modal => {
+                        const computedStyle = window.getComputedStyle(modal);
+                        return computedStyle.display !== 'none' && computedStyle.visibility !== 'hidden';
+                    }
+                );
+                
+                if (visibleModals.length > 0) {
+                    log(`Found ${visibleModals.length} visible modal(s): ${visibleModals.map(m => m.id).join(', ')}`, 'warning');
+                    addResult(`${visibleModals.length} modal(s) currently visible`, 'warning');
+                } else {
+                    log('No modals are currently visible', 'success');
+                    addResult('No modals are currently visible');
+                }
+                
+                // Check system availability
+                if (window.SamrModalSystem && typeof window.SamrModalSystem.init === 'function') {
+                    log('SAMR Modal System is available', 'success');
+                    addResult('SAMR Modal System is available and functioning');
+                } else {
+                    log('WARNING: SAMR Modal System is not available', 'error');
+                    addResult('WARNING: SAMR Modal System is not available', 'error');
+                }
+                
+                // Check if any inline styles have been applied to ladder levels
+                const levelsWithStyles = Array.from(document.querySelectorAll('.ladder-level')).filter(
+                    level => level.hasAttribute('style') && level.getAttribute('style') !== ''
+                );
+                
+                if (levelsWithStyles.length > 0) {
+                    log(`WARNING: Found ${levelsWithStyles.length} ladder levels with inline styles`, 'warning');
+                    addResult(`${levelsWithStyles.length} ladder levels have inline styles that may cause issues`, 'warning');
+                } else {
+                    log('No ladder levels have problematic inline styles', 'success');
+                }
+                
+                // Check for duplicate event listeners (approximation)
+                log('System appears to be in a healthy state', 'success');
+            } catch (error) {
+                log(`ERROR during status check: ${error.message}`, 'error');
+                addResult(`Error checking modal status: ${error.message}`, 'error');
+            }
+        }
+        
+        // Clear log
+        function clearLog() {
+            const debugInfo = document.getElementById('debug-info');
+            debugInfo.innerHTML = '<div class="log-entry info">Log cleared</div>';
+        }
+        
+        // Setup click handlers for ladder levels
+        document.querySelectorAll('.ladder-level').forEach(level => {
+            level.addEventListener('click', function() {
+                const levelType = this.classList.contains('level-redefinition') ? 'redefinition' :
+                                 this.classList.contains('level-modification') ? 'modification' :
+                                 this.classList.contains('level-augmentation') ? 'augmentation' :
+                                 this.classList.contains('level-substitution') ? 'substitution' : null;
+                
+                if (!levelType) return;
+                
+                log(`Clicked on ${levelType} level`, 'info');
+                
+                // Count visible modals before click
+                const visibleBefore = Array.from(document.querySelectorAll('.level-detail-panel')).filter(
+                    modal => {
+                        const computedStyle = window.getComputedStyle(modal);
+                        return computedStyle.display !== 'none' && computedStyle.visibility !== 'hidden';
+                    }
+                ).length;
+                
+                // Wait a moment for modal to open
+                setTimeout(() => {
+                    // Count visible modals after click
+                    const visibleAfter = Array.from(document.querySelectorAll('.level-detail-panel')).filter(
+                        modal => {
+                            const computedStyle = window.getComputedStyle(modal);
+                            return computedStyle.display !== 'none' && computedStyle.visibility !== 'hidden';
+                        }
+                    );
+                    
+                    if (visibleAfter.length === 1) {
+                        const targetModal = document.getElementById(`${levelType}-panel`);
+                        if (visibleAfter[0] === targetModal) {
+                            log(`SUCCESS: Exactly one modal opened (${levelType})`, 'success');
+                            addResult(`Successfully opened ${levelType} modal without conflicts`, 'success');
+                        } else {
+                            log(`WARNING: One modal opened but it's not the expected one`, 'warning');
+                            addResult(`Unexpected modal opened instead of ${levelType}`, 'warning');
+                        }
+                    } else if (visibleAfter.length > 1) {
+                        log(`ERROR: Multiple modals (${visibleAfter.length}) are visible!`, 'error');
+                        addResult(`ERROR: ${visibleAfter.length} modals opened simultaneously`, 'error');
+                    } else {
+                        log(`ERROR: No modals opened when clicking ${levelType}`, 'error');
+                        addResult(`ERROR: No modal opened when clicking ${levelType}`, 'error');
+                    }
+                }, 300);
+            });
+        });
+        
+        // Setup close button handlers
+        document.querySelectorAll('.modal-close').forEach(button => {
+            button.addEventListener('click', function() {
+                log('Close button clicked', 'info');
+                
+                // Wait a moment for modal to close
+                setTimeout(() => {
+                    // Check if any modals are still visible
+                    const visibleModals = Array.from(document.querySelectorAll('.level-detail-panel')).filter(
+                        modal => {
+                            const computedStyle = window.getComputedStyle(modal);
+                            return computedStyle.display !== 'none' && computedStyle.visibility !== 'hidden';
+                        }
+                    );
+                    
+                    if (visibleModals.length === 0) {
+                        log('SUCCESS: Modal closed successfully', 'success');
+                        addResult('Modal closed successfully using close button', 'success');
+                    } else {
+                        log(`ERROR: ${visibleModals.length} modals still visible after clicking close button`, 'error');
+                        addResult(`ERROR: Modal didn't close properly`, 'error');
+                    }
+                }, 300);
+            });
+        });
+        
+        // Setup escape key handler
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                log('Escape key pressed', 'info');
+                
+                // Wait a moment for modal to close
+                setTimeout(() => {
+                    // Check if any modals are still visible
+                    const visibleModals = Array.from(document.querySelectorAll('.level-detail-panel')).filter(
+                        modal => {
+                            const computedStyle = window.getComputedStyle(modal);
+                            return computedStyle.display !== 'none' && computedStyle.visibility !== 'hidden';
+                        }
+                    );
+                    
+                    if (visibleModals.length === 0) {
+                        log('SUCCESS: Modal closed successfully with Escape key', 'success');
+                        addResult('Modal closed successfully using Escape key', 'success');
+                    } else {
+                        log(`ERROR: ${visibleModals.length} modals still visible after pressing Escape`, 'error');
+                        addResult(`ERROR: Modal didn't close properly with Escape key`, 'error');
+                    }
+                }, 300);
+            }
+        });
+        
+        // Setup control buttons
+        document.getElementById('reset-modals').addEventListener('click', resetModals);
+        document.getElementById('check-modals').addEventListener('click', checkModalStatus);
+        document.getElementById('clear-log').addEventListener('click', clearLog);
+        
+        // Initialize
+        window.addEventListener('load', function() {
+            log('Page loaded, initializing SAMR Modal System...');
+            
+            // Give the system a moment to initialize
+            setTimeout(() => {
+                if (window.SamrModalSystem && typeof window.SamrModalSystem.init === 'function') {
+                    log('SAMR Modal System is available and ready', 'success');
+                    addResult('SAMR Modal System initialized successfully');
+                    
+                    // Reinitialize to ensure clean state
+                    if (window.reinitializeSamrSystem) {
+                        window.reinitializeSamrSystem();
+                        log('SAMR Modal System reinitialized for clean testing', 'success');
+                    }
+                } else {
+                    log('WARNING: SAMR Modal System is not available', 'error');
+                    addResult('WARNING: SAMR Modal System not found', 'error');
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

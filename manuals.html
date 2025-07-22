@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manuals - Don't Just Do IT! — Strategic Educational Transformation Roadmap</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&amp;family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap">
+<link rel="stylesheet" href="css/styles.css">
+<style>
+    /* Manual Page Specific Styles */
+    .manuals-section {
+        padding: 120px 0 80px;
+        position: relative;
+        min-height: 100vh;
+    }
+    
+    .manuals-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background-color: var(--bg-color);
+        overflow: hidden;
+    }
+    
+    .manuals-bg .shape {
+        position: absolute;
+        border-radius: 50%;
+    }
+    
+    .manuals-bg .shape-1 {
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(circle, rgba(var(--accent-color-rgb), 0.1) 0%, rgba(var(--accent-color-rgb), 0) 70%);
+        top: -100px;
+        right: -100px;
+    }
+    
+    .manuals-bg .shape-2 {
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(circle, rgba(var(--primary-color-rgb), 0.1) 0%, rgba(var(--primary-color-rgb), 0) 70%);
+        bottom: 10%;
+        left: -50px;
+    }
+    
+    .manuals-tabs {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 30px;
+        gap: 20px;
+    }
+    
+    .manuals-tabs .tab {
+        padding: 12px 24px;
+        border: 2px solid var(--border-color);
+        border-radius: 8px;
+        background-color: var(--card-bg);
+        color: var(--text-color);
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .manuals-tabs .tab.active, 
+    .manuals-tabs .tab:hover {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+        color: #fff;
+    }
+    
+    .manual-card {
+        background-color: var(--card-bg);
+        border-radius: 16px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        margin-bottom: 40px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: 1px solid var(--border-color);
+    }
+    
+    .manual-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    }
+    
+    .manual-header {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 24px;
+        gap: 20px;
+    }
+    
+    .manual-icon {
+        font-size: 2.5rem;
+        color: var(--primary-color);
+        padding: 15px;
+        background-color: rgba(var(--primary-color-rgb), 0.1);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 70px;
+    }
+    
+    .manual-title-container {
+        flex-grow: 1;
+    }
+    
+    .manual-title {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-bottom: 8px;
+        color: var(--heading-color);
+    }
+    
+    .manual-subtitle {
+        font-size: 1rem;
+        color: var(--text-muted);
+        line-height: 1.4;
+    }
+    
+    .manual-content {
+        margin-bottom: 25px;
+    }
+    
+    .manual-description {
+        font-size: 1.05rem;
+        line-height: 1.6;
+        margin-bottom: 20px;
+        color: var(--text-color);
+    }
+    
+    .manual-features {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 15px;
+        margin-bottom: 25px;
+    }
+    
+    .manual-feature {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .feature-icon {
+        color: var(--accent-color);
+        font-size: 1rem;
+    }
+    
+    .manual-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+    
+    .action-btn {
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+    
+    .btn-view {
+        background-color: rgba(var(--primary-color-rgb), 0.1);
+        color: var(--primary-color);
+    }
+    
+    .btn-view:hover {
+        background-color: rgba(var(--primary-color-rgb), 0.2);
+    }
+    
+    .btn-download {
+        background-color: var(--primary-color);
+        color: #fff;
+    }
+    
+    .btn-download:hover {
+        background-color: var(--primary-color-dark);
+    }
+    
+    .btn-print {
+        background-color: rgba(var(--accent-color-rgb), 0.1);
+        color: var(--accent-color);
+    }
+    
+    .btn-print:hover {
+        background-color: rgba(var(--accent-color-rgb), 0.2);
+    }
+    
+    .manual-tag {
+        display: inline-block;
+        padding: 5px 12px;
+        border-radius: 30px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
+    
+    .tag-updated {
+        background-color: rgba(var(--accent-color-rgb), 0.1);
+        color: var(--accent-color);
+    }
+    
+    .tag-original {
+        background-color: rgba(var(--secondary-color-rgb), 0.1);
+        color: var(--secondary-color);
+    }
+    
+    .manual-preview {
+        margin-top: 50px;
+        padding: 30px;
+        border-radius: 16px;
+        background-color: var(--card-bg);
+        border: 1px solid var(--border-color);
+    }
+    
+    .preview-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid var(--border-color);
+    }
+    
+    .preview-title {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--heading-color);
+    }
+    
+    .preview-actions {
+        display: flex;
+        gap: 15px;
+    }
+    
+    .preview-content {
+        max-height: 600px;
+        overflow-y: auto;
+        padding: 0 5px;
+    }
+    
+    .preview-content h1, 
+    .preview-content h2, 
+    .preview-content h3 {
+        color: var(--heading-color);
+        margin-top: 1.5em;
+        margin-bottom: 0.5em;
+    }
+    
+    .preview-content h1 {
+        font-size: 2rem;
+    }
+    
+    .preview-content h2 {
+        font-size: 1.5rem;
+    }
+    
+    .preview-content h3 {
+        font-size: 1.25rem;
+    }
+    
+    .preview-content p {
+        margin-bottom: 1em;
+        line-height: 1.6;
+    }
+    
+    .preview-content ul, 
+    .preview-content ol {
+        margin-bottom: 1em;
+        padding-left: 2em;
+    }
+    
+    .preview-content li {
+        margin-bottom: 0.5em;
+    }
+    
+    .preview-content table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 1em;
+    }
+    
+    .preview-content th, 
+    .preview-content td {
+        padding: 10px;
+        border: 1px solid var(--border-color);
+        text-align: left;
+    }
+    
+    .preview-content th {
+        background-color: rgba(var(--primary-color-rgb), 0.05);
+    }
+    
+    .preview-content blockquote {
+        padding: 15px;
+        margin: 0 0 20px;
+        border-left: 5px solid var(--primary-color);
+        background-color: rgba(var(--primary-color-rgb), 0.05);
+    }
+    
+    .manual-content-wrapper {
+        display: none;
+    }
+    
+    .manual-content-wrapper.active {
+        display: block;
+    }
+    
+    .no-preview {
+        text-align: center;
+        padding: 50px 0;
+        color: var(--text-muted);
+    }
+    
+    .no-preview i {
+        font-size: 3rem;
+        margin-bottom: 15px;
+        opacity: 0.5;
+    }
+    
+    .no-preview p {
+        font-size: 1.1rem;
+    }
+    
+    /* Original manual access section styling */
+    .original-manual-access {
+        background-color: rgba(var(--primary-color-rgb), 0.05);
+        border-left: 4px solid var(--primary-color);
+        padding: 20px;
+        margin: 30px 0;
+        border-radius: 8px;
+    }
+    
+    .original-manual-access h3 {
+        color: var(--primary-color);
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+    
+    .original-manual-access .action-btn {
+        margin-top: 15px;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    @media (max-width: 768px) {
+        .manual-header {
+            flex-direction: column;
+        }
+        
+        .manual-icon {
+            margin-bottom: 15px;
+        }
+        
+        .manual-actions {
+            flex-direction: column;
+        }
+        
+        .action-btn {
+            width: 100%;
+            justify-content: center;
+        }
+        
+        .manuals-tabs {
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .manuals-tabs .tab {
+            width: 100%;
+            text-align: center;
+        }
+    }
+</style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen">
+        <div class="loading-content">
+            <div class="loader-spinner">
+                <div class="spinner-element"></div>
+                <div class="spinner-element"></div>
+                <div class="spinner-element"></div>
+            </div>
+            <div class="loader-text">DON'T JUST DO IT!</div>
+            <div class="loader-progress">
+                <div class="progress-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="site-header">
+        <div class="header-background"></div>
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon"><i class="fas fa-compass"></i></div>
+                <div class="logo-text">Don't Just Do IT!</div>
+            </a>
+            <nav class="main-nav">
+                <ul class="nav-menu">
+                    <li><a href="index.html#hero" class="nav-link">Home</a></li>
+                    <li><a href="index.html#foundation" class="nav-link">Foundations</a></li>
+                    <li><a href="index.html#roadmap" class="nav-link">Roadmap</a></li>
+                    <li><a href="index.html#imperatives" class="nav-link">Imperatives</a></li>
+                    <li><a href="index.html#tools" class="nav-link">AI Tools</a></li>
+                    <li><a href="manuals.html" class="nav-link active">Manuals</a></li>
+                </ul>
+                <button class="nav-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Theme Toggle -->
+    <div class="theme-toggle-container">
+        <button class="theme-toggle">
+            <i class="fas fa-moon"></i>
+        </button>
+    </div>
+
+    <!-- Manuals Section -->
+    <section class="manuals-section">
+        <div class="manuals-bg">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+        </div>
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag">Resource Center</div>
+                <h2 class="section-title">Don't Just Do IT! Manuals</h2>
+                <p class="section-subtitle">Access the comprehensive guides for implementing strategic educational technology transformation, including both the original 2015 manual and the updated 2025 edition.</p>
+            </div>
+
+            <div class="manuals-tabs">
+                <button class="tab active" data-target="manuals-list">Available Manuals</button>
+                <button class="tab" data-target="manual-preview">Manual Preview</button>
+            </div>
+
+            <div id="manuals-list" class="manual-content-wrapper active">
+                <div class="manual-card">
+                    <div class="manual-tag tag-updated">2025 EDITION</div>
+                    <div class="manual-header">
+                        <div class="manual-icon">
+                            <i class="fas fa-book-open"></i>
+                        </div>
+                        <div class="manual-title-container">
+                            <h3 class="manual-title">Don't Just Do IT! Re-Engineering Educational Technology (2025 Edition)</h3>
+                            <p class="manual-subtitle">For the Age of AI and Immersive Learning</p>
+                        </div>
+                    </div>
+                    <div class="manual-content">
+                        <p class="manual-description">
+                            The 2025 edition of "Don't Just Do IT!" updates the strategic 12-Step EdTech Roadmap for the era of AI and XR. This comprehensive guide helps educational leaders navigate the integration of artificial intelligence, extended reality, and other emerging technologies while maintaining a focus on pedagogical purpose and ethical implementation.
+                        </p>
+                        <div class="manual-features">
+                            <div class="manual-feature">
+                                <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
+                                <span>Updated 12-Step EdTech Roadmap</span>
+                            </div>
+                            <div class="manual-feature">
+                                <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
+                                <span>AI & XR Integration Strategies</span>
+                            </div>
+                            <div class="manual-feature">
+                                <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
+                                <span>Ethical Implementation Guidelines</span>
+                            </div>
+                            <div class="manual-feature">
+                                <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
+                                <span>Strategic Imperatives for Innovation</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="manual-actions">
+                        <a href="#" class="action-btn btn-view" onclick="showManualPreview('2025'); return false;">
+                            <i class="fas fa-eye"></i>
+                            <span>View Manual</span>
+                        </a>
+                        <a href="6vpspeeg2u.pdf" class="action-btn btn-download" download>
+                            <i class="fas fa-download"></i>
+                            <span>Download PDF</span>
+                        </a>
+                        <a href="enhanced_2025_manual.md" class="action-btn btn-download" download>
+                            <i class="fas fa-download"></i>
+                            <span>Download Enhanced Version</span>
+                        </a>
+                        <a href="#" class="action-btn btn-download" onclick="generateVisualManual(); return false;">
+                            <i class="fas fa-file-pdf"></i>
+                            <span>Generate Visual Manual</span>
+                        </a>
+                        <a href="#" class="action-btn btn-print" onclick="printManual('6vpspeeg2u.pdf'); return false;">
+                            <i class="fas fa-print"></i>
+                            <span>Print Manual</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="manual-card">
+                    <div class="manual-tag tag-original">2015 EDITION</div>
+                    <div class="manual-header">
+                        <div class="manual-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="manual-title-container">
+                            <h3 class="manual-title">Don't Just Do IT! Build the Foundations (2015 Edition)</h3>
+                            <p class="manual-subtitle">Original 12-Step EdTech Roadmap</p>
+                        </div>
+                    </div>
+                    <div class="manual-content">
+                        <p class="manual-description">
+                            The original 2015 manual that established the foundational 12-Step EdTech Roadmap for strategic technology integration. This seminal work introduced the concept of "toolishness" and emphasized the importance of purpose, vision, and pedagogical foundations before technology adoption. Many of its predictions about technology's evolution have proven remarkably accurate.
+                        </p>
+                        <div class="manual-features">
+                            <div class="manual-feature">
+                                <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
+                                <span>Original 12-Step EdTech Roadmap</span>
+                            </div>
+                            <div class="manual-feature">
+                                <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
+                                <span>Implementation Bridge Model</span>
+                            </div>
+                            <div class="manual-feature">
+                                <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
+                                <span>ISTE Essential Conditions</span>
+                            </div>
+                            <div class="manual-feature">
+                                <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
+                                <span>SAMR Integration Framework</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="manual-actions">
+                        <a href="#" class="action-btn btn-view" onclick="showManualPreview('2015'); return false;">
+                            <i class="fas fa-eye"></i>
+                            <span>View Manual</span>
+                        </a>
+                        <a href="https://drive.google.com/file/d/1HNiNWIVvKU5OkrLHSFQVQWo68EEBq58M/view" class="action-btn btn-download" target="_blank">
+                            <i class="fas fa-external-link-alt"></i>
+                            <span>View Original Manual</span>
+                        </a>
+                        <a href="https://drive.google.com/uc?export=download&id=1HNiNWIVvKU5OkrLHSFQVQWo68EEBq58M" class="action-btn btn-download">
+                            <i class="fas fa-download"></i>
+                            <span>Download Original PDF</span>
+                        </a>
+                        <a href="original_manual_2015_enhanced.pdf" class="action-btn btn-download" download>
+                            <i class="fas fa-download"></i>
+                            <span>Download Enhanced PDF</span>
+                        </a>
+                        <a href="#" class="action-btn btn-print" onclick="printManual('original_manual_2015_enhanced.pdf'); return false;">
+                            <i class="fas fa-print"></i>
+                            <span>Print Manual</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="manual-preview" class="manual-content-wrapper">
+                <div class="manual-preview">
+                    <div class="preview-header">
+                        <h3 class="preview-title" id="preview-title">Select a manual to preview</h3>
+                        <div class="preview-actions">
+                            <button class="action-btn btn-view" id="back-to-list">
+                                <i class="fas fa-arrow-left"></i>
+                                <span>Back to List</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="preview-content" id="preview-content">
+                        <div class="no-preview">
+                            <i class="fas fa-book-reader"></i>
+                            <p>Please select a manual from the list to preview its contents.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <div class="logo">
+                        <div class="logo-icon"><i class="fas fa-compass"></i></div>
+                        <div class="logo-text">Don't Just Do IT!</div>
+                    </div>
+                    <p class="footer-tagline">Navigating Educational Technology for 2025 and Beyond</p>
+                </div>
+                <div class="footer-nav">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="index.html#hero">Home</a></li>
+                        <li><a href="index.html#foundation">Foundations</a></li>
+                        <li><a href="index.html#roadmap">Roadmap</a></li>
+                        <li><a href="index.html#imperatives">Imperatives</a></li>
+                        <li><a href="index.html#tools">AI Tools</a></li>
+                        <li><a href="manuals.html">Manuals</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Connect</h4>
+                    <ul class="social-links">
+                        <li><a href="https://www.linkedin.com/in/dionnorman/?originalSubdomain=ca" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a></li>
+                        <li><a href="#" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="#" target="_blank" aria-label="Email"><i class="fas fa-envelope"></i></a></li>
+                    </ul>
+                    <button class="theme-toggle-footer">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 Don't Just Do IT! Re-Engineering Educational Technology. All rights reserved.</p>
+                <p class="attribution">Based on the original manual written in 2015 by <a href="https://drive.google.com/file/d/1HNiNWIVvKU5OkrLHSFQVQWo68EEBq58M/view?usp=sharing" target="_blank">Mike Pelletier and Dion Norman</a> - AI Self-Assessments powered by Gemini</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+        // Manual Preview Functions
+        function showManualPreview(year) {
+            const manualListTab = document.querySelector('.tab[data-target="manuals-list"]');
+            const manualPreviewTab = document.querySelector('.tab[data-target="manual-preview"]');
+            const manualListContent = document.getElementById('manuals-list');
+            const manualPreviewContent = document.getElementById('manual-preview');
+            const previewTitle = document.getElementById('preview-title');
+            const previewContent = document.getElementById('preview-content');
+            
+            // Switch tabs
+            manualListTab.classList.remove('active');
+            manualPreviewTab.classList.add('active');
+            manualListContent.classList.remove('active');
+            manualPreviewContent.classList.add('active');
+            
+            // Update preview content based on selected year
+            if (year === '2025') {
+                previewTitle.textContent = "Don't Just Do IT! Re-Engineering Educational Technology (2025 Edition)";
+                
+                // Load the enhanced 2025 manual content
+                fetch('enhanced_2025_manual.md')
+                    .then(response => response.text())
+                    .then(markdown => {
+                        // Simple markdown to HTML conversion for preview (this is a basic implementation)
+                        let html = convertMarkdownToHTML(markdown);
+                        previewContent.innerHTML = html;
+                    })
+                    .catch(error => {
+                        // Fallback to original manual
+                        fetch('6vpspeeg2u_manual.md')
+                            .then(response => response.text())
+                            .then(markdown => {
+                                let html = convertMarkdownToHTML(markdown);
+                                previewContent.innerHTML = html;
+                            })
+                            .catch(err => {
+                                previewContent.innerHTML = '<div class="no-preview"><i class="fas fa-exclamation-circle"></i><p>Error loading manual content. Please try downloading the PDF instead.</p></div>';
+                                console.error('Error loading markdown:', err);
+                            });
+                    });
+            } else if (year === '2015') {
+                previewTitle.textContent = "Don't Just Do IT! Build the Foundations (2015 Edition)";
+                
+                // Display message about the 2015 manual
+                previewContent.innerHTML = `
+                    <div class="preview-section">
+                        <h1>Don't Just Do IT! Build the Foundations for Pedagogical Innovation Using the 12 Step EdTech Roadmap</h1>
+                        <h2>Original 2015 Edition</h2>
+                        
+                        <p>The original 2015 manual introduced the groundbreaking 12-Step EdTech Roadmap that continues to guide educational institutions in their technology integration journey. This seminal work emphasized the importance of building strong foundations before adopting new technologies.</p>
+                        
+                        <h3>Key Concepts from the Original Manual:</h3>
+                        
+                        <ul>
+                            <li><strong>Why Toolishness is Foolishness:</strong> The dangers of adopting technology without clear pedagogical purpose</li>
+                            <li><strong>Implementation Ability:</strong> Assessing an organization's capacity for effective technology integration</li>
+                            <li><strong>ISTE Essential Conditions:</strong> Using established standards as pillars of strength</li>
+                            <li><strong>CBAM Model:</strong> Understanding the human side of technology adoption</li>
+                            <li><strong>Implementation Bridge:</strong> Creating a pathway from current to innovative practices</li>
+                            <li><strong>SAMR Integration Model:</strong> Moving beyond substitution to redefinition</li>
+                            <li><strong>R&D Processes:</strong> Investing in people and structured evaluation</li>
+                            <li><strong>The 5 R's:</strong> A cycle of continuous improvement</li>
+                        </ul>
+                        
+                        <p>The original manual's insights on strategic technology integration have proven remarkably prescient, with many of its predictions about future technological developments coming to fruition in the decade since its publication.</p>
+                        
+                        <div class="original-manual-access">
+                            <h3>Access the Original 2015 Manual with Original Formatting</h3>
+                            <p>We've made the full original manual available with its original formatting and layout. You can access it directly through Google Drive by clicking the button below:</p>
+                            <a href="https://drive.google.com/file/d/1HNiNWIVvKU5OkrLHSFQVQWo68EEBq58M/view" class="action-btn btn-view" target="_blank" style="display: inline-flex; margin-top: 15px;">
+                                <i class="fas fa-external-link-alt"></i>
+                                <span>View Original Manual on Google Drive</span>
+                            </a>
+                        </div>
+                        
+                        <p>You can also download the PDF version using the download button on the manuals page.</p>
+                    </div>
+                `;
+            }
+        }
+        
+        // Enhanced Markdown to HTML converter
+        function convertMarkdownToHTML(markdown) {
+            let html = markdown;
+            
+            // Handle images
+            html = html.replace(/!\[(.*?)\]\((.*?)\)/g, '<img src="$2" alt="$1" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">');
+            
+            // Handle links
+            html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+            
+            // Handle headers
+            html = html.replace(/^# (.*$)/gm, '<h1 style="color: var(--heading-color); margin-top: 2em; margin-bottom: 1em; font-size: 2rem;">$1</h1>');
+            html = html.replace(/^## (.*$)/gm, '<h2 style="color: var(--heading-color); margin-top: 1.5em; margin-bottom: 0.8em; font-size: 1.5rem;">$1</h2>');
+            html = html.replace(/^### (.*$)/gm, '<h3 style="color: var(--heading-color); margin-top: 1.2em; margin-bottom: 0.6em; font-size: 1.25rem;">$1</h3>');
+            html = html.replace(/^#### (.*$)/gm, '<h4 style="color: var(--heading-color); margin-top: 1em; margin-bottom: 0.5em; font-size: 1.1rem;">$1</h4>');
+            
+            // Handle blockquotes
+            html = html.replace(/^> (.*)$/gm, '<blockquote style="border-left: 4px solid var(--primary-color); padding-left: 20px; margin: 20px 0; font-style: italic; background: rgba(46, 94, 170, 0.05); padding: 15px 20px; border-radius: 4px;">$1</blockquote>');
+            
+            // Handle tables
+            html = html.replace(/\|(.+)\|/g, function(match, content) {
+                const cells = content.split('|').map(cell => cell.trim()).filter(cell => cell !== '');
+                if (cells.some(cell => cell.includes('---'))) {
+                    return ''; // Skip separator rows
+                }
+                const cellHtml = cells.map(cell => `<td style="padding: 12px; border: 1px solid var(--border-color);">${cell}</td>`).join('');
+                return `<tr>${cellHtml}</tr>`;
+            });
+            
+            // Wrap table rows in table
+            html = html.replace(/(<tr>.*<\/tr>)/gs, '<table style="width: 100%; border-collapse: collapse; margin: 20px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">$1</table>');
+            
+            // Handle code blocks
+            html = html.replace(/```([\s\S]*?)```/g, '<pre style="background: #f5f5f5; padding: 15px; border-radius: 4px; overflow-x: auto; margin: 15px 0;"><code>$1</code></pre>');
+            
+            // Handle inline code
+            html = html.replace(/`([^`]+)`/g, '<code style="background: #f0f0f0; padding: 2px 4px; border-radius: 3px; font-family: monospace;">$1</code>');
+            
+            // Handle bold
+            html = html.replace(/\*\*(.*?)\*\*/g, '<strong style="color: var(--primary-color);">$1</strong>');
+            
+            // Handle italics
+            html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+            
+            // Handle unordered lists
+            html = html.replace(/^- (.*$)/gm, '<li style="margin-bottom: 8px;">$1</li>');
+            html = html.replace(/^  - (.*$)/gm, '<li style="margin-bottom: 5px; margin-left: 20px;">$1</li>');
+            
+            // Handle ordered lists
+            html = html.replace(/^\d+\. (.*$)/gm, '<li style="margin-bottom: 8px;">$1</li>');
+            
+            // Wrap consecutive list items in ul/ol tags
+            html = html.replace(/(<li.*<\/li>\s*)+/g, function(match) {
+                if (match.includes('margin-left: 20px')) {
+                    return '<ul style="margin: 15px 0; padding-left: 20px;">' + match + '</ul>';
+                }
+                return '<ul style="margin: 15px 0; padding-left: 20px;">' + match + '</ul>';
+            });
+            
+            // Handle horizontal rules
+            html = html.replace(/^---$/gm, '<hr style="border: none; height: 2px; background: linear-gradient(to right, var(--primary-color), var(--accent-color)); margin: 30px 0;">');
+            
+            // Handle paragraphs (but avoid wrapping existing HTML elements)
+            html = html.replace(/^(?!<[hul]|<\/[hul]|<img|<table|<blockquote|<pre|<hr)([^<\n]+)$/gm, '<p style="margin-bottom: 15px; line-height: 1.6;">$1</p>');
+            
+            // Clean up extra newlines
+            html = html.replace(/\n\s*\n/g, '\n');
+            
+            return html;
+        }
+        
+        // Print manual function
+        function printManual(pdfPath) {
+            const printWindow = window.open(pdfPath, '_blank');
+            printWindow.addEventListener('load', function() {
+                printWindow.print();
+            });
+        }
+        
+        // Generate visual PDF from website content
+        function generateVisualManual() {
+            // Create a temporary container to hold the manual content
+            const visualManualContainer = document.createElement('div');
+            visualManualContainer.id = 'visual-manual-container';
+            visualManualContainer.style.width = '800px';
+            visualManualContainer.style.padding = '40px';
+            visualManualContainer.style.backgroundColor = '#fff';
+            visualManualContainer.style.position = 'absolute';
+            visualManualContainer.style.left = '-9999px';
+            document.body.appendChild(visualManualContainer);
+            
+            // Add title and branding
+            visualManualContainer.innerHTML = `
+                <div style="text-align: center; margin-bottom: 40px;">
+                    <h1 style="font-size: 36px; color: #2e5eaa; margin-bottom: 10px;">Don't Just Do IT!</h1>
+                    <h2 style="font-size: 24px; color: #34b0c5; font-weight: 400; margin-bottom: 20px;">Re-Engineering Educational Technology for 2025 and Beyond</h2>
+                    <div style="width: 100px; height: 4px; background: linear-gradient(to right, #2e5eaa, #34b0c5); margin: 0 auto;"></div>
+                </div>
+            `;
+            
+            // Add sections from the webpage
+            const sections = [
+                { title: "The 12-Step EdTech Roadmap: Reimagined for 2025", id: "roadmap" },
+                { title: "Building the Foundations for 2025 and Beyond", id: "foundation" },
+                { title: "Strategic Imperatives for Innovative Educational Ecosystems", id: "imperatives" }
+            ];
+            
+            sections.forEach(section => {
+                const sectionElement = document.getElementById(section.id);
+                if (sectionElement) {
+                    // Get section header
+                    const headerEl = sectionElement.querySelector('.section-header');
+                    if (headerEl) {
+                        visualManualContainer.innerHTML += `
+                            <div style="margin-top: 30px; margin-bottom: 20px; page-break-before: always;">
+                                <h2 style="font-size: 28px; color: #2e5eaa; margin-bottom: 10px;">${section.title}</h2>
+                                <div style="width: 60px; height: 3px; background: linear-gradient(to right, #2e5eaa, #34b0c5); margin-bottom: 20px;"></div>
+                                <p style="font-size: 16px; color: #475569; margin-bottom: 30px;">${headerEl.querySelector('.section-subtitle')?.textContent || ''}</p>
+                            </div>
+                        `;
+                    }
+                    
+                    // Process section content based on its ID
+                    if (section.id === 'roadmap') {
+                        // Add roadmap table content
+                        const roadmapTable = sectionElement.querySelector('.roadmap-table');
+                        if (roadmapTable) {
+                            visualManualContainer.innerHTML += `
+                                <div style="margin-bottom: 30px;">
+                                    <h3 style="font-size: 20px; color: #2e5eaa; margin-bottom: 15px;">Roadmap Overview</h3>
+                                    ${roadmapTable.outerHTML}
+                                </div>
+                            `;
+                        }
+                        
+                        // Add step cards content
+                        const stepCards = sectionElement.querySelectorAll('.step-card');
+                        if (stepCards.length) {
+                            visualManualContainer.innerHTML += `<h3 style="font-size: 20px; color: #2e5eaa; margin-bottom: 15px; margin-top: 30px;">Step-by-Step Guide</h3>`;
+                            
+                            stepCards.forEach(card => {
+                                const stepNumber = card.querySelector('.step-number')?.textContent;
+                                const stepTitle = card.querySelector('.step-title')?.textContent;
+                                const stepDesc = card.querySelector('.step-desc')?.textContent;
+                                const stepList = card.querySelector('.step-list');
+                                
+                                visualManualContainer.innerHTML += `
+                                    <div style="margin-bottom: 20px; padding: 15px; border: 1px solid #e2e8f0; border-radius: 8px; background-color: #f8fafc;">
+                                        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                                            <div style="width: 30px; height: 30px; border-radius: 50%; background-color: #2e5eaa; color: white; display: flex; align-items: center; justify-content: center; margin-right: 10px; font-weight: 700;">${stepNumber}</div>
+                                            <h4 style="font-size: 18px; color: #1e293b; margin: 0;">${stepTitle}</h4>
+                                        </div>
+                                        <p style="margin-bottom: 10px; color: #475569;">${stepDesc}</p>
+                                        ${stepList ? stepList.outerHTML : ''}
+                                    </div>
+                                `;
+                            });
+                        }
+                    } else if (section.id === 'foundation') {
+                        // Add foundation blocks content
+                        const foundationBlocks = sectionElement.querySelectorAll('.foundation-block');
+                        if (foundationBlocks.length) {
+                            visualManualContainer.innerHTML += `<h3 style="font-size: 20px; color: #2e5eaa; margin-bottom: 15px;">Core Foundations</h3>`;
+                            
+                            foundationBlocks.forEach(block => {
+                                const blockTitle = block.querySelector('h3')?.textContent;
+                                const blockDesc = block.querySelector('p')?.textContent;
+                                const blockIcon = block.querySelector('.block-icon i')?.className.split(' ').pop();
+                                
+                                visualManualContainer.innerHTML += `
+                                    <div style="margin-bottom: 20px; padding: 15px; border: 1px solid #e2e8f0; border-radius: 8px; background-color: #f8fafc;">
+                                        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                                            <div style="width: 40px; height: 40px; border-radius: 8px; background-color: #ee6c4d; color: white; display: flex; align-items: center; justify-content: center; margin-right: 15px; font-size: 18px;">
+                                                <i class="fas ${blockIcon}"></i>
+                                            </div>
+                                            <h4 style="font-size: 18px; color: #1e293b; margin: 0;">${blockTitle}</h4>
+                                        </div>
+                                        <p style="margin: 0; color: #475569;">${blockDesc}</p>
+                                    </div>
+                                `;
+                            });
+                        }
+                    } else if (section.id === 'imperatives') {
+                        // Add imperatives content
+                        const imperativeCards = sectionElement.querySelectorAll('.imperative-card');
+                        if (imperativeCards.length) {
+                            visualManualContainer.innerHTML += `<h3 style="font-size: 20px; color: #2e5eaa; margin-bottom: 15px;">Strategic Imperatives</h3>`;
+                            
+                            imperativeCards.forEach(card => {
+                                const cardTitle = card.querySelector('.imperative-title')?.textContent;
+                                const cardDesc = card.querySelector('.imperative-text')?.textContent;
+                                const cardIcon = card.querySelector('.imperative-icon i')?.className.split(' ').pop();
+                                
+                                visualManualContainer.innerHTML += `
+                                    <div style="margin-bottom: 20px; padding: 15px; border: 1px solid #e2e8f0; border-radius: 8px; background-color: #f8fafc;">
+                                        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                                            <div style="width: 40px; height: 40px; border-radius: 8px; background-color: #34b0c5; color: white; display: flex; align-items: center; justify-content: center; margin-right: 15px; font-size: 18px;">
+                                                <i class="fas ${cardIcon}"></i>
+                                            </div>
+                                            <h4 style="font-size: 18px; color: #1e293b; margin: 0;">${cardTitle}</h4>
+                                        </div>
+                                        <p style="margin: 0; color: #475569;">${cardDesc}</p>
+                                    </div>
+                                `;
+                            });
+                        }
+                    }
+                }
+            });
+            
+            // Add footer
+            visualManualContainer.innerHTML += `
+                <div style="margin-top: 40px; text-align: center; padding-top: 20px; border-top: 1px solid #e2e8f0;">
+                    <p style="font-size: 14px; color: #64748b;">© 2025 Don't Just Do IT! Re-Engineering Educational Technology. All rights reserved.</p>
+                    <p style="font-size: 12px; color: #94a3b8;">Based on the original manual written in 2015 by Mike Pelletier and Dion Norman</p>
+                </div>
+            `;
+            
+            // Use html2canvas to convert the container to an image
+            html2canvas(visualManualContainer, {
+                scale: 1,
+                useCORS: true,
+                logging: false
+            }).then(canvas => {
+                // Create PDF using jsPDF
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF('p', 'pt', 'a4');
+                const imgData = canvas.toDataURL('image/png');
+                const imgWidth = 595; // A4 width in pts
+                const imgHeight = canvas.height * imgWidth / canvas.width;
+                const pageHeight = 842; // A4 height in pts
+                let heightLeft = imgHeight;
+                let position = 0;
+                
+                pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+                
+                // Add additional pages if needed
+                while (heightLeft >= 0) {
+                    position = heightLeft - imgHeight;
+                    pdf.addPage();
+                    pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+                }
+                
+                // Save the PDF
+                pdf.save('Dont_Just_Do_IT_2025_Visual_Manual.pdf');
+                
+                // Clean up
+                document.body.removeChild(visualManualContainer);
+            });
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab switching
+            const tabs = document.querySelectorAll('.manuals-tabs .tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const target = this.getAttribute('data-target');
+                    
+                    // Update tab active state
+                    tabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Update content visibility
+                    const contentWrappers = document.querySelectorAll('.manual-content-wrapper');
+                    contentWrappers.forEach(wrapper => {
+                        wrapper.classList.remove('active');
+                        if (wrapper.id === target) {
+                            wrapper.classList.add('active');
+                        }
+                    });
+                });
+            });
+            
+            // Back to list button
+            document.getElementById('back-to-list').addEventListener('click', function() {
+                document.querySelector('.tab[data-target="manuals-list"]').click();
+            });
+            
+            // Theme toggle functionality
+            const themeToggle = document.querySelector('.theme-toggle');
+            const themeToggleFooter = document.querySelector('.theme-toggle-footer');
+            
+            function toggleTheme() {
+                document.body.classList.toggle('dark-mode');
+                
+                const isDarkMode = document.body.classList.contains('dark-mode');
+                localStorage.setItem('dark-mode', isDarkMode);
+                
+                // Update icon
+                const themeIcon = themeToggle.querySelector('i');
+                const themeIconFooter = themeToggleFooter.querySelector('i');
+                
+                if (isDarkMode) {
+                    themeIcon.classList.remove('fa-moon');
+                    themeIcon.classList.add('fa-sun');
+                    themeIconFooter.classList.remove('fa-moon');
+                    themeIconFooter.classList.add('fa-sun');
+                } else {
+                    themeIcon.classList.remove('fa-sun');
+                    themeIcon.classList.add('fa-moon');
+                    themeIconFooter.classList.remove('fa-sun');
+                    themeIconFooter.classList.add('fa-moon');
+                }
+            }
+            
+            // Apply saved theme preference
+            if (localStorage.getItem('dark-mode') === 'true') {
+                toggleTheme();
+            }
+            
+            themeToggle.addEventListener('click', toggleTheme);
+            themeToggleFooter.addEventListener('click', toggleTheme);
+            
+            // Mobile navigation
+            const navToggle = document.querySelector('.nav-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            navToggle.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+                navToggle.classList.toggle('active');
+            });
+            
+            // Back to top button
+            const backToTopButton = document.querySelector('.back-to-top');
+            
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTopButton.classList.add('show');
+                } else {
+                    backToTopButton.classList.remove('show');
+                }
+            });
+            
+            backToTopButton.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Loading screen
+            const loadingScreen = document.querySelector('.loading-screen');
+            const progressBar = document.querySelector('.progress-bar');
+            
+            // Simulate loading progress
+            let progress = 0;
+            const interval = setInterval(function() {
+                progress += 5;
+                progressBar.style.width = progress + '%';
+                
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    setTimeout(function() {
+                        loadingScreen.style.opacity = '0';
+                        setTimeout(function() {
+                            loadingScreen.style.display = 'none';
+                        }, 500);
+                    }, 500);
+                }
+            }, 50);
+        });
+    </script>
+</body>
+</html>

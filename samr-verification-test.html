@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAMR Modal Verification Test</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/tools/samr-tool.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            color: #2563eb;
+            margin-bottom: 2rem;
+        }
+        
+        .test-section {
+            background: #f8fafc;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .test-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .test-button {
+            padding: 0.75rem 1rem;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .test-button:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
+        }
+        
+        .test-button.secondary {
+            background: #64748b;
+        }
+        
+        .test-button.secondary:hover {
+            background: #475569;
+        }
+        
+        .test-button.danger {
+            background: #ef4444;
+        }
+        
+        .test-button.danger:hover {
+            background: #dc2626;
+        }
+        
+        .log-section {
+            background: #1e293b;
+            color: #f8fafc;
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: 'Courier New', Courier, monospace;
+            height: 300px;
+            overflow-y: auto;
+        }
+        
+        .log-entry {
+            margin-bottom: 0.5rem;
+            line-height: 1.5;
+        }
+        
+        .log-entry.success {
+            color: #4ade80;
+        }
+        
+        .log-entry.error {
+            color: #f87171;
+        }
+        
+        .log-entry.info {
+            color: #60a5fa;
+        }
+        
+        .manual-test-section {
+            margin-top: 3rem;
+        }
+        
+        .samr-ladder {
+            margin-top: 2rem;
+        }
+        
+        /* Status indicators */
+        .status-indicators {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .status-indicator {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .status-indicator.pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
+        .status-indicator.success {
+            background: #dcfce7;
+            color: #166534;
+        }
+        
+        .status-indicator.error {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+        
+        /* Help section */
+        .help-section {
+            background: #eff6ff;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+            border: 1px solid #bfdbfe;
+        }
+        
+        .help-section h3 {
+            color: #1e40af;
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+        
+        .help-section p {
+            margin-bottom: 0.75rem;
+            line-height: 1.6;
+        }
+        
+        .help-section ul {
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+        
+        .help-section li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>SAMR Modal Verification Test</h1>
+    
+    <div class="test-section">
+        <h2>Modal System Test Controls</h2>
+        
+        <div class="status-indicators">
+            <div class="status-indicator pending" id="system-status">
+                <i class="fas fa-circle-notch fa-spin"></i>
+                <span>System Status: Checking...</span>
+            </div>
+            <div class="status-indicator pending" id="modal-status">
+                <i class="fas fa-circle-notch fa-spin"></i>
+                <span>Modal Status: Not Tested</span>
+            </div>
+        </div>
+        
+        <div class="test-buttons">
+            <button class="test-button" id="check-system">Check System Status</button>
+            <button class="test-button" id="init-system">Reinitialize System</button>
+            <button class="test-button danger" id="emergency-reset">Emergency Reset</button>
+            <button class="test-button secondary" id="clear-log">Clear Log</button>
+        </div>
+    </div>
+    
+    <div class="manual-test-section">
+        <h2>Manual SAMR Level Tests</h2>
+        <p>Click each level below to verify modal functionality:</p>
+        
+        <!-- SAMR Ladder from index.html -->
+        <div class="samr-ladder">
+            <div class="samr-ladder-container">
+                <div class="ladder-level level-redefinition">
+                    <div class="level-content">
+                        <div class="level-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="level-text">
+                            <h3 class="level-name">Redefinition</h3>
+                            <p class="level-description">Technology allows for the creation of new tasks, previously inconceivable</p>
+                            <div class="learn-more-hint">Click to learn more</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="ladder-level level-modification">
+                    <div class="level-content">
+                        <div class="level-icon">
+                            <i class="fas fa-pen-fancy"></i>
+                        </div>
+                        <div class="level-text">
+                            <h3 class="level-name">Modification</h3>
+                            <p class="level-description">Technology allows for significant task redesign</p>
+                            <div class="learn-more-hint">Click to learn more</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="ladder-level level-augmentation">
+                    <div class="level-content">
+                        <div class="level-icon">
+                            <i class="fas fa-plus-circle"></i>
+                        </div>
+                        <div class="level-text">
+                            <h3 class="level-name">Augmentation</h3>
+                            <p class="level-description">Technology acts as a direct tool substitute, with functional improvement</p>
+                            <div class="learn-more-hint">Click to learn more</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="ladder-level level-substitution">
+                    <div class="level-content">
+                        <div class="level-icon">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <div class="level-text">
+                            <h3 class="level-name">Substitution</h3>
+                            <p class="level-description">Technology acts as a direct tool substitute, with no functional change</p>
+                            <div class="learn-more-hint">Click to learn more</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Programmatic Test Buttons -->
+        <h3>Programmatic Tests</h3>
+        <div class="test-buttons">
+            <button class="test-button" onclick="testShowLevel('redefinition')">Open Redefinition</button>
+            <button class="test-button" onclick="testShowLevel('modification')">Open Modification</button>
+            <button class="test-button" onclick="testShowLevel('augmentation')">Open Augmentation</button>
+            <button class="test-button" onclick="testShowLevel('substitution')">Open Substitution</button>
+            <button class="test-button secondary" onclick="testHideLevel()">Close Modal</button>
+        </div>
+    </div>
+    
+    <div class="log-section" id="log-container">
+        <div class="log-entry info">System started. Waiting for tests...</div>
+    </div>
+    
+    <div class="help-section">
+        <h3>Test Instructions</h3>
+        <p>This page helps verify that the SAMR model overlays are working correctly. Follow these steps:</p>
+        <ol>
+            <li>First, check the system status to ensure the SAMR Modal System is available</li>
+            <li>Click each level in the SAMR ladder to test manual interaction</li>
+            <li>Use the programmatic test buttons to test opening each level via JavaScript</li>
+            <li>Verify that only one overlay appears and functions correctly</li>
+            <li>Test that the close button and escape key close the modal properly</li>
+            <li>If any issues occur, use the Emergency Reset button to force-close all modals</li>
+        </ol>
+        <p><strong>Note:</strong> The log section below will show detailed information about each test.</p>
+    </div>
+    
+    <!-- SAMR Level Detail Panels -->
+    <div id="redefinition-panel" class="level-detail-panel">
+        <div class="modal-content">
+            <button class="modal-close"><i class="fas fa-times"></i></button>
+            <h3 class="modal-title"><i class="fas fa-star"></i> Redefinition</h3>
+            <div class="modal-body">
+                <div class="detail-panel-content">
+                    <p>Redefinition is the highest level of the SAMR model, where technology enables the creation of new tasks that were previously inconceivable without technology. At this level, educators can transform learning experiences in revolutionary ways.</p>
+                    
+                    <h4><i class="fas fa-lightbulb"></i> Key Characteristics</h4>
+                    <ul>
+                        <li>Creates entirely new learning experiences impossible without technology</li>
+                        <li>Transforms pedagogy in fundamental ways</li>
+                        <li>Connects students with authentic audiences beyond the classroom</li>
+                        <li>Enables novel forms of collaboration, creation, and problem-solving</li>
+                    </ul>
+                    
+                    <h4><i class="fas fa-graduation-cap"></i> Educational Impact</h4>
+                    <p>At the Redefinition level, technology enables transformative learning experiences that foster deeper critical thinking, creative problem-solving, and authentic application of knowledge. Students develop agency as they tackle complex challenges and share their work with real audiences beyond the classroom.</p>
+                    
+                    <h4><i class="fas fa-clipboard-check"></i> Example Applications</h4>
+                    
+                    <div class="example-item">
+                        <strong>Global Collaborative Problem-Solving</strong>
+                        <p>Students connect with peers across the world to tackle real environmental challenges, collecting local data, sharing findings through collaborative platforms, and developing global solutions.</p>
+                    </div>
+                    
+                    <div class="example-item">
+                        <strong>Immersive Historical Recreations</strong>
+                        <p>Students create VR/AR experiences that allow others to "step into" historical events, combining primary source research with spatial computing to recreate environments and perspectives.</p>
+                    </div>
+                    
+                    <div class="example-item">
+                        <strong>Student-Led Knowledge Creation</strong>
+                        <p>Instead of consuming existing content, students become creators of knowledge bases, tutorials, or educational resources that benefit real users beyond their classroom.</p>
+                    </div>
+                    
+                    <h4><i class="fas fa-map-signs"></i> Implementation Guidance</h4>
+                    
+                    <div class="guidance-grid">
+                        <div class="guidance-item">
+                            <h5>Start with Purpose</h5>
+                            <p>Begin with meaningful learning outcomes, not the technology itself. The focus should be on transformative experiences that deepen understanding.</p>
+                        </div>
+                        
+                        <div class="guidance-item">
+                            <h5>Build Gradually</h5>
+                            <p>Progress through Substitution, Augmentation, and Modification before attempting Redefinition to ensure a solid foundation.</p>
+                        </div>
+                        
+                        <div class="guidance-item">
+                            <h5>Embrace Iteration</h5>
+                            <p>Accept that initial attempts may be messy. Reflect, refine, and improve through multiple cycles of implementation.</p>
+                        </div>
+                        
+                        <div class="guidance-item">
+                            <h5>Support Risk-Taking</h5>
+                            <p>Create a culture where both teachers and students feel safe taking risks and trying new approaches, even when outcomes are uncertain.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="impact-section">
+                        <h4><i class="fas fa-chart-line"></i> Transformation Potential</h4>
+                        <p>Redefinition represents a fundamental shift in how we approach education, moving beyond content delivery to empowering students as creators, collaborators, and problem-solvers engaged in authentic work that matters.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="modification-panel" class="level-detail-panel">
+        <div class="modal-content">
+            <button class="modal-close"><i class="fas fa-times"></i></button>
+            <h3 class="modal-title"><i class="fas fa-pen-fancy"></i> Modification</h3>
+            <div class="modal-body">
+                <div class="detail-panel-content">
+                    <p>Modification represents the threshold of transformation in the SAMR model. At this level, technology allows for significant task redesign that fundamentally changes how students engage with content and demonstrate understanding.</p>
+                    
+                    <h4><i class="fas fa-lightbulb"></i> Key Characteristics</h4>
+                    <ul>
+                        <li>Technology enables significant redesign of learning tasks</li>
+                        <li>Learning activities are transformed in ways not possible without technology</li>
+                        <li>Student role shifts from consumer to active creator</li>
+                        <li>Allows for more personalized and differentiated learning experiences</li>
+                    </ul>
+                    
+                    <h4><i class="fas fa-graduation-cap"></i> Educational Impact</h4>
+                    <p>At the Modification level, technology significantly changes how students interact with content and demonstrate understanding. Learning becomes more active, engaging, and personalized, leading to deeper comprehension and application of concepts.</p>
+                    
+                    <h4><i class="fas fa-clipboard-check"></i> Example Applications</h4>
+                    
+                    <div class="example-item">
+                        <strong>Multimedia Explanations</strong>
+                        <p>Instead of writing traditional essays, students create multimedia presentations combining text, images, audio, and video to explain complex concepts, demonstrating deeper understanding through multiple modalities.</p>
+                    </div>
+                    
+                    <div class="example-item">
+                        <strong>Collaborative Analysis</strong>
+                        <p>Students collaboratively analyze and annotate texts or data in real-time using digital platforms, developing shared understandings through synchronized contributions and discussions.</p>
+                    </div>
+                    
+                    <div class="example-item">
+                        <strong>Interactive Simulations</strong>
+                        <p>Students manipulate variables in digital simulations to explore scientific concepts, testing hypotheses and visualizing outcomes that would be difficult or impossible to observe in a traditional lab setting.</p>
+                    </div>
+                    
+                    <h4><i class="fas fa-map-signs"></i> Implementation Guidance</h4>
+                    
+                    <div class="guidance-grid">
+                        <div class="guidance-item">
+                            <h5>Redesign, Don't Replace</h5>
+                            <p>Focus on how technology can fundamentally change the learning experience, not just digitize existing activities.</p>
+                        </div>
+                        
+                        <div class="guidance-item">
+                            <h5>Emphasize Creation</h5>
+                            <p>Shift student roles from consumers of information to creators of content and meaning.</p>
+                        </div>
+                        
+                        <div class="guidance-item">
+                            <h5>Leverage Collaboration</h5>
+                            <p>Use technology to enable new forms of collaboration that weren't possible in traditional formats.</p>
+                        </div>
+                        
+                        <div class="guidance-item">
+                            <h5>Seek Feedback</h5>
+                            <p>Gather student input on how technology is changing their learning experience and iterate based on their insights.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="impact-section">
+                        <h4><i class="fas fa-chart-line"></i> Transformation Potential</h4>
+                        <p>Modification marks the transition from enhancement to transformation. As educators move from Augmentation to Modification, they begin to realize technology's potential to fundamentally reshape the learning experience.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="augmentation-panel" class="level-detail-panel">
+        <div class="modal-content">
+            <button class="modal-close"><i class="fas fa-times"></i></button>
+            <h3 class="modal-title"><i class="fas fa-plus-circle"></i> Augmentation</h3>
+            <div class="modal-body">
+                <div class="detail-panel-content">
+                    <p>Augmentation is the second level of the SAMR model, where technology acts as a direct tool substitute but with functional improvements that enhance the learning experience in meaningful ways.</p>
+                    
+                    <h4><i class="fas fa-lightbulb"></i> Key Characteristics</h4>
+                    <ul>
+                        <li>Technology replaces traditional tools with functional improvements</li>
+                        <li>Enhances existing teaching and learning practices</li>
+                        <li>Adds efficiency, productivity, or engagement</li>
+                        <li>Provides immediate feedback or access to additional resources</li>
+                    </ul>
+                    
+                    <h4><i class="fas fa-graduation-cap"></i> Educational Impact</h4>
+                    <p>At the Augmentation level, technology enhances learning by providing functional improvements that boost efficiency, engagement, or effectiveness. Students benefit from features like immediate feedback, collaboration tools, or enhanced research capabilities.</p>
+                    
+                    <h4><i class="fas fa-clipboard-check"></i> Example Applications</h4>
+                    
+                    <div class="example-item">
+                        <strong>Collaborative Documents</strong>
+                        <p>Students use shared documents for collaborative writing, enabling real-time feedback, version history, and simultaneous editing—enhancements not possible with traditional paper assignments.</p>
+                    </div>
+                    
+                    <div class="example-item">
+                        <strong>Interactive Assessments</strong>
+                        <p>Digital quizzes provide immediate feedback, adaptive progression, and automated scoring, helping students identify misconceptions immediately rather than waiting for teacher grading.</p>
+                    </div>
+                    
+                    <div class="example-item">
+                        <strong>Enhanced Presentations</strong>
+                        <p>Students create presentations with embedded multimedia, interactive elements, and real-time audience participation features that enhance engagement beyond traditional slides.</p>
+                    </div>
+                    
+                    <h4><i class="fas fa-map-signs"></i> Implementation Guidance</h4>
+                    
+                    <div class="guidance-grid">
+                        <div class="guidance-item">
+                            <h5>Focus on Functional Gains</h5>
+                            <p>Identify specific improvements that technology offers over traditional approaches, not just digital versions of the same tasks.</p>
+                        </div>
+                        
+                        <div class="guidance-item">
+                            <h5>Build on Substitution</h5>
+                            <p>Start with familiar substitution activities and progressively add functional improvements as comfort increases.</p>
+                        </div>
+                        
+                        <div class="guidance-item">
+                            <h5>Highlight Efficiencies</h5>
+                            <p>Help students recognize how technological enhancements save time or improve outcomes compared to traditional methods.</p>
+                        </div>
+                        
+                        <div class="guidance-item">
+                            <h5>Collect Evidence</h5>
+                            <p>Document specific ways that augmentation improves learning outcomes to build support for continued technology integration.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="impact-section">
+                        <h4><i class="fas fa-chart-line"></i> Transformation Potential</h4>
+                        <p>While Augmentation remains within the enhancement category of SAMR, it represents an important step toward transformation. Successful Augmentation builds confidence and capacity for the more transformative levels of Modification and Redefinition.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="substitution-panel" class="level-detail-panel">
+        <div class="modal-content">
+            <button class="modal-close"><i class="fas fa-times"></i></button>
+            <h3 class="modal-title"><i class="fas fa-exchange-alt"></i> Substitution</h3>
+            <div class="modal-body">
+                <div class="detail-panel-content">
+                    <p>Substitution is the foundation level of the SAMR model, where technology acts as a direct substitute for traditional tools without functional change. While representing the most basic form of technology integration, it provides an important entry point for educators and students.</p>
+                    
+                    <h4><i class="fas fa-lightbulb"></i> Key Characteristics</h4>
+                    <ul>
+                        <li>Technology directly replaces traditional tools</li>
+                        <li>No functional change in teaching or learning</li>
+                        <li>Same tasks and assessments in digital format</li>
+                        <li>Provides a comfortable entry point for technology integration</li>
+                    </ul>
+                    
+                    <h4><i class="fas fa-graduation-cap"></i> Educational Impact</h4>
+                    <p>At the Substitution level, the learning experience remains largely unchanged, but students begin developing digital literacy through regular technology use. The primary benefits include environmental sustainability (reduced paper), improved organization, and streamlined logistics.</p>
+                    
+                    <h4><i class="fas fa-clipboard-check"></i> Example Applications</h4>
+                    
+                    <div class="example-item">
+                        <strong>Digital Reading</strong>
+                        <p>Students read digital textbooks or PDFs instead of physical books, completing the same reading activities in electronic format.</p>
+                    </div>
+                    
+                    <div class="example-item">
+                        <strong>Word Processing</strong>
+                        <p>Students type essays or reports instead of writing them by hand, without utilizing advanced features beyond basic text entry.</p>
+                    </div>
+                    
+                    <div class="example-item">
+                        <strong>Digital Worksheets</strong>
+                        <p>Students complete worksheets or assessments in digital form rather than on paper, with the same questions and response formats.</p>
+                    </div>
+                    
+                    <h4><i class="fas fa-map-signs"></i> Implementation Guidance</h4>
+                    
+                    <div class="guidance-grid">
+                        <div class="guidance-item">
+                            <h5>Start Simple</h5>
+                            <p>Begin with familiar activities that directly translate to digital formats, building confidence before attempting more complex integration.</p>
+                        </div>
+                        
+                        <div class="guidance-item">
+                            <h5>Focus on Comfort</h5>
+                            <p>Prioritize building teacher and student comfort with basic technology use before advancing to higher SAMR levels.</p>
+                        </div>
+                        
+                        <div class="guidance-item">
+                            <h5>Acknowledge Limitations</h5>
+                            <p>Recognize that Substitution alone rarely transforms learning but serves as a necessary foundation for more innovative practices.</p>
+                        </div>
+                        
+                        <div class="guidance-item">
+                            <h5>Plan for Progression</h5>
+                            <p>View Substitution as a starting point, not a destination, with clear pathways to move toward Augmentation and beyond.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="impact-section">
+                        <h4><i class="fas fa-chart-line"></i> Transformation Potential</h4>
+                        <p>While Substitution represents the least transformative SAMR level, it plays a crucial role in technology adoption. By starting with Substitution, educators build essential digital literacy and confidence that enable progression to higher levels where true transformation occurs.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/tools/samr-tool.js"></script>
+    
+    <script>
+        // Test logging function
+        function log(message, type = 'info') {
+            const logContainer = document.getElementById('log-container');
+            const logEntry = document.createElement('div');
+            logEntry.className = `log-entry ${type}`;
+            logEntry.textContent = message;
+            logContainer.appendChild(logEntry);
+            logContainer.scrollTop = logContainer.scrollHeight;
+        }
+        
+        // System status check
+        function checkSystemStatus() {
+            const statusIndicator = document.getElementById('system-status');
+            
+            try {
+                if (window.SamrModalSystem && typeof window.SamrModalSystem.init === 'function') {
+                    statusIndicator.className = 'status-indicator success';
+                    statusIndicator.innerHTML = '<i class="fas fa-check-circle"></i><span>System Status: Available</span>';
+                    log('SAMR Modal System is available and ready', 'success');
+                    return true;
+                } else {
+                    statusIndicator.className = 'status-indicator error';
+                    statusIndicator.innerHTML = '<i class="fas fa-exclamation-circle"></i><span>System Status: Unavailable</span>';
+                    log('ERROR: SAMR Modal System is not available', 'error');
+                    return false;
+                }
+            } catch (error) {
+                statusIndicator.className = 'status-indicator error';
+                statusIndicator.innerHTML = '<i class="fas fa-exclamation-circle"></i><span>System Status: Error</span>';
+                log(`ERROR: ${error.message}`, 'error');
+                return false;
+            }
+        }
+        
+        // Initialize system
+        function initSystem() {
+            log('Attempting to initialize SAMR Modal System...');
+            
+            try {
+                if (window.reinitializeSamrSystem) {
+                    window.reinitializeSamrSystem();
+                    log('SAMR Modal System reinitialized', 'success');
+                    checkSystemStatus();
+                } else if (window.SamrModalSystem && window.SamrModalSystem.init) {
+                    window.SamrModalSystem.init();
+                    log('SAMR Modal System initialized directly', 'success');
+                    checkSystemStatus();
+                } else {
+                    log('ERROR: Could not find initialization functions', 'error');
+                }
+            } catch (error) {
+                log(`ERROR: ${error.message}`, 'error');
+            }
+        }
+        
+        // Emergency reset
+        function emergencyReset() {
+            log('Performing emergency reset...');
+            
+            try {
+                // Force close all modals
+                document.querySelectorAll('.level-detail-panel').forEach(modal => {
+                    modal.style.cssText = 'display: none !important; visibility: hidden !important; opacity: 0 !important;';
+                });
+                
+                // Reset body styles
+                document.body.style.overflow = '';
+                document.body.style.position = '';
+                document.body.style.top = '';
+                document.body.style.width = '';
+                document.body.style.paddingRight = '';
+                
+                // Reset modal status
+                const modalStatus = document.getElementById('modal-status');
+                modalStatus.className = 'status-indicator pending';
+                modalStatus.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i><span>Modal Status: Reset</span>';
+                
+                log('Emergency reset completed. All modals should be closed.', 'success');
+                
+                // Try to reinitialize after reset
+                setTimeout(initSystem, 500);
+            } catch (error) {
+                log(`ERROR during reset: ${error.message}`, 'error');
+            }
+        }
+        
+        // Test opening a level
+        function testShowLevel(level) {
+            log(`Testing opening level: ${level}...`);
+            
+            try {
+                const modalStatus = document.getElementById('modal-status');
+                modalStatus.className = 'status-indicator pending';
+                modalStatus.innerHTML = `<i class="fas fa-circle-notch fa-spin"></i><span>Modal Status: Opening ${level}...</span>`;
+                
+                if (window.SamrModalSystem && window.SamrModalSystem.open) {
+                    window.SamrModalSystem.open(level);
+                    log(`Opened ${level} level using SamrModalSystem.open()`, 'success');
+                    
+                    // Update status after a short delay to allow modal to open
+                    setTimeout(() => {
+                        if (window.SamrModalSystem.isOpen()) {
+                            modalStatus.className = 'status-indicator success';
+                            modalStatus.innerHTML = `<i class="fas fa-check-circle"></i><span>Modal Status: ${level} open</span>`;
+                        } else {
+                            modalStatus.className = 'status-indicator error';
+                            modalStatus.innerHTML = `<i class="fas fa-exclamation-circle"></i><span>Modal Status: Failed to open</span>`;
+                            log('ERROR: Modal did not open properly', 'error');
+                        }
+                    }, 300);
+                } else if (window.showLevelDetail) {
+                    window.showLevelDetail(level);
+                    log(`Opened ${level} level using showLevelDetail()`, 'success');
+                    
+                    // Update status
+                    setTimeout(() => {
+                        const isOpen = document.getElementById(`${level}-panel`).style.display !== 'none';
+                        if (isOpen) {
+                            modalStatus.className = 'status-indicator success';
+                            modalStatus.innerHTML = `<i class="fas fa-check-circle"></i><span>Modal Status: ${level} open</span>`;
+                        } else {
+                            modalStatus.className = 'status-indicator error';
+                            modalStatus.innerHTML = `<i class="fas fa-exclamation-circle"></i><span>Modal Status: Failed to open</span>`;
+                            log('ERROR: Modal did not open properly', 'error');
+                        }
+                    }, 300);
+                } else {
+                    log('ERROR: No method available to open level', 'error');
+                    modalStatus.className = 'status-indicator error';
+                    modalStatus.innerHTML = `<i class="fas fa-exclamation-circle"></i><span>Modal Status: No open method</span>`;
+                }
+            } catch (error) {
+                log(`ERROR opening level: ${error.message}`, 'error');
+                
+                const modalStatus = document.getElementById('modal-status');
+                modalStatus.className = 'status-indicator error';
+                modalStatus.innerHTML = `<i class="fas fa-exclamation-circle"></i><span>Modal Status: Error</span>`;
+            }
+        }
+        
+        // Test closing a level
+        function testHideLevel() {
+            log('Testing closing modal...');
+            
+            try {
+                const modalStatus = document.getElementById('modal-status');
+                modalStatus.className = 'status-indicator pending';
+                modalStatus.innerHTML = `<i class="fas fa-circle-notch fa-spin"></i><span>Modal Status: Closing...</span>`;
+                
+                if (window.SamrModalSystem && window.SamrModalSystem.close) {
+                    window.SamrModalSystem.close();
+                    log('Closed modal using SamrModalSystem.close()', 'success');
+                } else if (window.hideLevelDetail) {
+                    window.hideLevelDetail();
+                    log('Closed modal using hideLevelDetail()', 'success');
+                } else {
+                    // Fallback method
+                    document.querySelectorAll('.level-detail-panel').forEach(modal => {
+                        modal.style.display = 'none';
+                    });
+                    log('Closed modal using fallback method', 'info');
+                }
+                
+                // Update status after a short delay
+                setTimeout(() => {
+                    const anyOpen = Array.from(document.querySelectorAll('.level-detail-panel')).some(
+                        modal => modal.style.display !== 'none' && modal.style.display !== ''
+                    );
+                    
+                    if (!anyOpen) {
+                        modalStatus.className = 'status-indicator success';
+                        modalStatus.innerHTML = `<i class="fas fa-check-circle"></i><span>Modal Status: Closed</span>`;
+                    } else {
+                        modalStatus.className = 'status-indicator error';
+                        modalStatus.innerHTML = `<i class="fas fa-exclamation-circle"></i><span>Modal Status: Failed to close</span>`;
+                        log('ERROR: Modal did not close properly', 'error');
+                    }
+                }, 300);
+            } catch (error) {
+                log(`ERROR closing level: ${error.message}`, 'error');
+                
+                const modalStatus = document.getElementById('modal-status');
+                modalStatus.className = 'status-indicator error';
+                modalStatus.innerHTML = `<i class="fas fa-exclamation-circle"></i><span>Modal Status: Error</span>`;
+            }
+        }
+        
+        // Clear log
+        function clearLog() {
+            const logContainer = document.getElementById('log-container');
+            logContainer.innerHTML = '<div class="log-entry info">Log cleared</div>';
+        }
+        
+        // Setup event listeners
+        document.getElementById('check-system').addEventListener('click', checkSystemStatus);
+        document.getElementById('init-system').addEventListener('click', initSystem);
+        document.getElementById('emergency-reset').addEventListener('click', emergencyReset);
+        document.getElementById('clear-log').addEventListener('click', clearLog);
+        
+        // Initial check on page load
+        window.addEventListener('load', function() {
+            log('Page loaded, waiting for SAMR Modal System to initialize...');
+            
+            // Give the system a moment to initialize
+            setTimeout(checkSystemStatus, 1000);
+        });
+    </script>
+</body>
+</html>

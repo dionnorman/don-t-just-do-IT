@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CBAM Assessment Fix Test</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+            background: #f8fafc;
+        }
+        .test-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .test-section {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #374151;
+        }
+        select, textarea, input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+        select:focus, textarea:focus, input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .concern-item {
+            background: #f9fafb;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #667eea;
+        }
+        .concern-statement {
+            font-weight: 500;
+            margin-bottom: 10px;
+            color: #374151;
+        }
+        .concern-rating {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .concern-slider {
+            flex: 1;
+        }
+        .slider-value {
+            background: #667eea;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-weight: bold;
+            min-width: 30px;
+            text-align: center;
+        }
+        .tool-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+            width: 100%;
+            margin-top: 20px;
+        }
+        .tool-button:hover {
+            transform: translateY(-2px);
+        }
+        .tool-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .assessment-result {
+            margin-top: 30px;
+            padding: 25px;
+            background: #f0f9ff;
+            border: 2px solid #0ea5e9;
+            border-radius: 12px;
+        }
+        .assessment-result.hidden {
+            display: none;
+        }
+        .loader {
+            text-align: center;
+            padding: 20px;
+        }
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #e5e7eb;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .test-status {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        .test-status.success {
+            background: #dcfce7;
+            color: #166534;
+            border: 2px solid #22c55e;
+        }
+        .test-status.error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 2px solid #ef4444;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-header">
+        <h1>🧪 CBAM Assessment Fix Test</h1>
+        <p>Testing the fixed form field matching and report generation</p>
+    </div>
+
+    <div class="test-status success">
+        ✅ Testing Environment Ready - Form fields updated to match JavaScript selectors
+    </div>
+
+    <div class="test-section" id="cbam-tool">
+        <h2>🔄 CBAM Assessment Form</h2>
+        
+        <form class="assessment-form" id="cbam-assessment-form">
+            <!-- Technology Selection -->
+            <div class="form-group">
+                <label>Select a Technology/Innovation for Assessment:</label>
+                <select name="innovation-focus" class="innovation-select" id="innovation-focus-select" required>
+                    <option value="">Select the technology you're evaluating...</option>
+                    <option value="AI-Powered Teaching Tools">AI-Powered Teaching Tools (ChatGPT, Claude, etc.)</option>
+                    <option value="AI Tutoring Systems">AI Tutoring Systems (Khanmigo, Magic School AI)</option>
+                    <option value="XR/VR Learning">XR/VR Learning Environments</option>
+                    <option value="Learning Management Systems">Learning Management Systems</option>
+                    <option value="1:1 Device Programs">1:1 Device Programs</option>
+                    <option value="Digital Assessment Tools">Digital Assessment Tools</option>
+                    <option value="Collaborative Learning Platforms">Collaborative Learning Platforms</option>
+                    <option value="Data Analytics Systems">Educational Data Analytics Systems</option>
+                    <option value="Other">Other (specify below)</option>
+                </select>
+                
+                <!-- Custom Innovation Input (shown when "Other" is selected) -->
+                <div class="form-group other-innovation-group" id="other-innovation-group" style="display: none;">
+                    <label for="other-innovation">Please specify the technology/innovation:</label>
+                    <input type="text" id="other-innovation" name="other-innovation" placeholder="Enter the name of the technology or innovation you're assessing..." />
+                </div>
+            </div>
+            
+            <!-- Level of Use Assessment -->
+            <div class="form-group">
+                <label>Current Level of Use:</label>
+                <select name="lou-level" required>
+                    <option value="">Select your current level of use...</option>
+                    <option value="0">0 - Non-Use: No action being taken</option>
+                    <option value="1">1 - Orientation: Seeking information</option>
+                    <option value="2">2 - Preparation: Preparing for first use</option>
+                    <option value="3">3 - Mechanical Use: Step-by-step use</option>
+                    <option value="4A">4A - Routine: Stable, comfortable use</option>
+                    <option value="4B">4B - Refinement: Varying use for impact</option>
+                    <option value="5">5 - Integration: Coordinating with others</option>
+                    <option value="6">6 - Renewal: Seeking modifications</option>
+                </select>
+            </div>
+
+            <!-- Sample Concern Items -->
+            <div class="form-group">
+                <label>Sample Concerns (Rate 0-7):</label>
+                
+                <div class="concern-item" data-stage="0">
+                    <div class="concern-statement">I am more concerned about another innovation/initiative.</div>
+                    <div class="concern-rating">
+                        <input type="range" min="0" max="7" value="0" class="concern-slider" name="concern-item-1">
+                        <div class="slider-value">0</div>
+                    </div>
+                </div>
+                
+                <div class="concern-item" data-stage="1">
+                    <div class="concern-statement">I would like to know more about this innovation.</div>
+                    <div class="concern-rating">
+                        <input type="range" min="0" max="7" value="0" class="concern-slider" name="concern-item-2">
+                        <div class="slider-value">0</div>
+                    </div>
+                </div>
+                
+                <div class="concern-item" data-stage="2">
+                    <div class="concern-statement">I am concerned about how this innovation affects me personally.</div>
+                    <div class="concern-rating">
+                        <input type="range" min="0" max="7" value="0" class="concern-slider" name="concern-item-3">
+                        <div class="slider-value">0</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Additional Context -->
+            <div class="form-group">
+                <label for="additional-context">Additional Context (Optional):</label>
+                <textarea id="additional-context" name="additional-context" placeholder="Share any specific challenges, successes, or unique circumstances that might help us provide more tailored recommendations..." rows="4"></textarea>
+            </div>
+            
+            <button type="button" class="tool-button" id="comprehensive-cbam-btn">
+                Generate Comprehensive CBAM Report
+            </button>
+        </form>
+    </div>
+
+    <div class="assessment-result hidden" id="comprehensive-cbam-result">
+        <div class="loader">
+            <div class="spinner"></div>
+        </div>
+        <div class="result-content"></div>
+    </div>
+
+    <script>
+        // Notification system
+        window.showNotification = function(message, type) {
+            const notification = document.createElement('div');
+            notification.className = `test-status ${type}`;
+            notification.textContent = message;
+            document.body.insertBefore(notification, document.body.firstChild);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 5000);
+        };
+
+        // Initialize slider functionality
+        function initializeCbamSliders() {
+            document.addEventListener('input', function(e) {
+                if (e.target.classList.contains('concern-slider')) {
+                    const slider = e.target;
+                    const valueDisplay = slider.closest('.concern-rating').querySelector('.slider-value');
+                    if (valueDisplay) {
+                        valueDisplay.textContent = slider.value;
+                    }
+                }
+            });
+        }
+
+        // Show/hide custom innovation input
+        document.getElementById('innovation-focus-select').addEventListener('change', function() {
+            const otherGroup = document.getElementById('other-innovation-group');
+            if (this.value === 'Other') {
+                otherGroup.style.display = 'block';
+            } else {
+                otherGroup.style.display = 'none';
+            }
+        });
+
+        // Test the textbox functionality
+        document.getElementById('additional-context').addEventListener('input', function() {
+            console.log('✅ Additional context textbox is working correctly');
+            if (this.value.length > 0) {
+                window.showNotification('✅ Textbox functionality confirmed - character input detected', 'success');
+            }
+        });
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCbamSliders();
+            
+            window.showNotification('✅ Test page loaded successfully', 'success');
+        });
+    </script>
+
+    <!-- Include the main JavaScript for the report generation -->
+    <script src="js/main.js"></script>
+</body>
+</html>

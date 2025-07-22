@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Strategic Imperatives Overlays</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        .test-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .test-btn {
+            padding: 10px 20px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .test-btn:hover {
+            background: #1d4ed8;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Testing Strategic Imperatives Overlays</h1>
+    
+    <div class="test-buttons">
+        <button class="test-btn" onclick="testOverlay('ai-evolution-details')">Test AI Evolution</button>
+        <button class="test-btn" onclick="testOverlay('immersive-devices-details')">Test Immersive Devices</button>
+        <button class="test-btn" onclick="testOverlay('creative-democratization-details')">Test Creative Democratization</button>
+        <button class="test-btn" onclick="testOverlay('physical-digital-details')">Test Physical-Digital</button>
+        <button class="test-btn" onclick="testOverlay('quantum-era-details')">Test Quantum Era</button>
+        <button class="test-btn" onclick="testOverlay('digital-ownership-details')">Test Digital Ownership</button>
+        <button class="test-btn" onclick="testOverlay('societal-transformation-details')">Test Societal Transformation</button>
+        <button class="test-btn" onclick="testOverlay('skills-revolution-details')">Test Skills Revolution</button>
+    </div>
+    
+    <div id="result">
+        <p>Click on each button above to test the overlays. Results will appear here.</p>
+    </div>
+
+    <script>
+        function testOverlay(overlayId) {
+            // Open the main page in a new window/tab and trigger the overlay
+            const newWindow = window.open('index.html', '_blank');
+            
+            newWindow.onload = function() {
+                // Wait a bit for the page to fully load
+                setTimeout(() => {
+                    // Try to find and click the corresponding button
+                    const button = newWindow.document.querySelector(`[data-target="${overlayId}"]`);
+                    if (button) {
+                        button.click();
+                        document.getElementById('result').innerHTML = `
+                            <p><strong>Testing:</strong> ${overlayId}</p>
+                            <p>Overlay opened in new window. Check if it displays correctly within screen bounds.</p>
+                            <p>Look for: positioning, content visibility, close button accessibility, design consistency.</p>
+                        `;
+                    } else {
+                        document.getElementById('result').innerHTML = `
+                            <p><strong>Error:</strong> Could not find button for ${overlayId}</p>
+                        `;
+                    }
+                }, 1000);
+            };
+        }
+    </script>
+</body>
+</html>

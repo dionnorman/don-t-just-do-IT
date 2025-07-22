@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Textbox Test</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .test-container {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+            resize: vertical;
+        }
+        .log {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+            white-space: pre-wrap;
+            font-family: monospace;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Textbox Functionality Test</h1>
+    
+    <div class="test-container" id="cbam-tool">
+        <h2>Test Area</h2>
+        
+        <div class="form-group">
+            <label for="additional-context">Additional Context:</label>
+            <textarea id="additional-context" name="additional-context" placeholder="Type something here..." rows="4"></textarea>
+        </div>
+        
+        <button id="check-btn">Check Textbox Value</button>
+        <button id="clear-btn">Clear Textbox</button>
+        <button id="log-events-btn">Log Event Listeners</button>
+    </div>
+    
+    <div class="log" id="log"></div>
+    
+    <script>
+        // Logging function
+        function log(message) {
+            const logArea = document.getElementById('log');
+            const timestamp = new Date().toLocaleTimeString();
+            logArea.textContent += `[${timestamp}] ${message}\n`;
+        }
+        
+        // Check if there are any event listeners that might interfere
+        function checkEventListeners() {
+            const textarea = document.getElementById('additional-context');
+            log('Checking for potential event handler interference...');
+            
+            // List of common events to check
+            const events = [
+                'input', 'keydown', 'keyup', 'keypress', 
+                'focus', 'blur', 'click', 'mousedown', 
+                'mouseup', 'change'
+            ];
+            
+            // Display if the element has any properties that might suggest event handlers
+            const eventProperties = Object.getOwnPropertyNames(textarea).filter(
+                prop => prop.startsWith('on') || prop.includes('listener') || prop.includes('event')
+            );
+            
+            if (eventProperties.length > 0) {
+                log(`Found potential event properties: ${eventProperties.join(', ')}`);
+            } else {
+                log('No suspicious event properties found on element');
+            }
+            
+            // Test if the textbox is editable
+            textarea.value = 'Test input';
+            if (textarea.value === 'Test input') {
+                log('✅ Textbox accepts programmatic value changes');
+            } else {
+                log('❌ Textbox rejects programmatic value changes');
+            }
+            
+            // Check if input event fires
+            textarea.addEventListener('input', function testInputHandler() {
+                log('✅ Input event fired successfully');
+                textarea.removeEventListener('input', testInputHandler);
+            });
+            
+            // Simulate user typing
+            log('Simulating user typing...');
+            textarea.focus();
+            
+            // Dispatch input event
+            const inputEvent = new Event('input', {
+                bubbles: true,
+                cancelable: true
+            });
+            textarea.dispatchEvent(inputEvent);
+            
+            // Check if the textbox is disabled or readonly
+            if (textarea.disabled) {
+                log('❌ Textbox is disabled');
+            } else {
+                log('✅ Textbox is not disabled');
+            }
+            
+            if (textarea.readOnly) {
+                log('❌ Textbox is readonly');
+            } else {
+                log('✅ Textbox is not readonly');
+            }
+        }
+        
+        // Set up button handlers
+        document.getElementById('check-btn').addEventListener('click', function() {
+            const textarea = document.getElementById('additional-context');
+            log(`Current textbox value: "${textarea.value}"`);
+        });
+        
+        document.getElementById('clear-btn').addEventListener('click', function() {
+            const textarea = document.getElementById('additional-context');
+            textarea.value = '';
+            log('Textbox cleared');
+        });
+        
+        document.getElementById('log-events-btn').addEventListener('click', function() {
+            checkEventListeners();
+        });
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            log('Test page loaded');
+            
+            const textarea = document.getElementById('additional-context');
+            
+            // Monitor for value changes
+            textarea.addEventListener('input', function() {
+                log(`Value changed to: "${this.value}"`);
+            });
+            
+            // Check for initial state
+            checkEventListeners();
+        });
+    </script>
+</body>
+</html>

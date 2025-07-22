@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey Textbox Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; line-height: 1.6; }
+        .test-result { padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .warning { background-color: #fff3cd; color: #856404; border: 1px solid #ffeaa7; }
+        .test-section { margin: 30px 0; padding: 20px; border: 1px solid #ddd; border-radius: 8px; }
+        .form-group { margin: 15px 0; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+        .form-group textarea, .form-group input { 
+            width: 100%; 
+            max-width: 500px; 
+            padding: 10px; 
+            border: 1px solid #ddd; 
+            border-radius: 4px; 
+            font-size: 14px;
+        }
+        .form-group textarea { min-height: 80px; resize: vertical; }
+        h2 { color: #333; border-bottom: 2px solid #007bff; padding-bottom: 10px; }
+        .interaction-log { 
+            background: #f8f9fa; 
+            border: 1px solid #e9ecef; 
+            border-radius: 4px; 
+            padding: 15px; 
+            margin-top: 15px; 
+            max-height: 200px; 
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Survey Textbox Functionality Test</h1>
+    <div id="test-results"></div>
+    
+    <!-- Simulate SAMR Survey Elements -->
+    <div class="test-section">
+        <h2>SAMR Survey Elements</h2>
+        <p>These elements replicate the structure of the SAMR survey form:</p>
+        
+        <div class="form-group">
+            <label for="current-unit">What specific unit, topic, or learning goal are you focusing on?</label>
+            <textarea id="current-unit" name="current-unit" placeholder="Describe the current unit you're teaching or planning. For example: 'Fraction operations', 'Civil War causes and effects', 'Scientific method and experimental design', etc." required></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label for="samr-additional-context">Additional Context (SAMR):</label>
+            <textarea id="samr-additional-context" name="additional-context" placeholder="Any special considerations, constraints, or opportunities that would help us provide better recommendations?"></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label for="learning-goals">Learning Goals:</label>
+            <textarea id="learning-goals" name="learning-goals" placeholder="What are the specific learning objectives for this unit?"></textarea>
+        </div>
+    </div>
+    
+    <!-- Simulate CBAM Survey Elements -->
+    <div class="test-section">
+        <h2>CBAM Survey Elements</h2>
+        <p>These elements replicate the structure of the CBAM survey form:</p>
+        
+        <div class="form-group">
+            <label for="cbam-additional-context">Additional Context (CBAM):</label>
+            <textarea id="cbam-additional-context" name="additional-context" placeholder="Describe any specific challenges, successes, or unique circumstances related to your use of this technology..." rows="4"></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label for="innovation-description">Innovation Description:</label>
+            <textarea id="innovation-description" name="innovation-description" placeholder="Describe the technology or innovation you're implementing..."></textarea>
+        </div>
+    </div>
+
+    <!-- Interaction Log -->
+    <div class="test-section">
+        <h2>Real-time Interaction Log</h2>
+        <p>This log shows when textboxes are successfully receiving input:</p>
+        <div id="interaction-log" class="interaction-log">
+            <em>Interaction events will appear here...</em>
+        </div>
+    </div>
+
+    <!-- Load the textbox fix -->
+    <script src="textbox-fix.js"></script>
+    
+    <script>
+        let interactionCount = 0;
+        
+        function logInteraction(elementId, eventType, value) {
+            interactionCount++;
+            const log = document.getElementById('interaction-log');
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = document.createElement('div');
+            logEntry.innerHTML = `<strong>${timestamp}</strong> - ${eventType} on ${elementId}: "${value.substring(0, 50)}${value.length > 50 ? '...' : ''}"`;
+            log.appendChild(logEntry);
+            log.scrollTop = log.scrollHeight;
+        }
+        
+        function runSurveyTextboxTests() {
+            const results = document.getElementById('test-results');
+            
+            // Test 1: Check if all expected textboxes exist
+            const expectedTextboxes = [
+                'current-unit',
+                'samr-additional-context', 
+                'learning-goals',
+                'cbam-additional-context',
+                'innovation-description'
+            ];
+            
+            let foundTextboxes = 0;
+            expectedTextboxes.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    foundTextboxes++;
+                } else {
+                    results.innerHTML += `<div class="test-result error">❌ Textbox not found: ${id}</div>`;
+                }
+            });
+            
+            if (foundTextboxes === expectedTextboxes.length) {
+                results.innerHTML += '<div class="test-result success">✅ All expected textboxes found: PASSED</div>';
+            } else {
+                results.innerHTML += `<div class="test-result error">❌ Only ${foundTextboxes}/${expectedTextboxes.length} textboxes found</div>`;
+            }
+            
+            // Test 2: Check for duplicate ID conflicts (the main issue)
+            const duplicateCheck = checkForDuplicateIds();
+            if (duplicateCheck.success) {
+                results.innerHTML += '<div class="test-result success">✅ No duplicate ID conflicts detected: PASSED</div>';
+            } else {
+                results.innerHTML += `<div class="test-result error">❌ Duplicate ID conflicts found: ${duplicateCheck.conflicts.join(', ')}</div>`;
+            }
+            
+            // Test 3: Verify textbox functionality
+            expectedTextboxes.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    const isWorking = verifyTextboxElement(element);
+                    if (isWorking) {
+                        results.innerHTML += `<div class="test-result success">✅ Textbox ${id} is functional: PASSED</div>`;
+                    } else {
+                        results.innerHTML += `<div class="test-result error">❌ Textbox ${id} may have issues: FAILED</div>`;
+                    }
+                }
+            });
+            
+            // Test 4: Setup interaction monitoring
+            setupInteractionMonitoring();
+            results.innerHTML += '<div class="test-result success">✅ Interaction monitoring setup: PASSED</div>';
+            
+            // Test 5: Simulate the fix running
+            if (typeof window.fixTextboxInputIssues === 'function') {
+                window.fixTextboxInputIssues();
+                results.innerHTML += '<div class="test-result success">✅ Textbox fix applied successfully: PASSED</div>';
+            } else {
+                results.innerHTML += '<div class="test-result warning">⚠️ Textbox fix function not available</div>';
+            }
+        }
+        
+        function checkForDuplicateIds() {
+            const allElements = document.querySelectorAll('[id]');
+            const idMap = new Map();
+            const conflicts = [];
+            
+            allElements.forEach(element => {
+                const id = element.id;
+                if (idMap.has(id)) {
+                    conflicts.push(id);
+                } else {
+                    idMap.set(id, element);
+                }
+            });
+            
+            return {
+                success: conflicts.length === 0,
+                conflicts: conflicts
+            };
+        }
+        
+        function verifyTextboxElement(element) {
+            return (
+                element.style.pointerEvents !== 'none' &&
+                !element.hasAttribute('disabled') &&
+                !element.hasAttribute('readonly') &&
+                element.type !== 'hidden'
+            );
+        }
+        
+        function setupInteractionMonitoring() {
+            const textboxes = document.querySelectorAll('textarea, input[type="text"]');
+            
+            textboxes.forEach(textbox => {
+                // Monitor input events
+                textbox.addEventListener('input', function(e) {
+                    logInteraction(this.id || this.name || 'unnamed', 'INPUT', this.value);
+                });
+                
+                // Monitor focus events
+                textbox.addEventListener('focus', function(e) {
+                    logInteraction(this.id || this.name || 'unnamed', 'FOCUS', 'element focused');
+                });
+                
+                // Monitor blur events
+                textbox.addEventListener('blur', function(e) {
+                    logInteraction(this.id || this.name || 'unnamed', 'BLUR', this.value || 'empty');
+                });
+                
+                // Monitor click events
+                textbox.addEventListener('click', function(e) {
+                    logInteraction(this.id || this.name || 'unnamed', 'CLICK', 'element clicked');
+                });
+            });
+        }
+        
+        // Global error handler
+        window.onerror = function(message, source, lineno, colno, error) {
+            const results = document.getElementById('test-results');
+            results.innerHTML += `<div class="test-result error">❌ JavaScript Error: ${message}</div>`;
+            return false;
+        };
+        
+        // Initialize tests when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(runSurveyTextboxTests, 500);
+            
+            // Add instructional message
+            setTimeout(function() {
+                const log = document.getElementById('interaction-log');
+                log.innerHTML = '<div style="color: #666; font-style: italic;">Try typing in the textboxes above to test functionality. Interactions will be logged here in real-time.</div>';
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

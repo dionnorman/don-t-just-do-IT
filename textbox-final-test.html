@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Textbox Fix - Final Test</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        
+        h1, h2 {
+            color: #2563eb;
+        }
+        
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+        }
+        
+        .test-form {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #334155;
+        }
+        
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            min-height: 120px;
+            font-family: inherit;
+            font-size: 16px;
+        }
+        
+        .field-help {
+            font-size: 14px;
+            color: #64748b;
+            margin-top: 4px;
+            margin-bottom: 8px;
+        }
+        
+        .status {
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .success {
+            background-color: #dcfce7;
+            color: #166534;
+            border-left: 4px solid #22c55e;
+        }
+        
+        .error {
+            background-color: #fee2e2;
+            color: #b91c1c;
+            border-left: 4px solid #ef4444;
+        }
+        
+        .info {
+            background-color: #e0f2fe;
+            color: #0c4a6e;
+            border-left: 4px solid #0ea5e9;
+        }
+        
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        button:hover {
+            background: #1d4ed8;
+        }
+        
+        .log-container {
+            background: #1e293b;
+            color: #cbd5e1;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: monospace;
+            max-height: 200px;
+            overflow-y: auto;
+            margin: 20px 0;
+        }
+        
+        .log-entry {
+            margin-bottom: 5px;
+            padding: 5px 0;
+            border-bottom: 1px solid #334155;
+        }
+        
+        .timestamp {
+            color: #94a3b8;
+            margin-right: 10px;
+        }
+        
+        .highlight {
+            animation: highlight 1s ease-in-out;
+        }
+        
+        @keyframes highlight {
+            0% { background-color: rgba(59, 130, 246, 0.3); }
+            100% { background-color: transparent; }
+        }
+    </style>
+</head>
+<body>
+    <h1>Textbox Fix - Final Verification Test</h1>
+    
+    <div class="info status">
+        <strong>Test Purpose:</strong> This page simulates both SAMR and CBAM survey forms with the problematic textareas to verify our fix works correctly without impacting site loading.
+    </div>
+    
+    <div class="container">
+        <h2>Test Summary</h2>
+        <div id="test-status" class="info status">
+            Running tests...
+        </div>
+        
+        <div class="log-container" id="log-container">
+            <div class="log-entry"><span class="timestamp">[INIT]</span> Starting textbox verification tests...</div>
+        </div>
+        
+        <button id="run-verification">Run Manual Verification</button>
+        <button id="reset-tests">Reset Tests</button>
+    </div>
+    
+    <div class="container">
+        <h2>CBAM Survey Form (Simulation)</h2>
+        <div class="test-form" id="cbam-tool">
+            <h3>Concerns-Based Adoption Model Assessment</h3>
+            
+            <div class="form-group">
+                <label for="additional-context">Additional Context (Optional):</label>
+                <p class="field-help">Share any specific challenges, successes, or unique circumstances that might help us provide more tailored recommendations.</p>
+                <textarea id="additional-context" name="additional-context" placeholder="Describe any specific challenges, successes, or unique circumstances related to your use of this technology..." rows="4"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="cbam-notes">Implementation Notes:</label>
+                <p class="field-help">Describe your current implementation approach.</p>
+                <textarea id="cbam-notes" name="cbam-notes" placeholder="Describe your approach to implementing this technology..." rows="4"></textarea>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <h2>SAMR Survey Form (Simulation)</h2>
+        <div class="test-form" id="samr-tool">
+            <h3>SAMR Model Assessment</h3>
+            
+            <div class="form-group">
+                <label for="additional-context">Is there anything else you'd like us to know about your teaching context?</label>
+                <textarea id="additional-context" name="additional-context" placeholder="Any special considerations, constraints, or opportunities that would help us provide better recommendations? Student population characteristics, school priorities, upcoming initiatives, etc."></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="samr-notes">Technology Integration Notes:</label>
+                <p class="field-help">Describe how you're currently using technology in your classroom.</p>
+                <textarea id="samr-notes" name="samr-notes" placeholder="Describe your current technology integration approaches..." rows="4"></textarea>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Load the textbox fix script -->
+    <script src="textbox-fix.js"></script>
+    
+    <script>
+        // Test functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const logContainer = document.getElementById('log-container');
+            const testStatus = document.getElementById('test-status');
+            
+            // Helper to add a log entry
+            function addLog(message) {
+                const timestamp = new Date().toLocaleTimeString();
+                const logEntry = document.createElement('div');
+                logEntry.className = 'log-entry';
+                logEntry.innerHTML = `<span class="timestamp">[${timestamp}]</span> ${message}`;
+                logContainer.appendChild(logEntry);
+                logContainer.scrollTop = logContainer.scrollHeight;
+            }
+            
+            // Check if textareas have unique IDs
+            function checkUniqueIds() {
+                const allTextareas = document.querySelectorAll('textarea');
+                const ids = {};
+                let duplicatesFound = false;
+                
+                allTextareas.forEach((textarea) => {
+                    const id = textarea.id;
+                    if (id && id !== '') {
+                        if (ids[id]) {
+                            duplicatesFound = true;
+                            addLog(`❌ DUPLICATE ID FOUND: "${id}" is used multiple times!`);
+                        } else {
+                            ids[id] = true;
+                        }
+                    }
+                });
+                
+                if (!duplicatesFound) {
+                    addLog('✅ All textarea IDs are unique');
+                    return true;
+                }
+                return false;
+            }
+            
+            // Check if textareas are editable
+            function checkEditability() {
+                const allTextareas = document.querySelectorAll('textarea');
+                let allEditable = true;
+                
+                allTextareas.forEach((textarea) => {
+                    if (textarea.readOnly || textarea.disabled) {
+                        allEditable = false;
+                        addLog(`❌ Textarea "${textarea.id}" is not editable!`);
+                    }
+                });
+                
+                if (allEditable) {
+                    addLog('✅ All textareas are editable');
+                    return true;
+                }
+                return false;
+            }
+            
+            // Add input handlers to verify textarea functionality
+            function addInputVerification() {
+                const allTextareas = document.querySelectorAll('textarea');
+                
+                allTextareas.forEach((textarea) => {
+                    textarea.addEventListener('focus', function() {
+                        this.classList.add('highlight');
+                        addLog(`Focus detected on "${this.id || 'unnamed textarea'}" - textarea is focusable`);
+                    });
+                    
+                    textarea.addEventListener('input', function() {
+                        addLog(`Input detected on "${this.id || 'unnamed textarea'}" - textarea is working correctly`);
+                    });
+                    
+                    textarea.addEventListener('blur', function() {
+                        this.classList.remove('highlight');
+                    });
+                });
+                
+                addLog('✅ Input verification handlers added to all textareas');
+            }
+            
+            // Run automatic tests
+            function runTests() {
+                addLog('Starting automated tests...');
+                
+                // Test 1: Check for unique IDs
+                const uniqueIdsResult = checkUniqueIds();
+                
+                // Test 2: Check editability
+                const editabilityResult = checkEditability();
+                
+                // Test 3: Add input verification
+                addInputVerification();
+                
+                // Update overall test status
+                if (uniqueIdsResult && editabilityResult) {
+                    testStatus.className = 'success status';
+                    testStatus.innerHTML = '<strong>✅ All Tests Passed!</strong> The textbox fix is working correctly. Try typing in any textarea to verify functionality.';
+                } else {
+                    testStatus.className = 'error status';
+                    testStatus.innerHTML = '<strong>❌ Some Tests Failed!</strong> Check the log for details.';
+                }
+            }
+            
+            // Run tests after a short delay to allow the fix script to run
+            setTimeout(runTests, 500);
+            
+            // Manual verification button
+            document.getElementById('run-verification').addEventListener('click', function() {
+                addLog('Running manual verification...');
+                runTests();
+                
+                // Highlight all textareas to draw attention
+                document.querySelectorAll('textarea').forEach((textarea) => {
+                    textarea.classList.add('highlight');
+                    setTimeout(() => {
+                        textarea.classList.remove('highlight');
+                    }, 1000);
+                });
+            });
+            
+            // Reset button
+            document.getElementById('reset-tests').addEventListener('click', function() {
+                // Clear the log
+                while (logContainer.firstChild) {
+                    logContainer.removeChild(logContainer.firstChild);
+                }
+                
+                addLog('Tests reset. Running tests again...');
+                
+                // Reset test status
+                testStatus.className = 'info status';
+                testStatus.textContent = 'Running tests...';
+                
+                // Run tests again after a short delay
+                setTimeout(runTests, 100);
+            });
+        });
+    </script>
+</body>
+</html>

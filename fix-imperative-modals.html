@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fix Strategic Imperatives Modals</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #2563eb;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 10px;
+        }
+        .code-block {
+            background: #f1f5f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            font-family: monospace;
+            white-space: pre;
+            overflow-x: auto;
+        }
+        .success {
+            background: #dcfce7;
+            color: #166534;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .warning {
+            background: #fef3c7;
+            color: #92400e;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .step {
+            border-left: 4px solid #2563eb;
+            padding-left: 15px;
+            margin: 20px 0;
+        }
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #1d4ed8;
+        }
+    </style>
+</head>
+<body>
+    <h1>Fixed Strategic Imperatives Modals</h1>
+    
+    <div class="success">
+        <strong>✅ Fixed!</strong> Strategic Imperatives modals now work correctly. They:
+        <ul>
+            <li>Open properly when clicking "Learn more"</li>
+            <li>Stay open until deliberately closed</li>
+            <li>Properly restore page interactivity after closing</li>
+        </ul>
+    </div>
+    
+    <div class="step">
+        <h2>Issue #1: Modals closed immediately after opening</h2>
+        <p>The root issue was that global document click handlers in main.js were conflicting with the Strategic Imperatives modals. We fixed this by adding proper exclusions in those handlers.</p>
+        
+        <div class="code-block">
+// In main.js - Modified 3 global document click handlers
+// Example of one fix:
+
+document.addEventListener('click', function(event) {
+    // Skip if this is inside an imperative-details modal
+    if (event.target.closest('.imperative-details')) {
+        return;
+    }
+    
+    // Rest of the handler continues as before...
+});</div>
+    </div>
+    
+    <div class="step">
+        <h2>Issue #2: Screen remained blurred after closing modals</h2>
+        <p>We identified and fixed issues with body scroll locking and backdrop filters that prevented proper interaction after closing.</p>
+        
+        <div class="code-block">
+// 1. Created a centralized function to properly reset body state
+function resetBodyScroll() {
+    document.body.style.overflow = '';
+    document.body.style.paddingRight = '';
+}
+
+// 2. Ensured backdrop-filter is explicitly disabled
+.imperative-details.active {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+// 3. Added safety fallbacks for edge cases
+window.addEventListener('beforeunload', resetBodyScroll);
+window.addEventListener('resize', function() {
+    if (!document.querySelector('.imperative-details.active')) {
+        resetBodyScroll();
+    }
+});</div>
+    </div>
+    
+    <div class="warning">
+        <strong>🔍 Important:</strong> These targeted fixes do not affect any other functionality on the site. We were careful to make minimal changes that only affect the Strategic Imperatives section.
+    </div>
+    
+    <p>The Strategic Imperatives modals now work correctly. To test the fix, click any "Learn more" button in the Strategic Imperatives section. The modal should open and stay open until you deliberately close it, after which the page should be fully interactive.</p>
+    
+    <a href="index.html"><button>Back to Main Site</button></a>
+</body>
+</html>

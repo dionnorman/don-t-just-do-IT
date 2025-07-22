@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strategic Imperatives Modal Test</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f5f7fa;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        h1 {
+            color: #1e293b;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .test-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .test-title {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #1e293b;
+        }
+        
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .test-btn {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
+        .test-btn:hover {
+            background: #2563eb;
+        }
+        
+        .status {
+            padding: 15px;
+            background: #f1f5f9;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            pointer-events: none;
+        }
+        
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+        
+        .modal-content {
+            width: 80%;
+            max-width: 900px;
+            max-height: 80vh;
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            position: relative;
+            overflow-y: auto;
+            transform: translateY(30px);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(46, 94, 170, 0.1);
+        }
+        
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(46, 94, 170, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .modal-close:hover {
+            background: #2563eb;
+            color: white;
+            transform: rotate(90deg);
+        }
+        
+        .modal-decoration {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+            opacity: 0.8;
+            transition: all 0.3s ease;
+            border-radius: 0 12px 12px 0;
+        }
+        
+        .modal-overlay.active .modal-decoration {
+            opacity: 1;
+            width: 6px;
+        }
+        
+        .modal-title {
+            color: #1e293b;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid rgba(46, 94, 170, 0.1);
+            padding-right: 40px;
+            line-height: 1.3;
+        }
+        
+        .modal-number {
+            position: absolute;
+            top: -12px;
+            left: -12px;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 18px;
+            box-shadow: 0 4px 12px rgba(46, 94, 170, 0.3);
+        }
+        
+        .modal-body {
+            color: #475569;
+            line-height: 1.7;
+        }
+        
+        .modal-body h4 {
+            color: #1e293b;
+            font-size: 20px;
+            font-weight: 600;
+            margin: 30px 0 16px 0;
+            position: relative;
+            padding-left: 16px;
+        }
+        
+        .modal-body h4::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 20px;
+            background: #2563eb;
+            border-radius: 2px;
+        }
+        
+        .modal-body ul {
+            margin: 16px 0;
+            padding-left: 0;
+        }
+        
+        .modal-body li {
+            margin-bottom: 12px;
+            padding-left: 24px;
+            position: relative;
+            list-style: none;
+        }
+        
+        .modal-body li::before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            top: 2px;
+            font-size: 10px;
+            color: #2563eb;
+        }
+        
+        .modal-keywords {
+            margin-top: 30px;
+            background: rgba(46, 94, 170, 0.05);
+            padding: 16px;
+            border-radius: 8px;
+        }
+        
+        .modal-keywords-title {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 10px;
+        }
+        
+        .modal-keywords-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .modal-keyword {
+            background: rgba(46, 94, 170, 0.1);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            color: #2563eb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Strategic Imperatives Modal Test</h1>
+        
+        <div class="test-card">
+            <div class="test-title">Test Modal Display</div>
+            <div class="button-grid">
+                <button class="test-btn" onclick="openModal('ai-evolution')">AI Evolution</button>
+                <button class="test-btn" onclick="openModal('immersive-devices')">Immersive Devices</button>
+                <button class="test-btn" onclick="openModal('creative-democratization')">Creative Democratization</button>
+                <button class="test-btn" onclick="openModal('physical-digital')">Physical-Digital</button>
+                <button class="test-btn" onclick="openModal('quantum-era')">Quantum Era</button>
+                <button class="test-btn" onclick="openModal('digital-ownership')">Digital Ownership</button>
+                <button class="test-btn" onclick="openModal('societal-transformation')">Societal Transformation</button>
+                <button class="test-btn" onclick="openModal('skills-revolution')">Skills Revolution</button>
+            </div>
+            <div class="status" id="status">Click a button to test modal functionality</div>
+        </div>
+    </div>
+    
+    <!-- Modal Overlay Template -->
+    <div class="modal-overlay" id="modal-template">
+        <div class="modal-content">
+            <div class="modal-decoration"></div>
+            <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+            <div class="modal-number">1</div>
+            <h3 class="modal-title">Modal Title</h3>
+            <div class="modal-body">
+                <p>Modal content goes here...</p>
+                
+                <h4>First Section</h4>
+                <ul>
+                    <li><strong>Item One:</strong> Description of the first item with details about what it means</li>
+                    <li><strong>Item Two:</strong> Description of the second item with details about what it means</li>
+                    <li><strong>Item Three:</strong> Description of the third item with details about what it means</li>
+                </ul>
+                
+                <h4>Second Section</h4>
+                <ul>
+                    <li><strong>Item One:</strong> Description of the first item with details about what it means</li>
+                    <li><strong>Item Two:</strong> Description of the second item with details about what it means</li>
+                    <li><strong>Item Three:</strong> Description of the third item with details about what it means</li>
+                </ul>
+                
+                <div class="modal-keywords">
+                    <div class="modal-keywords-title">Key Concepts</div>
+                    <div class="modal-keywords-list">
+                        <span class="modal-keyword">Keyword One</span>
+                        <span class="modal-keyword">Keyword Two</span>
+                        <span class="modal-keyword">Keyword Three</span>
+                        <span class="modal-keyword">Keyword Four</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Simulation data for different modals
+        const modalData = {
+            'ai-evolution': {
+                number: 1,
+                title: 'Advanced Computing Evolution',
+                content: 'Next-generation computing systems transform learning through intelligent automation, multimodal processing, and adaptive interfaces. These technologies become collaborative partners in education.'
+            },
+            'immersive-devices': {
+                number: 2,
+                title: 'Next-Generation Interface Technologies',
+                content: 'Smart glasses, spatial computing devices, and advanced wearables create new paradigms for how we access and interact with information in educational environments.'
+            },
+            'creative-democratization': {
+                number: 3,
+                title: 'Creative Democratization',
+                content: 'Intuitive creation platforms and intelligent tools for audio, video, and multimedia generation transform students from consumers to creators at unprecedented scale.'
+            },
+            'physical-digital': {
+                number: 4,
+                title: 'Physical-Digital Convergence',
+                content: 'Intelligent systems merge with robotics and automation, creating responsive physical environments and new interactive learning experiences.'
+            },
+            'quantum-era': {
+                number: 5,
+                title: 'Quantum Computing Era',
+                content: 'Advanced computing paradigms will revolutionize data processing, simulations, and optimization beyond what's possible with classical computing.'
+            },
+            'digital-ownership': {
+                number: 6,
+                title: 'Digital Ownership & Verification',
+                content: 'Blockchain enables digital credentials, intellectual property protection, and decentralized learning platforms. Students own their learning records and creative outputs in verifiable ways.'
+            },
+            'societal-transformation': {
+                number: 7,
+                title: 'Societal Transformation',
+                content: 'Rapid technological change reshapes jobs, skills, and society. Schools must prepare students for a world of both tremendous opportunity and unprecedented disruption in employment and social structures.'
+            },
+            'skills-revolution': {
+                number: 8,
+                title: 'Future-Ready Skills Revolution',
+                content: 'Beyond traditional literacy, students need digital collaboration skills, systems thinking, ethical reasoning, adaptability, and the ability to work alongside intelligent technologies in rapidly evolving fields.'
+            }
+        };
+        
+        // Function to open modal
+        function openModal(modalId) {
+            const modal = document.getElementById('modal-template');
+            const status = document.getElementById('status');
+            
+            if (!modal) {
+                status.textContent = 'Error: Modal template not found';
+                return;
+            }
+            
+            const data = modalData[modalId];
+            if (!data) {
+                status.textContent = 'Error: Modal data not found for ' + modalId;
+                return;
+            }
+            
+            // Update modal content
+            modal.querySelector('.modal-number').textContent = data.number;
+            modal.querySelector('.modal-title').textContent = data.title;
+            modal.querySelector('.modal-body p').textContent = data.content;
+            
+            // Prevent body scrolling
+            document.body.style.overflow = 'hidden';
+            
+            // Show modal
+            modal.classList.add('active');
+            
+            // Update status
+            status.textContent = `Modal "${data.title}" opened`;
+            
+            // Log positioning for debugging
+            setTimeout(() => {
+                const content = modal.querySelector('.modal-content');
+                const rect = content.getBoundingClientRect();
+                
+                console.log('Modal position:', {
+                    left: Math.round(rect.left),
+                    top: Math.round(rect.top),
+                    width: Math.round(rect.width),
+                    height: Math.round(rect.height),
+                    viewport: {
+                        width: window.innerWidth,
+                        height: window.innerHeight
+                    },
+                    withinBounds: {
+                        top: rect.top >= 0,
+                        bottom: rect.bottom <= window.innerHeight,
+                        left: rect.left >= 0,
+                        right: rect.right <= window.innerWidth
+                    }
+                });
+                
+                // Check if fully visible
+                const fullyVisible = 
+                    rect.top >= 0 && 
+                    rect.bottom <= window.innerHeight &&
+                    rect.left >= 0 && 
+                    rect.right <= window.innerWidth;
+                
+                if (fullyVisible) {
+                    status.textContent += ' ✅ Modal is fully visible within viewport';
+                } else {
+                    let issues = [];
+                    if (rect.top < 0) issues.push(`Top cut off by ${Math.abs(Math.round(rect.top))}px`);
+                    if (rect.bottom > window.innerHeight) issues.push(`Bottom cut off by ${Math.round(rect.bottom - window.innerHeight)}px`);
+                    if (rect.left < 0) issues.push(`Left cut off by ${Math.abs(Math.round(rect.left))}px`);
+                    if (rect.right > window.innerWidth) issues.push(`Right cut off by ${Math.round(rect.right - window.innerWidth)}px`);
+                    
+                    status.textContent += ' ❌ Issues: ' + issues.join(', ');
+                }
+            }, 300);
+        }
+        
+        // Function to close modal
+        function closeModal() {
+            const modal = document.getElementById('modal-template');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+            document.getElementById('status').textContent = 'Modal closed';
+        }
+        
+        // Close when clicking backdrop
+        document.getElementById('modal-template').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+        
+        // Close with ESC key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

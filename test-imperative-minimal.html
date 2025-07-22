@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strategic Imperatives Modal Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .test-button {
+            padding: 10px 20px;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+        }
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .debug-panel {
+            margin-top: 20px;
+            padding: 10px;
+            background: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Strategic Imperatives Modal Test</h1>
+    <p>Testing the modal open/close functionality with event logging</p>
+    
+    <button id="openModal" class="test-button">Open Modal</button>
+    
+    <div id="testModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close">×</button>
+            <h2>Test Modal</h2>
+            <p>This is a test modal to diagnose event handling issues.</p>
+        </div>
+    </div>
+    
+    <div class="debug-panel">
+        <h3>Event Log</h3>
+        <div id="eventLog"></div>
+    </div>
+    
+    <script>
+        // Logging helper
+        function log(message) {
+            const logElement = document.getElementById('eventLog');
+            const entry = document.createElement('div');
+            entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            logElement.appendChild(entry);
+            console.log(message);
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            log('Page loaded');
+            
+            // Open button
+            const openBtn = document.getElementById('openModal');
+            const modal = document.getElementById('testModal');
+            
+            openBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                log('Open button clicked');
+                modal.classList.add('active');
+            });
+            
+            // Close button
+            const closeBtn = modal.querySelector('.modal-close');
+            closeBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                log('Close button clicked');
+                modal.classList.remove('active');
+            });
+            
+            // Backdrop click
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    log('Backdrop clicked');
+                    modal.classList.remove('active');
+                } else {
+                    log('Modal content clicked, not closing');
+                }
+            });
+            
+            // Stop propagation on modal content
+            const modalContent = modal.querySelector('.modal-content');
+            modalContent.addEventListener('click', function(e) {
+                log('Click inside modal content');
+                e.stopPropagation();
+            });
+            
+            // Testing event capture and bubbling
+            document.addEventListener('click', function(e) {
+                log('Document click event (bubbling phase)');
+            });
+            
+            document.addEventListener('click', function(e) {
+                log('Document click event (capture phase) - this should not close modals');
+            }, true);
+        });
+    </script>
+</body>
+</html>

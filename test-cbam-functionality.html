@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test CBAM Report Functionality</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f8fafc;
+        }
+        .test-box {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(46, 94, 170, 0.08);
+            margin: 20px 0;
+        }
+        .status {
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-weight: 500;
+        }
+        .success { background: #dcfce7; color: #166534; border: 1px solid #22c55e; }
+        .error { background: #fef2f2; color: #991b1b; border: 1px solid #ef4444; }
+        .info { background: #eff6ff; color: #1e40af; border: 1px solid #3b82f6; }
+        .warning { background: #fefce8; color: #854d0e; border: 1px solid #eab308; }
+        .test-button {
+            background: linear-gradient(135deg, #2e5eaa 0%, #4c7cbf 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 15px 0;
+            display: inline-block;
+            text-decoration: none;
+        }
+        .test-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(46, 94, 170, 0.3);
+        }
+        h1 { color: #2e5eaa; text-align: center; }
+        h2 { color: #2e5eaa; border-bottom: 2px solid #2e5eaa; padding-bottom: 10px; }
+        .instructions {
+            background: #f0f9ff;
+            border: 1px solid #0ea5e9;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .instructions h3 {
+            color: #0369a1;
+            margin-top: 0;
+        }
+        .step {
+            margin: 10px 0;
+            padding: 8px 0;
+            border-left: 3px solid #0ea5e9;
+            padding-left: 15px;
+        }
+        .feature-list {
+            background: #f0fdf4;
+            border: 1px solid #22c55e;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .feature-list h3 {
+            color: #15803d;
+            margin-top: 0;
+        }
+        .feature-item {
+            margin: 8px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+        .feature-item::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #15803d;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 CBAM Report Functionality Test</h1>
+    
+    <div class="test-box">
+        <h2>📋 Testing Instructions</h2>
+        <div class="instructions">
+            <h3>How to Test the CBAM Report Generation:</h3>
+            <div class="step"><strong>Step 1:</strong> Click the button below to open the main site</div>
+            <div class="step"><strong>Step 2:</strong> Scroll down to find the "Assessment Tools" section</div>
+            <div class="step"><strong>Step 3:</strong> Look for "Comprehensive CBAM Assessment"</div>
+            <div class="step"><strong>Step 4:</strong> Select a technology/innovation from the dropdown</div>
+            <div class="step"><strong>Step 5:</strong> Choose your Stage of Concern (radio buttons)</div>
+            <div class="step"><strong>Step 6:</strong> Click "Generate Comprehensive CBAM Report"</div>
+            <div class="step"><strong>Step 7:</strong> Verify the loading animation and comprehensive report</div>
+            <div class="step"><strong>Step 8:</strong> Test export buttons (PDF, Google Doc, PowerPoint)</div>
+            <div class="step"><strong>Step 9:</strong> Test "Generate Another Report" button</div>
+        </div>
+        
+        <a href="index.html" target="_blank" class="test-button">
+            🚀 Open Main Site for CBAM Testing
+        </a>
+    </div>
+    
+    <div class="test-box">
+        <h2>✨ Enhanced CBAM Features</h2>
+        <div class="feature-list">
+            <h3>Comprehensive CBAM Report Includes:</h3>
+            <div class="feature-item">Executive Summary with Overall Readiness Level</div>
+            <div class="feature-item">Detailed Stage of Concern Analysis</div>
+            <div class="feature-item">Implementation Level Assessment</div>
+            <div class="feature-item">Personalized Recommendations with Priority Levels</div>
+            <div class="feature-item">Phased Implementation Action Plan</div>
+            <div class="feature-item">Immediate Next Steps</div>
+            <div class="feature-item">CBAM Reference Guide</div>
+            <div class="feature-item">Professional Design with Color-Coded Insights</div>
+            <div class="feature-item">Export Options (PDF, Google Docs, PowerPoint)</div>
+            <div class="feature-item">"Generate Another Report" functionality</div>
+        </div>
+    </div>
+    
+    <div class="test-box">
+        <h2>📊 Expected Results</h2>
+        <div class="status success">
+            <strong>✅ SUCCESS INDICATORS:</strong>
+            <ul>
+                <li>Loading animation appears when button is clicked</li>
+                <li>Comprehensive report appears with professional styling</li>
+                <li>Executive Summary shows readiness level with color-coded badge</li>
+                <li>Detailed analysis of Stage of Concern and Implementation Level</li>
+                <li>Personalized recommendations based on user responses</li>
+                <li>Phased action plan with specific timeframes</li>
+                <li>CBAM reference section explaining the model</li>
+                <li>Working export buttons (PDF, Google Doc, PowerPoint)</li>
+                <li>"Generate Another Report" button resets form and scrolls back</li>
+                <li>Beautiful, responsive design similar to ISTE report</li>
+            </ul>
+        </div>
+        
+        <div class="status error">
+            <strong>❌ FAILURE INDICATORS:</strong>
+            <ul>
+                <li>Nothing happens when button is clicked</li>
+                <li>Loading animation shows but no report appears</li>
+                <li>JavaScript errors in browser console</li>
+                <li>Export buttons don't work</li>
+                <li>Report has broken styling or layout issues</li>
+                <li>"Generate Another Report" doesn't reset the form</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="test-box">
+        <h2>🔍 Function Availability Check</h2>
+        <div id="function-status">
+            <div class="status info">Checking if CBAM functions are available...</div>
+        </div>
+    </div>
+    
+    <div class="test-box">
+        <h2>🐛 Troubleshooting</h2>
+        <div class="status warning">
+            <strong>If the CBAM button doesn't work:</strong>
+            <ol>
+                <li>Open browser developer tools (F12)</li>
+                <li>Check the Console tab for JavaScript errors</li>
+                <li>Look for any error messages when clicking the button</li>
+                <li>Verify that technology selection is made</li>
+                <li>Verify that a Stage of Concern is selected</li>
+                <li>Check that the loading animation appears</li>
+                <li>Look for console.log messages showing the process</li>
+            </ol>
+        </div>
+    </div>
+    
+    <div class="test-box">
+        <h2>🎯 CBAM Model Overview</h2>
+        <div class="instructions">
+            <h3>The Seven Stages of Concern:</h3>
+            <div class="step"><strong>Stage 0 - Unconcerned:</strong> Little concern or involvement</div>
+            <div class="step"><strong>Stage 1 - Informational:</strong> General awareness and interest</div>
+            <div class="step"><strong>Stage 2 - Personal:</strong> Uncertainty about personal impact</div>
+            <div class="step"><strong>Stage 3 - Management:</strong> Focus on processes and logistics</div>
+            <div class="step"><strong>Stage 4 - Consequence:</strong> Focus on student impact</div>
+            <div class="step"><strong>Stage 5 - Collaboration:</strong> Focus on coordinating with others</div>
+            <div class="step"><strong>Stage 6 - Refocusing:</strong> Focus on modifications and improvements</div>
+        </div>
+    </div>
+    
+    <script>
+        // Test function availability
+        setTimeout(() => {
+            const statusElement = document.getElementById('function-status');
+            let html = '<h3>CBAM Function Availability Check:</h3>';
+            
+            const functionsToCheck = [
+                'calculateCbamAssessment',
+                'generateComprehensiveCbamReport',
+                'setupCbamExportHandlers',
+                'exportCbamToPDF',
+                'exportCbamToGoogleDoc',
+                'exportCbamToPowerPoint'
+            ];
+            
+            functionsToCheck.forEach(funcName => {
+                html += `<div class="status info">📋 ${funcName} - Should be available in main site</div>`;
+            });
+            
+            if (typeof window.html2pdf === 'function') {
+                html += '<div class="status success">✅ html2pdf library - Available</div>';
+            } else {
+                html += '<div class="status warning">⚠️ html2pdf library - Not loaded in this test page</div>';
+            }
+            
+            html += '<div class="status info">💡 <strong>Note:</strong> CBAM function availability can only be fully tested on the main site where main.js is loaded.</div>';
+            
+            statusElement.innerHTML = html;
+        }, 500);
+    </script>
+</body>
+</html>

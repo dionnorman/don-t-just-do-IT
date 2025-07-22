@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug ISTE Button</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f8fafc;
+        }
+        .debug-section {
+            background: white;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(46, 94, 170, 0.08);
+        }
+        .debug-header {
+            color: #2e5eaa;
+            border-bottom: 2px solid #2e5eaa;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .status {
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-weight: 500;
+        }
+        .success { background: #dcfce7; color: #166534; border: 1px solid #22c55e; }
+        .error { background: #fef2f2; color: #991b1b; border: 1px solid #ef4444; }
+        .info { background: #eff6ff; color: #1e40af; border: 1px solid #3b82f6; }
+        .test-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .form-group label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .radio-group label {
+            font-weight: normal;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .test-button {
+            background: linear-gradient(135deg, #2e5eaa 0%, #4c7cbf 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .test-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(46, 94, 170, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <h1>Debug ISTE Button Functionality</h1>
+    
+    <div class="debug-section">
+        <h2 class="debug-header">Function Availability Test</h2>
+        <div id="function-test"></div>
+    </div>
+    
+    <div class="debug-section">
+        <h2 class="debug-header">Manual ISTE Assessment Test</h2>
+        
+        <form id="debug-iste-form">
+            <div class="test-form">
+                <div class="form-group">
+                    <label>Shared Vision</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="shared-vision" value="1"> Initiating</label>
+                        <label><input type="radio" name="shared-vision" value="2"> Approaching</label>
+                        <label><input type="radio" name="shared-vision" value="3" checked> Meets</label>
+                        <label><input type="radio" name="shared-vision" value="4"> Exceeds</label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Implementation Planning</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="implementation-planning" value="1"> Initiating</label>
+                        <label><input type="radio" name="implementation-planning" value="2" checked> Approaching</label>
+                        <label><input type="radio" name="implementation-planning" value="3"> Meets</label>
+                        <label><input type="radio" name="implementation-planning" value="4"> Exceeds</label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Equitable Access</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="equitable-access" value="1" checked> Initiating</label>
+                        <label><input type="radio" name="equitable-access" value="2"> Approaching</label>
+                        <label><input type="radio" name="equitable-access" value="3"> Meets</label>
+                        <label><input type="radio" name="equitable-access" value="4"> Exceeds</label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Prepared Educators</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="prepared-educators" value="1"> Initiating</label>
+                        <label><input type="radio" name="prepared-educators" value="2"> Approaching</label>
+                        <label><input type="radio" name="prepared-educators" value="3" checked> Meets</label>
+                        <label><input type="radio" name="prepared-educators" value="4"> Exceeds</label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Technical Support</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="technical-support" value="1"> Initiating</label>
+                        <label><input type="radio" name="technical-support" value="2" checked> Approaching</label>
+                        <label><input type="radio" name="technical-support" value="3"> Meets</label>
+                        <label><input type="radio" name="technical-support" value="4"> Exceeds</label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Learning Content</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="learning-content" value="1"> Initiating</label>
+                        <label><input type="radio" name="learning-content" value="2"> Approaching</label>
+                        <label><input type="radio" name="learning-content" value="3" checked> Meets</label>
+                        <label><input type="radio" name="learning-content" value="4"> Exceeds</label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Ongoing Evaluation</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="ongoing-evaluation" value="1" checked> Initiating</label>
+                        <label><input type="radio" name="ongoing-evaluation" value="2"> Approaching</label>
+                        <label><input type="radio" name="ongoing-evaluation" value="3"> Meets</label>
+                        <label><input type="radio" name="ongoing-evaluation" value="4"> Exceeds</label>
+                    </div>
+                </div>
+            </div>
+            
+            <button type="button" id="debug-test-btn" class="test-button">
+                <i class="fas fa-play"></i>
+                Test ISTE Report Generation
+            </button>
+        </form>
+        
+        <div id="debug-result"></div>
+        
+        <!-- Test Results Area -->
+        <div id="debug-iste-result" class="assessment-result hidden">
+            <div class="loader" style="display: none; text-align: center; padding: 20px;">
+                <div style="display: inline-block; width: 40px; height: 40px; border: 4px solid #f3f3f3; border-top: 4px solid #2e5eaa; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+                <p>Generating comprehensive report...</p>
+            </div>
+            <div class="result-content"></div>
+            <div class="export-options">
+                <h4>Export Report</h4>
+                <div class="export-buttons">
+                    <button id="debug-export-pdf" class="export-btn">
+                        <i class="fas fa-file-pdf"></i> PDF
+                    </button>
+                    <button id="debug-export-doc" class="export-btn">
+                        <i class="fas fa-file-word"></i> Google Doc
+                    </button>
+                    <button id="debug-export-ppt" class="export-btn">
+                        <i class="fas fa-file-powerpoint"></i> Presentation
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/main.js"></script>
+    <script>
+        // Add spinner animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const functionTest = document.getElementById('function-test');
+            
+            // Test if main.js functions are available
+            setTimeout(() => {
+                let html = '<h3>Function Availability Check:</h3>';
+                
+                // Check for main DOMContentLoaded wrapper functions
+                const functionsToCheck = [
+                    'calculateIsteAssessment',
+                    'generateComprehensiveIsteReport', 
+                    'setupIsteExportHandlers',
+                    'exportToPDF',
+                    'exportToGoogleDoc',
+                    'exportToPowerPoint'
+                ];
+                
+                functionsToCheck.forEach(funcName => {
+                    if (typeof window[funcName] === 'function') {
+                        html += `<div class="status success">✅ ${funcName} - Available globally</div>`;
+                    } else {
+                        html += `<div class="status error">❌ ${funcName} - Not available globally</div>`;
+                    }
+                });
+                
+                // Check if html2pdf is loaded
+                if (typeof window.html2pdf === 'function') {
+                    html += '<div class="status success">✅ html2pdf library - Loaded</div>';
+                } else {
+                    html += '<div class="status error">❌ html2pdf library - Not loaded</div>';
+                }
+                
+                functionTest.innerHTML = html;
+            }, 1000);
+            
+            // Manual test button
+            const debugBtn = document.getElementById('debug-test-btn');
+            const debugResult = document.getElementById('debug-result');
+            
+            if (debugBtn) {
+                debugBtn.addEventListener('click', function() {
+                    debugResult.innerHTML = '<div class="status info">Testing manual execution...</div>';
+                    
+                    try {
+                        // Manual test execution
+                        const form = document.getElementById('debug-iste-form');
+                        const resultElement = document.getElementById('debug-iste-result');
+                        
+                        if (resultElement && form) {
+                            resultElement.classList.remove('hidden');
+                            resultElement.querySelector('.loader').style.display = 'block';
+                            
+                            // Collect form data
+                            const formData = new FormData(form);
+                            const responses = {};
+                            
+                            const radioGroups = ['shared-vision', 'implementation-planning', 'equitable-access', 'prepared-educators', 'technical-support', 'learning-content', 'ongoing-evaluation'];
+                            radioGroups.forEach(group => {
+                                responses[group] = parseInt(formData.get(group)) || 0;
+                            });
+                            
+                            debugResult.innerHTML = '<div class="status info">Form data collected: ' + JSON.stringify(responses) + '</div>';
+                            
+                            setTimeout(() => {
+                                resultElement.querySelector('.loader').style.display = 'none';
+                                
+                                // Try to access the functions
+                                if (typeof calculateIsteAssessment === 'function') {
+                                    debugResult.innerHTML += '<div class="status success">✅ calculateIsteAssessment function found</div>';
+                                    
+                                    try {
+                                        const assessment = calculateIsteAssessment(responses);
+                                        debugResult.innerHTML += '<div class="status success">✅ Assessment calculated successfully</div>';
+                                        
+                                        if (typeof generateComprehensiveIsteReport === 'function') {
+                                            debugResult.innerHTML += '<div class="status success">✅ generateComprehensiveIsteReport function found</div>';
+                                            
+                                            const reportContent = generateComprehensiveIsteReport(assessment, responses);
+                                            resultElement.querySelector('.result-content').innerHTML = reportContent;
+                                            
+                                            debugResult.innerHTML += '<div class="status success">✅ Report generated successfully!</div>';
+                                            
+                                            // Setup export handlers
+                                            if (typeof setupIsteExportHandlers === 'function') {
+                                                setupIsteExportHandlers(assessment, responses);
+                                                debugResult.innerHTML += '<div class="status success">✅ Export handlers setup successfully!</div>';
+                                            }
+                                        } else {
+                                            debugResult.innerHTML += '<div class="status error">❌ generateComprehensiveIsteReport function not found</div>';
+                                        }
+                                    } catch (error) {
+                                        debugResult.innerHTML += '<div class="status error">❌ Error calculating assessment: ' + error.message + '</div>';
+                                    }
+                                } else {
+                                    debugResult.innerHTML += '<div class="status error">❌ calculateIsteAssessment function not found</div>';
+                                }
+                            }, 1000);
+                        }
+                    } catch (error) {
+                        debugResult.innerHTML = '<div class="status error">❌ Error during test: ' + error.message + '</div>';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

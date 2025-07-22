@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Slider Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test-item { margin: 20px 0; padding: 15px; border: 1px solid #ddd; }
+        .concern-slider { width: 100%; margin: 10px 0; }
+        .slider-value { font-weight: bold; color: #007bff; }
+    </style>
+</head>
+<body>
+    <h1>Direct Slider Test</h1>
+    
+    <div class="test-item">
+        <p>Test Statement 1</p>
+        <input type="range" min="0" max="7" value="0" class="concern-slider" name="test1">
+        <p>Value: <span class="slider-value">0</span></p>
+    </div>
+
+    <div class="test-item">
+        <p>Test Statement 2</p>
+        <input type="range" min="0" max="7" value="0" class="concern-slider" name="test2">
+        <p>Value: <span class="slider-value">0</span></p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, initializing sliders...');
+            
+            const sliders = document.querySelectorAll('.concern-slider');
+            console.log('Found sliders:', sliders.length);
+            
+            sliders.forEach((slider, index) => {
+                console.log(`Setting up slider ${index + 1}`);
+                
+                slider.addEventListener('input', function() {
+                    console.log(`Slider ${index + 1} input event: ${this.value}`);
+                    const valueDisplay = this.parentElement.querySelector('.slider-value');
+                    if (valueDisplay) {
+                        valueDisplay.textContent = this.value;
+                    }
+                });
+
+                slider.addEventListener('change', function() {
+                    console.log(`Slider ${index + 1} change event: ${this.value}`);
+                    const valueDisplay = this.parentElement.querySelector('.slider-value');
+                    if (valueDisplay) {
+                        valueDisplay.textContent = this.value;
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

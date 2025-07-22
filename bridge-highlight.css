@@ -1,0 +1,135 @@
+/* Bridge Legend Hover Highlight Effects */
+
+/* Base styles for legend items */
+.legend-item {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.legend-item:hover text {
+    font-weight: bold;
+    fill: #16a085;
+}
+
+.legend-item:hover circle {
+    r: 6;
+    filter: url(#glow);
+}
+
+/* Foundational Pillars Highlighting */
+.legend-item.pillars-item:hover ~ .foundational-pillars rect {
+    filter: url(#pillarGlow);
+    stroke: #fff;
+    stroke-width: 2;
+    opacity: 1;
+}
+
+/* Each specific pillar gets a unique glow color when highlighted */
+.legend-item.pillars-item:hover ~ .iste-conditions-pillar rect {
+    fill: url(#istePillarGradient);
+    animation: pillarPulse 2s infinite alternate;
+}
+
+.legend-item.pillars-item:hover ~ .cbam-pillar rect {
+    fill: url(#cbamPillarGradient);
+    animation: pillarPulse 2s infinite alternate;
+}
+
+.legend-item.pillars-item:hover ~ .shared-vision-pillar rect {
+    fill: url(#visionPillarGradient);
+    animation: pillarPulse 2s infinite alternate;
+}
+
+.legend-item.pillars-item:hover ~ .samr-pillar rect {
+    fill: url(#samrPillarGradient);
+    animation: pillarPulse 2s infinite alternate;
+}
+
+.legend-item.pillars-item:hover ~ .ethics-pillar rect {
+    fill: url(#ethicsPillarGradient);
+    animation: pillarPulse 2s infinite alternate;
+}
+
+/* Strategic Pathway Highlighting */
+.legend-item.pathway-item:hover ~ .implementation-pathway path {
+    stroke-width: 18;
+    filter: url(#glow);
+    animation: pathwayPulse 2s infinite alternate;
+}
+
+/* Innovation Traffic Highlighting */
+.legend-item.traffic-item:hover ~ .transformation-traffic circle {
+    r: 15;
+    filter: url(#glow);
+    animation: trafficPulse 1s infinite alternate;
+}
+
+/* Structural Beams Highlighting */
+.legend-item.beams-item:hover ~ .structural-beams line {
+    stroke: #3498db;
+    stroke-width: 4;
+    filter: url(#glow);
+    animation: beamPulse 1.5s infinite alternate;
+}
+
+/* Bridge Foundations Highlighting */
+.legend-item.foundations-item:hover ~ .current-state-foundation rect,
+.legend-item.foundations-item:hover ~ .future-state-foundation rect {
+    filter: url(#glow);
+    stroke: #fff;
+    stroke-width: 2;
+    animation: foundationPulse 2s infinite alternate;
+}
+
+.legend-item.foundations-item:hover ~ .current-state-foundation text,
+.legend-item.foundations-item:hover ~ .future-state-foundation text {
+    font-weight: bold;
+    fill: #fff;
+    filter: url(#glow);
+}
+
+/* Gap Indicators Highlighting */
+.legend-item.gaps-item:hover ~ .transformation-gap path,
+.legend-item.gaps-item:hover ~ .transformation-gap circle {
+    stroke-width: 6;
+    r: 12;
+    filter: url(#glow);
+    animation: gapPulse 1s infinite alternate;
+}
+
+.legend-item.gaps-item:hover ~ .transformation-gap text {
+    font-weight: bold;
+    font-size: 16px;
+    filter: url(#glow);
+}
+
+/* Animation Keyframes */
+@keyframes pillarPulse {
+    0% { opacity: 0.8; }
+    100% { opacity: 1; }
+}
+
+@keyframes pathwayPulse {
+    0% { opacity: 0.8; }
+    100% { opacity: 1; }
+}
+
+@keyframes trafficPulse {
+    0% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+@keyframes beamPulse {
+    0% { opacity: 0.6; }
+    100% { opacity: 1; }
+}
+
+@keyframes foundationPulse {
+    0% { opacity: 0.8; }
+    100% { opacity: 1; }
+}
+
+@keyframes gapPulse {
+    0% { opacity: 0.7; }
+    100% { opacity: 1; }
+}

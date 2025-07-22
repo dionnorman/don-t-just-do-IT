@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Strategic Imperatives</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .debug-info {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.9);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 12px;
+            z-index: 3001;
+            max-width: 400px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .debug-controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 3001;
+        }
+        .debug-btn {
+            display: block;
+            width: 100%;
+            margin: 3px 0;
+            padding: 6px 12px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 11px;
+        }
+        .debug-btn:hover {
+            background: #1d4ed8;
+        }
+        /* Debug visual indicators */
+        .imperative-details.debug-active {
+            border: 3px solid red !important;
+        }
+        .modal-content.debug-active {
+            border: 2px solid yellow !important;
+        }
+        /* Jump to imperatives */
+        .jump-to-imperatives {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #2563eb;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            z-index: 3001;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        .jump-to-imperatives:hover {
+            background: #1d4ed8;
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Quick jump to imperatives section -->
+    <a href="#imperatives" class="jump-to-imperatives">
+        Jump to Strategic Imperatives Section
+    </a>
+
+    <!-- Debug Controls -->
+    <div class="debug-controls">
+        <h4 style="margin: 0 0 10px 0; font-size: 12px;">Debug Controls</h4>
+        <button class="debug-btn" onclick="debugTest('ai-evolution-details')">Test AI Evolution</button>
+        <button class="debug-btn" onclick="debugTest('immersive-devices-details')">Test Immersive</button>
+        <button class="debug-btn" onclick="debugTest('creative-democratization-details')">Test Creative</button>
+        <button class="debug-btn" onclick="debugTest('physical-digital-details')">Test Physical</button>
+        <button class="debug-btn" onclick="debugTest('quantum-era-details')">Test Quantum</button>
+        <button class="debug-btn" onclick="debugTest('digital-ownership-details')">Test Digital</button>
+        <button class="debug-btn" onclick="debugTest('societal-transformation-details')">Test Societal</button>
+        <button class="debug-btn" onclick="debugTest('skills-revolution-details')">Test Skills</button>
+        <hr style="margin: 10px 0;">
+        <button class="debug-btn" onclick="runFullTest()">Run Full Test</button>
+        <button class="debug-btn" onclick="clearDebug()">Clear Debug</button>
+    </div>
+
+    <!-- Debug Info Panel -->
+    <div class="debug-info" id="debug-info">
+        Debug panel ready. Click test buttons to start.
+    </div>
+
+    <!-- Include the main site content -->
+    <script>
+        // Fetch and include the main index.html content
+        fetch('index.html')
+            .then(response => response.text())
+            .then(html => {
+                // Extract the body content from the main page
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                const bodyContent = doc.body.innerHTML;
+                
+                // Create a container for the main content
+                const container = document.createElement('div');
+                container.innerHTML = bodyContent;
+                
+                // Remove any existing debug elements to avoid conflicts
+                const existingControls = container.querySelectorAll('.debug-controls, .debug-info, .jump-to-imperatives');
+                existingControls.forEach(el => el.remove());
+                
+                // Append to current body (after our debug controls)
+                document.body.appendChild(container);
+                
+                // Initialize the main site JavaScript
+                const script = document.createElement('script');
+                script.src = 'js/main.js';
+                document.head.appendChild(script);
+            })
+            .catch(error => {
+                document.getElementById('debug-info').innerHTML = 'Error loading main content: ' + error.message;
+            });
+
+        function debugTest(overlayId) {
+            const debugInfo = document.getElementById('debug-info');
+            debugInfo.innerHTML = `Testing: ${overlayId}...<br>`;
+            
+            // Find the button
+            const button = document.querySelector(`[data-target="${overlayId}"]`);
+            if (!button) {
+                debugInfo.innerHTML += `❌ Button not found for ${overlayId}<br>`;
+                return;
+            }
+            
+            debugInfo.innerHTML += `✅ Button found<br>`;
+            
+            // Click the button
+            button.click();
+            
+            // Check overlay after a delay
+            setTimeout(() => {
+                const overlay = document.getElementById(overlayId);
+                if (!overlay) {
+                    debugInfo.innerHTML += `❌ Overlay element not found<br>`;
+                    return;
+                }
+                
+                debugInfo.innerHTML += `✅ Overlay element found<br>`;
+                
+                const isActive = overlay.classList.contains('active');
+                debugInfo.innerHTML += `Active class: ${isActive ? '✅' : '❌'}<br>`;
+                
+                if (isActive) {
+                    // Add debug visual indicators
+                    overlay.classList.add('debug-active');
+                    const content = overlay.querySelector('.modal-content');
+                    if (content) {
+                        content.classList.add('debug-active');
+                    }
+                    
+                    // Check positioning
+                    const rect = overlay.getBoundingClientRect();
+                    const contentRect = content ? content.getBoundingClientRect() : null;
+                    
+                    debugInfo.innerHTML += `<br><strong>Overlay Position:</strong><br>`;
+                    debugInfo.innerHTML += `Size: ${Math.round(rect.width)}x${Math.round(rect.height)}<br>`;
+                    debugInfo.innerHTML += `Position: (${Math.round(rect.left)}, ${Math.round(rect.top)})<br>`;
+                    
+                    if (contentRect) {
+                        debugInfo.innerHTML += `<br><strong>Content Position:</strong><br>`;
+                        debugInfo.innerHTML += `Size: ${Math.round(contentRect.width)}x${Math.round(contentRect.height)}<br>`;
+                        debugInfo.innerHTML += `Position: (${Math.round(contentRect.left)}, ${Math.round(contentRect.top)})<br>`;
+                        debugInfo.innerHTML += `Right edge: ${Math.round(contentRect.right)} (viewport: ${window.innerWidth})<br>`;
+                        debugInfo.innerHTML += `Bottom edge: ${Math.round(contentRect.bottom)} (viewport: ${window.innerHeight})<br>`;
+                        
+                        // Check if within viewport
+                        const withinViewport = 
+                            contentRect.top >= 0 && 
+                            contentRect.bottom <= window.innerHeight &&
+                            contentRect.left >= 0 && 
+                            contentRect.right <= window.innerWidth;
+                        
+                        debugInfo.innerHTML += `<br><strong>Viewport Check:</strong> ${withinViewport ? '✅ Fully visible' : '❌ Cut off'}<br>`;
+                        
+                        if (!withinViewport) {
+                            debugInfo.innerHTML += `Issues:<br>`;
+                            if (contentRect.top < 0) debugInfo.innerHTML += `- Top cut off by ${Math.abs(Math.round(contentRect.top))}px<br>`;
+                            if (contentRect.bottom > window.innerHeight) debugInfo.innerHTML += `- Bottom cut off by ${Math.round(contentRect.bottom - window.innerHeight)}px<br>`;
+                            if (contentRect.left < 0) debugInfo.innerHTML += `- Left cut off by ${Math.abs(Math.round(contentRect.left))}px<br>`;
+                            if (contentRect.right > window.innerWidth) debugInfo.innerHTML += `- Right cut off by ${Math.round(contentRect.right - window.innerWidth)}px<br>`;
+                        }
+                    }
+                }
+            }, 500);
+        }
+
+        function runFullTest() {
+            const overlays = [
+                'ai-evolution-details',
+                'immersive-devices-details', 
+                'creative-democratization-details',
+                'physical-digital-details',
+                'quantum-era-details',
+                'digital-ownership-details',
+                'societal-transformation-details',
+                'skills-revolution-details'
+            ];
+            
+            const debugInfo = document.getElementById('debug-info');
+            debugInfo.innerHTML = 'Running full test...<br><br>';
+            
+            let testIndex = 0;
+            
+            function runNext() {
+                if (testIndex >= overlays.length) {
+                    debugInfo.innerHTML += '<br>✅ Full test complete!<br>';
+                    return;
+                }
+                
+                const overlayId = overlays[testIndex];
+                debugInfo.innerHTML += `Testing ${testIndex + 1}/${overlays.length}: ${overlayId}<br>`;
+                
+                const button = document.querySelector(`[data-target="${overlayId}"]`);
+                if (!button) {
+                    debugInfo.innerHTML += `❌ Button not found<br><br>`;
+                    testIndex++;
+                    setTimeout(runNext, 100);
+                    return;
+                }
+                
+                button.click();
+                
+                setTimeout(() => {
+                    const overlay = document.getElementById(overlayId);
+                    const isActive = overlay && overlay.classList.contains('active');
+                    
+                    if (isActive) {
+                        const content = overlay.querySelector('.modal-content');
+                        const contentRect = content ? content.getBoundingClientRect() : null;
+                        
+                        if (contentRect) {
+                            const withinViewport = 
+                                contentRect.top >= 0 && 
+                                contentRect.bottom <= window.innerHeight &&
+                                contentRect.left >= 0 && 
+                                contentRect.right <= window.innerWidth;
+                            
+                            debugInfo.innerHTML += `${withinViewport ? '✅' : '❌'} ${withinViewport ? 'OK' : 'Cut off'}<br>`;
+                        } else {
+                            debugInfo.innerHTML += '❌ No content<br>';
+                        }
+                        
+                        // Close modal
+                        const closeBtn = overlay.querySelector('.modal-close');
+                        if (closeBtn) closeBtn.click();
+                    } else {
+                        debugInfo.innerHTML += '❌ Not active<br>';
+                    }
+                    
+                    debugInfo.innerHTML += '<br>';
+                    testIndex++;
+                    setTimeout(runNext, 300);
+                }, 500);
+            }
+            
+            runNext();
+        }
+
+        function clearDebug() {
+            document.getElementById('debug-info').innerHTML = 'Debug cleared.';
+            
+            // Remove debug visual indicators
+            document.querySelectorAll('.debug-active').forEach(el => {
+                el.classList.remove('debug-active');
+            });
+            
+            // Close any open modals
+            document.querySelectorAll('.imperative-details.active').forEach(modal => {
+                modal.classList.remove('active');
+            });
+            document.body.style.overflow = '';
+        }
+    </script>
+</body>
+</html>

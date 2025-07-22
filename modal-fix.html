@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fix for Strategic Imperatives Modals</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+        }
+        pre {
+            background: #f1f1f1;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+        code {
+            font-family: monospace;
+            font-size: 14px;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 {
+            color: #1a56db;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        .note {
+            background: #fffde7;
+            padding: 10px;
+            border-left: 4px solid #ffd600;
+            margin: 15px 0;
+        }
+        button {
+            background: #1a56db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+        button:hover {
+            background: #0e3fa3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Strategic Imperatives Modal Fix</h1>
+    
+    <div class="section">
+        <h2>Diagnosis of the Issues</h2>
+        <p>Based on the user's report, the Strategic Imperatives overlays are still experiencing these problems:</p>
+        <ul>
+            <li>Text overlays appear in the top left corner instead of center</li>
+            <li>Screen blurs after opening a modal</li>
+            <li>Unable to close modals because they're off-screen</li>
+            <li>Page freezes with a blurred screen</li>
+        </ul>
+        
+        <div class="note">
+            <strong>Root Causes:</strong> After investigating the code, these issues are likely caused by:
+            <ol>
+                <li>Conflicting backdrop filter CSS causing screen blur</li>
+                <li>Positioning issues from conflicting CSS rules</li>
+                <li>Remaining !important rules that may override our fixes</li>
+                <li>Missing or conflicting z-index values</li>
+            </ol>
+        </div>
+    </div>
+    
+    <div class="section">
+        <h2>Fixed CSS Code to Apply</h2>
+        <p>To address these issues, replace the following CSS in <code>styles.css</code>:</p>
+        
+        <h3>Step 1: Fix Modal Structure</h3>
+        <pre><code>.imperative-details {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  backdrop-filter: none !important; /* Remove blur effect */
+  -webkit-backdrop-filter: none !important; /* For Safari */
+}</code></pre>
+
+        <h3>Step 2: Fix Modal Content</h3>
+        <pre><code>.imperative-details .modal-content {
+  width: 90%;
+  max-width: 800px;
+  max-height: 80vh;
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  position: relative;
+  overflow-y: auto;
+  transform: none; /* Remove transform */
+  opacity: 1; /* Always visible */
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(46, 94, 170, 0.1);
+  margin: 0; /* Remove margins */
+  box-sizing: border-box;
+}</code></pre>
+
+        <h3>Step 3: Fix Modal Active State</h3>
+        <pre><code>.imperative-details.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* Remove this transition - not needed */
+.imperative-details.active .modal-content {
+  transform: none; 
+  opacity: 1;
+}</code></pre>
+
+        <h3>Step 4: Fix Close Button</h3>
+        <pre><code>.modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(46, 94, 170, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #333;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}</code></pre>
+
+        <h3>Step 5: Mobile Responsive Fixes</h3>
+        <pre><code>@media (max-width: 768px) {
+  .imperative-details .modal-content {
+    width: 95%;
+    max-width: none;
+    max-height: 85vh;
+    padding: 20px;
+  }
+  
+  .modal-title {
+    font-size: 1.5rem;
+    padding-right: 40px; /* Make room for close button */
+  }
+  
+  .modal-close {
+    width: 36px;
+    height: 36px;
+    top: 12px;
+    right: 12px;
+  }
+}</code></pre>
+    </div>
+    
+    <div class="section">
+        <h2>JS Code to Update</h2>
+        <p>Update the JavaScript code in <code>main.js</code> to ensure proper modal behavior:</p>
+        
+        <pre><code>// Strategic imperatives modals - Updated for reliability
+const imperativeButtons = document.querySelectorAll('.imperative-learn-more');
+
+imperativeButtons.forEach(button => {
+    button.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const targetId = this.getAttribute('data-target');
+        const imperativeDetails = document.getElementById(targetId);
+        
+        if (imperativeDetails) {
+            // Close any open imperatives first
+            document.querySelectorAll('.imperative-details.active').forEach(modal => {
+                modal.classList.remove('active');
+            });
+            
+            // Prevent body scroll
+            document.body.style.overflow = 'hidden';
+            
+            // Show this imperative detail
+            imperativeDetails.classList.add('active');
+        }
+    });
+});
+
+// Close imperative details when clicking the close button
+document.addEventListener('click', function(e) {
+    if (e.target.closest('.modal-close')) {
+        const details = e.target.closest('.imperative-details');
+        if (details) {
+            details.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    }
+    
+    // Close when clicking backdrop (not content)
+    if (e.target.classList.contains('imperative-details') && !e.target.classList.contains('modal-content')) {
+        e.target.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+});
+
+// Close modals with escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        const activeModals = document.querySelectorAll('.imperative-details.active');
+        if (activeModals.length > 0) {
+            activeModals.forEach(modal => {
+                modal.classList.remove('active');
+            });
+            document.body.style.overflow = '';
+        }
+    }
+});</code></pre>
+    </div>
+    
+    <div class="section">
+        <h2>Implementation Instructions</h2>
+        <ol>
+            <li>Make a backup of your CSS and JS files</li>
+            <li>Update the CSS selectors in <code>styles.css</code> as shown above</li>
+            <li>Update the JavaScript code in <code>main.js</code></li>
+            <li>Test each Strategic Imperatives "Learn more" button</li>
+            <li>Verify that:
+                <ul>
+                    <li>Modals appear in the center of the screen</li>
+                    <li>Background doesn't blur excessively</li>
+                    <li>Close button is accessible</li>
+                    <li>Content is fully visible</li>
+                    <li>Escape key closes the modal</li>
+                    <li>Clicking outside the modal closes it</li>
+                </ul>
+            </li>
+        </ol>
+    </div>
+</body>
+</html>

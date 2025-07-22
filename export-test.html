@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Export System Test</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        body {
+            padding: 2rem;
+            font-family: Arial, sans-serif;
+            background: #f8f9fa;
+        }
+        
+        .test-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        .test-section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+        }
+        
+        .sample-report {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+        
+        .status-log {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        
+        .log-entry {
+            margin: 0.25rem 0;
+            padding: 0.25rem 0;
+        }
+        
+        .log-success { color: #28a745; }
+        .log-error { color: #dc3545; }
+        .log-info { color: #17a2b8; }
+        .log-warning { color: #ffc107; }
+        
+        .test-controls {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .test-btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .test-btn.primary {
+            background: #007bff;
+            color: white;
+        }
+        
+        .test-btn.success {
+            background: #28a745;
+            color: white;
+        }
+        
+        .test-btn.warning {
+            background: #ffc107;
+            color: #212529;
+        }
+        
+        .test-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .test-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1><i class="fas fa-flask"></i> Enhanced Export System Test</h1>
+        <p>This page tests the improved PDF export functionality and other export formats to ensure they work properly without content cutoff.</p>
+        
+        <!-- Test Controls -->
+        <div class="test-section">
+            <h2><i class="fas fa-control"></i> Test Controls</h2>
+            <div class="test-controls">
+                <button class="test-btn primary" onclick="testPDFExport()">
+                    <i class="fas fa-file-pdf"></i> Test PDF Export
+                </button>
+                <button class="test-btn success" onclick="testGoogleDocsExport()">
+                    <i class="fas fa-file-word"></i> Test Google Docs
+                </button>
+                <button class="test-btn warning" onclick="testHTMLExport()">
+                    <i class="fas fa-file-code"></i> Test HTML Export
+                </button>
+                <button class="test-btn primary" onclick="testJSONExport()">
+                    <i class="fas fa-file-download"></i> Test JSON Export
+                </button>
+                <button class="test-btn success" onclick="runAllTests()">
+                    <i class="fas fa-play"></i> Run All Tests
+                </button>
+                <button class="test-btn" onclick="clearLog()">
+                    <i class="fas fa-trash"></i> Clear Log
+                </button>
+            </div>
+        </div>
+        
+        <!-- Sample Report Content -->
+        <div class="test-section">
+            <h2><i class="fas fa-document"></i> Sample Report Content</h2>
+            <div id="sample-report" class="sample-report result-content">
+                <div class="pdf-header">
+                    <h1>ISTE Assessment Report - Test Document</h1>
+                    <p><em>Generated for testing enhanced export functionality</em></p>
+                </div>
+                
+                <div class="executive-summary section-break">
+                    <h2>Executive Summary</h2>
+                    <p>This comprehensive assessment evaluates the current state of educational technology integration based on ISTE (International Society for Technology in Education) standards. The evaluation encompasses multiple dimensions including digital citizenship, creative communication, knowledge construction, innovative design, computational thinking, creative communication, and global collaboration.</p>
+                    
+                    <h3>Key Findings</h3>
+                    <ul>
+                        <li>Strong foundation in basic technology skills across all user groups</li>
+                        <li>Opportunities for improvement in computational thinking and innovative design</li>
+                        <li>Excellent progress in digital citizenship and responsible technology use</li>
+                        <li>Need for enhanced professional development in emerging technologies</li>
+                    </ul>
+                </div>
+                
+                <div class="detailed-scores keep-together">
+                    <h2>Detailed Assessment Scores</h2>
+                    <p>The following section provides a breakdown of scores across all ISTE competency areas:</p>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ISTE Standard</th>
+                                <th>Current Score</th>
+                                <th>Target Score</th>
+                                <th>Gap Analysis</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Digital Citizen</td>
+                                <td>85%</td>
+                                <td>90%</td>
+                                <td>5% improvement needed</td>
+                            </tr>
+                            <tr>
+                                <td>Knowledge Constructor</td>
+                                <td>78%</td>
+                                <td>85%</td>
+                                <td>7% improvement needed</td>
+                            </tr>
+                            <tr>
+                                <td>Innovative Designer</td>
+                                <td>72%</td>
+                                <td>80%</td>
+                                <td>8% improvement needed</td>
+                            </tr>
+                            <tr>
+                                <td>Computational Thinker</td>
+                                <td>68%</td>
+                                <td>75%</td>
+                                <td>7% improvement needed</td>
+                            </tr>
+                            <tr>
+                                <td>Creative Communicator</td>
+                                <td>82%</td>
+                                <td>85%</td>
+                                <td>3% improvement needed</td>
+                            </tr>
+                            <tr>
+                                <td>Global Collaborator</td>
+                                <td>76%</td>
+                                <td>80%</td>
+                                <td>4% improvement needed</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="recommendations-section">
+                    <h2>Strategic Recommendations</h2>
+                    <p>Based on the comprehensive assessment results, we recommend the following strategic initiatives:</p>
+                    
+                    <h3>1. Enhanced Professional Development Program</h3>
+                    <p>Implement a structured professional development program focusing on computational thinking and innovative design. This program should include hands-on workshops, peer collaboration sessions, and ongoing mentoring support.</p>
+                    
+                    <h3>2. Technology Infrastructure Improvements</h3>
+                    <p>Upgrade existing technology infrastructure to support more advanced applications and emerging technologies such as artificial intelligence, virtual reality, and collaborative platforms.</p>
+                    
+                    <h3>3. Curriculum Integration Strategy</h3>
+                    <p>Develop a comprehensive strategy for integrating technology skills across all subject areas, ensuring that students develop competencies in authentic, meaningful contexts.</p>
+                    
+                    <h3>4. Assessment and Feedback Systems</h3>
+                    <p>Establish robust systems for ongoing assessment and feedback to track progress and adjust strategies based on evidence and outcomes.</p>
+                </div>
+                
+                <div class="action-plan-section">
+                    <h2>Implementation Action Plan</h2>
+                    <p>The following action plan provides a roadmap for implementing the recommended strategies:</p>
+                    
+                    <h3>Phase 1: Foundation Building (Months 1-3)</h3>
+                    <ol>
+                        <li>Conduct detailed needs assessment</li>
+                        <li>Develop professional development curriculum</li>
+                        <li>Identify technology infrastructure requirements</li>
+                        <li>Establish baseline metrics and measurement systems</li>
+                    </ol>
+                    
+                    <h3>Phase 2: Implementation (Months 4-9)</h3>
+                    <ol>
+                        <li>Launch professional development program</li>
+                        <li>Begin infrastructure upgrades</li>
+                        <li>Pilot curriculum integration initiatives</li>
+                        <li>Implement feedback and assessment systems</li>
+                    </ol>
+                    
+                    <h3>Phase 3: Evaluation and Scaling (Months 10-12)</h3>
+                    <ol>
+                        <li>Conduct comprehensive evaluation</li>
+                        <li>Refine and improve based on feedback</li>
+                        <li>Scale successful initiatives</li>
+                        <li>Plan for continuous improvement</li>
+                    </ol>
+                </div>
+                
+                <div class="conclusion">
+                    <h2>Conclusion</h2>
+                    <p>This assessment demonstrates strong foundational capabilities while highlighting specific areas for strategic improvement. By implementing the recommended action plan, the organization can achieve its target performance levels across all ISTE competency areas and position itself as a leader in educational technology integration.</p>
+                    
+                    <p>The success of this initiative will depend on sustained commitment from leadership, active engagement from all stakeholders, and ongoing measurement and refinement of strategies based on evidence and outcomes.</p>
+                </div>
+                
+                <div class="export-options">
+                    <h4><i class="fas fa-download"></i> Export Your ISTE Assessment Report</h4>
+                    <p class="export-description">Save your personalized assessment results in your preferred format for sharing with your team or future reference.</p>
+                    <div class="export-buttons">
+                        <button id="export-pdf" class="export-btn enhanced-export-btn" type="button">
+                            <div class="export-icon">
+                                <i class="fas fa-file-pdf"></i>
+                            </div>
+                            <div class="export-content">
+                                <span class="export-title">Download as PDF</span>
+                                <span class="export-subtitle">Professional report format • Best for presentations</span>
+                            </div>
+                        </button>
+                        <button id="export-doc" class="export-btn enhanced-export-btn" type="button">
+                            <div class="export-icon">
+                                <i class="fas fa-file-word"></i>
+                            </div>
+                            <div class="export-content">
+                                <span class="export-title">Export to Google Docs</span>
+                                <span class="export-subtitle">Editable document • Easy to customize and share</span>
+                            </div>
+                        </button>
+                        <button class="export-btn enhanced-export-btn export-html-btn" type="button">
+                            <div class="export-icon">
+                                <i class="fas fa-file-code"></i>
+                            </div>
+                            <div class="export-content">
+                                <span class="export-title">Download as HTML</span>
+                                <span class="export-subtitle">Web format • Easy to view and share</span>
+                            </div>
+                        </button>
+                        <button class="export-btn enhanced-export-btn export-json-btn" type="button">
+                            <div class="export-icon">
+                                <i class="fas fa-file-download"></i>
+                            </div>
+                            <div class="export-content">
+                                <span class="export-title">Export Data as JSON</span>
+                                <span class="export-subtitle">Raw data • Perfect for analysis</span>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Test Results Log -->
+        <div class="test-section">
+            <h2><i class="fas fa-clipboard-list"></i> Test Results Log</h2>
+            <div id="test-log" class="status-log">
+                <div class="log-entry log-info">Export test system initialized. Ready to run tests.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Required Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/enhanced-export.js"></script>
+    
+    <script>
+        // Test logging functions
+        function log(message, type = 'info') {
+            const logContainer = document.getElementById('test-log');
+            const timestamp = new Date().toLocaleTimeString();
+            const entry = document.createElement('div');
+            entry.className = `log-entry log-${type}`;
+            entry.innerHTML = `[${timestamp}] ${message}`;
+            logContainer.appendChild(entry);
+            logContainer.scrollTop = logContainer.scrollHeight;
+        }
+        
+        function clearLog() {
+            const logContainer = document.getElementById('test-log');
+            logContainer.innerHTML = '<div class="log-entry log-info">Test log cleared. Ready for new tests.</div>';
+        }
+        
+        // Test functions
+        async function testPDFExport() {
+            log('Starting PDF export test...', 'info');
+            try {
+                const reportContent = document.getElementById('sample-report');
+                if (!reportContent) {
+                    throw new Error('Sample report content not found');
+                }
+                
+                log('Report content found, initiating PDF export...', 'success');
+                
+                // Test the enhanced PDF export function
+                await window.exportElementToPDF(reportContent, 'Test-ISTE-Report.pdf');
+                log('✅ PDF export test completed successfully!', 'success');
+                
+            } catch (error) {
+                log(`❌ PDF export test failed: ${error.message}`, 'error');
+                console.error('PDF export test error:', error);
+            }
+        }
+        
+        async function testGoogleDocsExport() {
+            log('Starting Google Docs export test...', 'info');
+            try {
+                const reportContent = document.getElementById('sample-report');
+                if (!reportContent) {
+                    throw new Error('Sample report content not found');
+                }
+                
+                log('Report content found, initiating Google Docs export...', 'success');
+                
+                // Test the Google Docs export function
+                await window.exportToGoogleDoc(reportContent, 'Test-ISTE-Report');
+                log('✅ Google Docs export test completed successfully!', 'success');
+                
+            } catch (error) {
+                log(`❌ Google Docs export test failed: ${error.message}`, 'error');
+                console.error('Google Docs export test error:', error);
+            }
+        }
+        
+        async function testHTMLExport() {
+            log('Starting HTML export test...', 'info');
+            try {
+                if (!window.enhancedExportManager) {
+                    throw new Error('Enhanced export manager not found');
+                }
+                
+                log('Enhanced export manager found, testing HTML export...', 'success');
+                
+                // Simulate HTML export button click
+                const htmlBtn = document.querySelector('.export-html-btn');
+                if (htmlBtn) {
+                    await window.enhancedExportManager.handleHTMLExport(htmlBtn);
+                    log('✅ HTML export test completed successfully!', 'success');
+                } else {
+                    throw new Error('HTML export button not found');
+                }
+                
+            } catch (error) {
+                log(`❌ HTML export test failed: ${error.message}`, 'error');
+                console.error('HTML export test error:', error);
+            }
+        }
+        
+        async function testJSONExport() {
+            log('Starting JSON export test...', 'info');
+            try {
+                if (!window.enhancedExportManager) {
+                    throw new Error('Enhanced export manager not found');
+                }
+                
+                log('Enhanced export manager found, testing JSON export...', 'success');
+                
+                // Simulate JSON export button click
+                const jsonBtn = document.querySelector('.export-json-btn');
+                if (jsonBtn) {
+                    await window.enhancedExportManager.handleJSONExport(jsonBtn);
+                    log('✅ JSON export test completed successfully!', 'success');
+                } else {
+                    throw new Error('JSON export button not found');
+                }
+                
+            } catch (error) {
+                log(`❌ JSON export test failed: ${error.message}`, 'error');
+                console.error('JSON export test error:', error);
+            }
+        }
+        
+        async function runAllTests() {
+            log('🚀 Starting comprehensive export system tests...', 'info');
+            const tests = [
+                { name: 'PDF Export', func: testPDFExport },
+                { name: 'Google Docs Export', func: testGoogleDocsExport },
+                { name: 'HTML Export', func: testHTMLExport },
+                { name: 'JSON Export', func: testJSONExport }
+            ];
+            
+            let passed = 0;
+            let failed = 0;
+            
+            for (const test of tests) {
+                try {
+                    log(`Running ${test.name} test...`, 'info');
+                    await test.func();
+                    passed++;
+                    await new Promise(resolve => setTimeout(resolve, 1000)); // Small delay between tests
+                } catch (error) {
+                    failed++;
+                    log(`Test ${test.name} failed: ${error.message}`, 'error');
+                }
+            }
+            
+            log(`🏁 All tests completed! Passed: ${passed}, Failed: ${failed}`, passed === tests.length ? 'success' : 'warning');
+        }
+        
+        // Initialize tests when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            log('Export test page loaded successfully', 'success');
+            
+            // Check if required libraries are loaded
+            if (typeof html2pdf !== 'undefined') {
+                log('✅ html2pdf library loaded', 'success');
+            } else {
+                log('❌ html2pdf library not loaded', 'error');
+            }
+            
+            if (window.enhancedExportManager) {
+                log('✅ Enhanced export manager initialized', 'success');
+            } else {
+                log('❌ Enhanced export manager not found', 'error');
+            }
+            
+            if (window.exportElementToPDF) {
+                log('✅ PDF export function available', 'success');
+            } else {
+                log('❌ PDF export function not available', 'error');
+            }
+            
+            if (window.exportToGoogleDoc) {
+                log('✅ Google Docs export function available', 'success');
+            } else {
+                log('❌ Google Docs export function not available', 'error');
+            }
+        });
+    </script>
+</body>
+</html>

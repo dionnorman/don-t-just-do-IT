@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CBAM Form Test</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .status {
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <h1>CBAM Form Test</h1>
+    
+    <div class="form-group">
+        <label for="additional-context">Additional Context:</label>
+        <textarea id="additional-context" name="additional-context" rows="4" placeholder="Type something here..."></textarea>
+    </div>
+    
+    <div id="status"></div>
+    
+    <button onclick="checkStyles()">Check Styles</button>
+    <button onclick="checkEvents()">Check Event Listeners</button>
+    <button onclick="fixProblem()">Fix Problem</button>
+    
+    <script>
+        // Function to display status messages
+        function showStatus(message, isSuccess) {
+            const statusDiv = document.getElementById('status');
+            statusDiv.className = isSuccess ? 'status success' : 'status error';
+            statusDiv.textContent = message;
+        }
+        
+        // Check if there are any style properties affecting input
+        function checkStyles() {
+            const textarea = document.getElementById('additional-context');
+            
+            // Get computed styles
+            const styles = window.getComputedStyle(textarea);
+            
+            // Check for problematic style properties
+            const problematicStyles = {
+                'pointer-events': styles.pointerEvents,
+                'user-select': styles.userSelect,
+                'display': styles.display,
+                'visibility': styles.visibility,
+                'opacity': styles.opacity,
+                'z-index': styles.zIndex,
+                'position': styles.position
+            };
+            
+            showStatus('Style properties that might affect input: ' + JSON.stringify(problematicStyles), true);
+        }
+        
+        // Check for event listeners
+        function checkEvents() {
+            showStatus('Starting event listener check...', true);
+            
+            // This is just to demonstrate; we can't actually enumerate all event listeners in standard JS
+            const textarea = document.getElementById('additional-context');
+            
+            // Add a test event listener to see if events are firing
+            textarea.addEventListener('input', function testInputHandler(e) {
+                showStatus('Input event is working!', true);
+                // Remove this test handler after first trigger
+                textarea.removeEventListener('input', testInputHandler);
+            });
+            
+            showStatus('Try typing in the textarea to see if the input event fires', true);
+        }
+        
+        // Fix potential problems
+        function fixProblem() {
+            const textarea = document.getElementById('additional-context');
+            
+            // Reset potentially problematic styles
+            textarea.style.pointerEvents = 'auto';
+            textarea.style.userSelect = 'text';
+            textarea.style.position = 'relative';
+            textarea.style.opacity = '1';
+            textarea.style.visibility = 'visible';
+            textarea.style.display = 'block';
+            textarea.style.zIndex = 'auto';
+            
+            // Make sure no parent elements are blocking
+            let parent = textarea.parentElement;
+            while (parent && parent !== document.body) {
+                parent.style.pointerEvents = 'auto';
+                parent = parent.parentElement;
+            }
+            
+            // Clone and replace the textarea to remove any event listeners
+            const newTextarea = textarea.cloneNode(true);
+            textarea.parentNode.replaceChild(newTextarea, textarea);
+            
+            showStatus('Potential problems fixed! Try typing in the textarea now.', true);
+        }
+    </script>
+</body>
+</html>

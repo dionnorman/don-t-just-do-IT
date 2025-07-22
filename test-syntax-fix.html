@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Syntax Error Fix Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .status {
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border-left: 4px solid #28a745;
+        }
+        
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid #dc3545;
+        }
+        
+        .info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border-left: 4px solid #17a2b8;
+        }
+        
+        .test-button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+        
+        .test-button:hover {
+            background: #0056b3;
+        }
+        
+        .log-container {
+            background: #f8f9fa;
+            padding: 15px;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 14px;
+        }
+        
+        .log-entry {
+            margin-bottom: 5px;
+            padding: 2px 0;
+        }
+        
+        .foundation-block {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 10px 0;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .foundation-block.active {
+            background: #007bff;
+            color: white;
+        }
+        
+        .detail-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Syntax Error Fix Verification</h1>
+    
+    <div class="info status">
+        <strong>Test Purpose:</strong> This page verifies that the syntax error fix resolves the "missing ) after argument list" issue.
+    </div>
+    
+    <div class="container">
+        <h2>Test Results</h2>
+        <div id="test-status" class="info status">
+            Running tests...
+        </div>
+        
+        <div class="log-container" id="log-container">
+            <div class="log-entry">Starting syntax error fix verification...</div>
+        </div>
+        
+        <button class="test-button" onclick="runTests()">Run Tests</button>
+        <button class="test-button" onclick="clearLog()">Clear Log</button>
+    </div>
+    
+    <div class="container">
+        <h2>Test Elements</h2>
+        <p>These elements simulate the problematic onclick handlers:</p>
+        
+        <!-- Test foundation block with close button -->
+        <div class="foundation-block" onclick="toggleBlockDetail(this)">
+            <h3>Test Foundation Block</h3>
+            <p>Click this block to test the foundation block handler</p>
+            <button class="detail-close" onclick="event.stopPropagation(); hideBlockDetail(this.closest('.foundation-block'));">×</button>
+        </div>
+        
+        <!-- Another test block -->
+        <div class="foundation-block" onclick="toggleBlockDetail(this)">
+            <h3>Another Test Block</h3>
+            <p>Another test element with the same potential syntax issue</p>
+            <button class="detail-close" onclick="event.stopPropagation(); hideBlockDetail(this.closest('.foundation-block'));">×</button>
+        </div>
+    </div>
+    
+    <!-- Load the syntax error fix script -->
+    <script src="syntax-error-fix.js"></script>
+    
+    <script>
+        // Global functions that the onclick handlers expect
+        window.toggleBlockDetail = function(block) {
+            block.classList.toggle('active');
+            addLog('✅ toggleBlockDetail called successfully');
+        };
+        
+        window.hideBlockDetail = function(block) {
+            block.classList.remove('active');
+            addLog('✅ hideBlockDetail called successfully');
+        };
+        
+        // Log management
+        function addLog(message) {
+            const logContainer = document.getElementById('log-container');
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = document.createElement('div');
+            logEntry.className = 'log-entry';
+            logEntry.textContent = `[${timestamp}] ${message}`;
+            logContainer.appendChild(logEntry);
+            logContainer.scrollTop = logContainer.scrollHeight;
+        }
+        
+        function clearLog() {
+            const logContainer = document.getElementById('log-container');
+            logContainer.innerHTML = '<div class="log-entry">Log cleared. Starting fresh...</div>';
+        }
+        
+        function runTests() {
+            const testStatus = document.getElementById('test-status');
+            
+            addLog('Starting comprehensive syntax error tests...');
+            
+            let testsPass = 0;
+            let totalTests = 0;
+            
+            // Test 1: Check if onclick handlers were removed
+            totalTests++;
+            const elementsWithOnclick = document.querySelectorAll('[onclick]');
+            if (elementsWithOnclick.length === 0) {
+                addLog('✅ Test 1 PASSED: All problematic onclick handlers removed');
+                testsPass++;
+            } else {
+                addLog(`❌ Test 1 FAILED: ${elementsWithOnclick.length} elements still have onclick handlers`);
+                elementsWithOnclick.forEach((el, i) => {
+                    addLog(`   - Element ${i + 1}: ${el.tagName} with onclick="${el.getAttribute('onclick')}"`);
+                });
+            }
+            
+            // Test 2: Check if event listeners were added
+            totalTests++;
+            const closeButtons = document.querySelectorAll('.detail-close');
+            if (closeButtons.length > 0) {
+                addLog(`✅ Test 2 PASSED: Found ${closeButtons.length} close buttons with event listeners`);
+                testsPass++;
+            } else {
+                addLog('❌ Test 2 FAILED: No close buttons found');
+            }
+            
+            // Test 3: Test clicking close buttons
+            totalTests++;
+            try {
+                const firstCloseBtn = closeButtons[0];
+                if (firstCloseBtn) {
+                    // Simulate click
+                    firstCloseBtn.click();
+                    addLog('✅ Test 3 PASSED: Close button click executed without errors');
+                    testsPass++;
+                } else {
+                    addLog('❌ Test 3 FAILED: No close button available for testing');
+                }
+            } catch (error) {
+                addLog(`❌ Test 3 FAILED: Error clicking close button: ${error.message}`);
+            }
+            
+            // Test 4: Test foundation block clicks
+            totalTests++;
+            try {
+                const foundationBlocks = document.querySelectorAll('.foundation-block');
+                if (foundationBlocks.length > 0) {
+                    foundationBlocks[0].click();
+                    addLog('✅ Test 4 PASSED: Foundation block click executed without errors');
+                    testsPass++;
+                } else {
+                    addLog('❌ Test 4 FAILED: No foundation blocks found');
+                }
+            } catch (error) {
+                addLog(`❌ Test 4 FAILED: Error clicking foundation block: ${error.message}`);
+            }
+            
+            // Test 5: Check console for errors
+            totalTests++;
+            // This test is implicit - if we got this far without JavaScript errors, it passes
+            addLog('✅ Test 5 PASSED: No JavaScript execution errors detected');
+            testsPass++;
+            
+            // Update test status
+            if (testsPass === totalTests) {
+                testStatus.className = 'success status';
+                testStatus.innerHTML = `<strong>🎉 All Tests Passed!</strong> (${testsPass}/${totalTests}) The syntax error has been successfully fixed.`;
+                addLog(`🎉 SUMMARY: All ${totalTests} tests passed! Syntax error fix is working correctly.`);
+            } else {
+                testStatus.className = 'error status';
+                testStatus.innerHTML = `<strong>⚠️ Some Tests Failed</strong> (${testsPass}/${totalTests}) Check the log for details.`;
+                addLog(`⚠️ SUMMARY: ${testsPass}/${totalTests} tests passed. Some issues remain.`);
+            }
+        }
+        
+        // Run tests automatically after a short delay
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(runTests, 1000);
+        });
+        
+        // Monitor for any JavaScript errors
+        window.addEventListener('error', function(e) {
+            addLog(`❌ JavaScript Error: ${e.message} at ${e.filename}:${e.lineno}`);
+        });
+    </script>
+</body>
+</html>

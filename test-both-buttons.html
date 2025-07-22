@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Both Button Fixes</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f8fafc;
+        }
+        .test-box {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(46, 94, 170, 0.08);
+            margin: 20px 0;
+        }
+        .status {
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-weight: 500;
+        }
+        .success { background: #dcfce7; color: #166534; border: 1px solid #22c55e; }
+        .error { background: #fef2f2; color: #991b1b; border: 1px solid #ef4444; }
+        .info { background: #eff6ff; color: #1e40af; border: 1px solid #3b82f6; }
+        .warning { background: #fefce8; color: #854d0e; border: 1px solid #eab308; }
+        .test-button {
+            background: linear-gradient(135deg, #2e5eaa 0%, #4c7cbf 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 15px 0;
+            display: inline-block;
+            text-decoration: none;
+        }
+        .test-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(46, 94, 170, 0.3);
+        }
+        h1 { color: #2e5eaa; text-align: center; }
+        h2 { color: #2e5eaa; border-bottom: 2px solid #2e5eaa; padding-bottom: 10px; }
+        .test-section {
+            margin: 30px 0;
+            padding: 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+        }
+        .test-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .form-group label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .radio-group, .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .radio-group label, .checkbox-group label {
+            font-weight: normal;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        select {
+            padding: 8px;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            width: 100%;
+        }
+        .loader {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        .spinner {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #2e5eaa;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .hidden { display: none; }
+        .result-content {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Test Both Button Fixes</h1>
+    
+    <div class="test-box">
+        <h2>🎯 Quick Fix Verification</h2>
+        <div class="status info">
+            <strong>Testing both ISTE and CBAM button functionality after fixes</strong>
+            <p>This page tests both assessment tools with minimal forms to verify the buttons work properly.</p>
+        </div>
+        
+        <a href="index.html" target="_blank" class="test-button">
+            🚀 Open Main Site for Full Testing
+        </a>
+    </div>
+    
+    <!-- ISTE Test Section -->
+    <div class="test-section" id="iste-tool">
+        <h2>📊 ISTE Assessment Test</h2>
+        <form>
+            <div class="test-form">
+                <div class="form-group">
+                    <label>Shared Vision</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="shared-vision" value="1"> Initiating</label>
+                        <label><input type="radio" name="shared-vision" value="2"> Approaching</label>
+                        <label><input type="radio" name="shared-vision" value="3" checked> Meets</label>
+                        <label><input type="radio" name="shared-vision" value="4"> Exceeds</label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Implementation Planning</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="implementation-planning" value="1"> Initiating</label>
+                        <label><input type="radio" name="implementation-planning" value="2" checked> Approaching</label>
+                        <label><input type="radio" name="implementation-planning" value="3"> Meets</label>
+                        <label><input type="radio" name="implementation-planning" value="4"> Exceeds</label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Equitable Access</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="equitable-access" value="1" checked> Initiating</label>
+                        <label><input type="radio" name="equitable-access" value="2"> Approaching</label>
+                        <label><input type="radio" name="equitable-access" value="3"> Meets</label>
+                        <label><input type="radio" name="equitable-access" value="4"> Exceeds</label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Prepared Educators</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="prepared-educators" value="1"> Initiating</label>
+                        <label><input type="radio" name="prepared-educators" value="2"> Approaching</label>
+                        <label><input type="radio" name="prepared-educators" value="3" checked> Meets</label>
+                        <label><input type="radio" name="prepared-educators" value="4"> Exceeds</label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Technical Support</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="technical-support" value="1"> Initiating</label>
+                        <label><input type="radio" name="technical-support" value="2" checked> Approaching</label>
+                        <label><input type="radio" name="technical-support" value="3"> Meets</label>
+                        <label><input type="radio" name="technical-support" value="4"> Exceeds</label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Learning Content</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="learning-content" value="1"> Initiating</label>
+                        <label><input type="radio" name="learning-content" value="2"> Approaching</label>
+                        <label><input type="radio" name="learning-content" value="3" checked> Meets</label>
+                        <label><input type="radio" name="learning-content" value="4"> Exceeds</label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Ongoing Evaluation</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="ongoing-evaluation" value="1" checked> Initiating</label>
+                        <label><input type="radio" name="ongoing-evaluation" value="2"> Approaching</label>
+                        <label><input type="radio" name="ongoing-evaluation" value="3"> Meets</label>
+                        <label><input type="radio" name="ongoing-evaluation" value="4"> Exceeds</label>
+                    </div>
+                </div>
+            </div>
+            
+            <button type="button" id="iste-assessment-btn" class="test-button">
+                <i class="fas fa-chart-line"></i>
+                Get ISTE Advice
+            </button>
+        </form>
+        
+        <div class="assessment-result hidden" id="iste-result">
+            <div class="loader">
+                <div class="spinner"></div>
+                <p>Generating comprehensive ISTE report...</p>
+            </div>
+            <div class="result-content"></div>
+        </div>
+    </div>
+    
+    <!-- CBAM Test Section -->
+    <div class="test-section" id="cbam-tool">
+        <h2>🔄 CBAM Assessment Test</h2>
+        <form>
+            <div class="test-form">
+                <div class="form-group">
+                    <label>Select Technology/Innovation</label>
+                    <select name="innovation-focus" required>
+                        <option value="">Select technology...</option>
+                        <option value="AI-Powered Teaching Tools" selected>AI-Powered Teaching Tools</option>
+                        <option value="XR/VR Learning">XR/VR Learning Environments</option>
+                        <option value="1:1 Device Programs">1:1 Device Programs</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Stage of Concern</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="cbam-stage" value="0"> 0 - Unconcerned</label>
+                        <label><input type="radio" name="cbam-stage" value="1"> 1 - Informational</label>
+                        <label><input type="radio" name="cbam-stage" value="2" checked> 2 - Personal</label>
+                        <label><input type="radio" name="cbam-stage" value="3"> 3 - Management</label>
+                        <label><input type="radio" name="cbam-stage" value="4"> 4 - Consequence</label>
+                        <label><input type="radio" name="cbam-stage" value="5"> 5 - Collaboration</label>
+                        <label><input type="radio" name="cbam-stage" value="6"> 6 - Refocusing</label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Implementation Level</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="implementation-level" value="0"> 0 - Non-Use</label>
+                        <label><input type="radio" name="implementation-level" value="1" checked> 1 - Orientation</label>
+                        <label><input type="radio" name="implementation-level" value="2"> 2 - Preparation</label>
+                        <label><input type="radio" name="implementation-level" value="3"> 3 - Mechanical Use</label>
+                        <label><input type="radio" name="implementation-level" value="4"> 4 - Routine</label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Main Concerns (Optional)</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="concerns" value="time-management" checked> Time Management</label>
+                        <label><input type="checkbox" name="concerns" value="technical-support"> Technical Support</label>
+                        <label><input type="checkbox" name="concerns" value="training-development"> Training Needs</label>
+                    </div>
+                </div>
+            </div>
+            
+            <button type="button" id="comprehensive-cbam-btn" class="test-button">
+                <i class="fas fa-chart-bar"></i>
+                Generate Comprehensive CBAM Report
+            </button>
+        </form>
+        
+        <div class="assessment-result hidden" id="comprehensive-cbam-result">
+            <div class="loader">
+                <div class="spinner"></div>
+                <p>Generating comprehensive CBAM report...</p>
+            </div>
+            <div class="result-content"></div>
+        </div>
+    </div>
+    
+    <div class="test-box">
+        <h2>✅ Success Indicators</h2>
+        <div class="status success">
+            <strong>Both buttons should now work properly:</strong>
+            <ul>
+                <li>ISTE button generates comprehensive report with professional styling</li>
+                <li>CBAM button generates detailed CBAM analysis with stage recommendations</li>
+                <li>Loading animations appear and disappear correctly</li>
+                <li>Reports scroll into view automatically</li>
+                <li>Export buttons are functional</li>
+                <li>No JavaScript errors in console</li>
+            </ul>
+        </div>
+    </div>
+    
+    <script src="js/main.js"></script>
+</body>
+</html>

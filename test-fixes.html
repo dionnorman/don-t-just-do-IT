@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Fixes - Expandable Text & ISTE Report</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f8fafc;
+        }
+        .test-section {
+            background: white;
+            margin: 20px 0;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(46, 94, 170, 0.08);
+        }
+        .test-header {
+            color: #2e5eaa;
+            border-bottom: 2px solid #2e5eaa;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .status {
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-weight: 500;
+        }
+        .success { background: #dcfce7; color: #166534; border: 1px solid #22c55e; }
+        .error { background: #fef2f2; color: #991b1b; border: 1px solid #ef4444; }
+        .info { background: #eff6ff; color: #1e40af; border: 1px solid #3b82f6; }
+    </style>
+</head>
+<body>
+    <h1>Testing Fixes: Expandable Text & Enhanced ISTE Report</h1>
+    
+    <!-- Test 1: Expandable Text Functionality -->
+    <div class="test-section">
+        <h2 class="test-header">Test 1: "What does it look like in practice?" Expandable Text</h2>
+        
+        <div class="condition-info">
+            <button type="button" class="info-toggle">ℹ️ What does this look like in practice?</button>
+            <div class="condition-details hidden">
+                <p><strong>This is a test of the expandable text functionality.</strong></p>
+                <ul>
+                    <li>When you click the button above, this content should appear</li>
+                    <li>The button text should change to "↑ Hide details"</li>
+                    <li>Clicking again should hide this content</li>
+                    <li>This tests the fix for the expandable text issue</li>
+                </ul>
+                <p>If you can see this text after clicking the button, the fix is working!</p>
+            </div>
+        </div>
+        
+        <div id="test1-result" class="status info">
+            Click the button above to test the expandable functionality
+        </div>
+    </div>
+    
+    <!-- Test 2: Enhanced ISTE Report -->
+    <div class="test-section">
+        <h2 class="test-header">Test 2: Enhanced ISTE Assessment Report</h2>
+        
+        <p>This section tests the enhanced ISTE report generation with comprehensive analysis and export functionality.</p>
+        
+        <!-- Simplified ISTE Assessment Form -->
+        <form id="test-iste-form">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin: 20px 0;">
+                
+                <div>
+                    <label style="font-weight: 600; display: block; margin-bottom: 10px;">Shared Vision</label>
+                    <div style="display: flex; flex-direction: column; gap: 5px;">
+                        <label><input type="radio" name="shared-vision" value="1"> Initiating</label>
+                        <label><input type="radio" name="shared-vision" value="2"> Approaching</label>
+                        <label><input type="radio" name="shared-vision" value="3" checked> Meets</label>
+                        <label><input type="radio" name="shared-vision" value="4"> Exceeds</label>
+                    </div>
+                </div>
+                
+                <div>
+                    <label style="font-weight: 600; display: block; margin-bottom: 10px;">Implementation Planning</label>
+                    <div style="display: flex; flex-direction: column; gap: 5px;">
+                        <label><input type="radio" name="implementation-planning" value="1"> Initiating</label>
+                        <label><input type="radio" name="implementation-planning" value="2" checked> Approaching</label>
+                        <label><input type="radio" name="implementation-planning" value="3"> Meets</label>
+                        <label><input type="radio" name="implementation-planning" value="4"> Exceeds</label>
+                    </div>
+                </div>
+                
+                <div>
+                    <label style="font-weight: 600; display: block; margin-bottom: 10px;">Equitable Access</label>
+                    <div style="display: flex; flex-direction: column; gap: 5px;">
+                        <label><input type="radio" name="equitable-access" value="1" checked> Initiating</label>
+                        <label><input type="radio" name="equitable-access" value="2"> Approaching</label>
+                        <label><input type="radio" name="equitable-access" value="3"> Meets</label>
+                        <label><input type="radio" name="equitable-access" value="4"> Exceeds</label>
+                    </div>
+                </div>
+                
+                <div>
+                    <label style="font-weight: 600; display: block; margin-bottom: 10px;">Prepared Educators</label>
+                    <div style="display: flex; flex-direction: column; gap: 5px;">
+                        <label><input type="radio" name="prepared-educators" value="1"> Initiating</label>
+                        <label><input type="radio" name="prepared-educators" value="2"> Approaching</label>
+                        <label><input type="radio" name="prepared-educators" value="3" checked> Meets</label>
+                        <label><input type="radio" name="prepared-educators" value="4"> Exceeds</label>
+                    </div>
+                </div>
+                
+                <div>
+                    <label style="font-weight: 600; display: block; margin-bottom: 10px;">Technical Support</label>
+                    <div style="display: flex; flex-direction: column; gap: 5px;">
+                        <label><input type="radio" name="technical-support" value="1"> Initiating</label>
+                        <label><input type="radio" name="technical-support" value="2" checked> Approaching</label>
+                        <label><input type="radio" name="technical-support" value="3"> Meets</label>
+                        <label><input type="radio" name="technical-support" value="4"> Exceeds</label>
+                    </div>
+                </div>
+                
+                <div>
+                    <label style="font-weight: 600; display: block; margin-bottom: 10px;">Learning Content</label>
+                    <div style="display: flex; flex-direction: column; gap: 5px;">
+                        <label><input type="radio" name="learning-content" value="1"> Initiating</label>
+                        <label><input type="radio" name="learning-content" value="2"> Approaching</label>
+                        <label><input type="radio" name="learning-content" value="3" checked> Meets</label>
+                        <label><input type="radio" name="learning-content" value="4"> Exceeds</label>
+                    </div>
+                </div>
+                
+                <div>
+                    <label style="font-weight: 600; display: block; margin-bottom: 10px;">Ongoing Evaluation</label>
+                    <div style="display: flex; flex-direction: column; gap: 5px;">
+                        <label><input type="radio" name="ongoing-evaluation" value="1" checked> Initiating</label>
+                        <label><input type="radio" name="ongoing-evaluation" value="2"> Approaching</label>
+                        <label><input type="radio" name="ongoing-evaluation" value="3"> Meets</label>
+                        <label><input type="radio" name="ongoing-evaluation" value="4"> Exceeds</label>
+                    </div>
+                </div>
+            </div>
+            
+            <button type="button" id="test-iste-btn" style="background: linear-gradient(135deg, #2e5eaa 0%, #4c7cbf 100%); color: white; border: none; padding: 15px 30px; border-radius: 8px; font-weight: 600; cursor: pointer; margin: 20px 0;">
+                Generate Enhanced ISTE Report
+            </button>
+        </form>
+        
+        <!-- Test Results Area -->
+        <div id="test-iste-result" class="assessment-result hidden">
+            <div class="loader" style="display: none; text-align: center; padding: 20px;">
+                <div style="display: inline-block; width: 40px; height: 40px; border: 4px solid #f3f3f3; border-top: 4px solid #2e5eaa; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+                <p>Generating comprehensive report...</p>
+            </div>
+            <div class="result-content"></div>
+            <div class="export-options">
+                <h4>Export Report</h4>
+                <div class="export-buttons">
+                    <button id="test-export-pdf" class="export-btn">
+                        <i class="fas fa-file-pdf"></i> PDF
+                    </button>
+                    <button id="test-export-doc" class="export-btn">
+                        <i class="fas fa-file-word"></i> Google Doc
+                    </button>
+                    <button id="test-export-ppt" class="export-btn">
+                        <i class="fas fa-file-powerpoint"></i> Presentation
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="test2-result" class="status info">
+            Click the button above to test the enhanced ISTE report generation
+        </div>
+    </div>
+    
+    <script src="js/main.js"></script>
+    <script>
+        // Test 1: Monitor expandable text functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const testToggle = document.querySelector('.info-toggle');
+            const testDetails = document.querySelector('.condition-details');
+            const test1Result = document.getElementById('test1-result');
+            
+            if (testToggle) {
+                testToggle.addEventListener('click', function() {
+                    setTimeout(() => {
+                        if (testDetails.classList.contains('visible')) {
+                            test1Result.className = 'status success';
+                            test1Result.innerHTML = '✅ SUCCESS: Expandable text is working! Content is visible and button text changed.';
+                        } else {
+                            test1Result.className = 'status error';
+                            test1Result.innerHTML = '❌ ISSUE: Expandable text is not working properly.';
+                        }
+                    }, 100);
+                });
+            }
+            
+            // Test 2: Enhanced ISTE Report
+            const testIsteBtn = document.getElementById('test-iste-btn');
+            const test2Result = document.getElementById('test2-result');
+            
+            if (testIsteBtn) {
+                testIsteBtn.addEventListener('click', function() {
+                    const form = document.getElementById('test-iste-form');
+                    const resultElement = document.getElementById('test-iste-result');
+                    
+                    if (resultElement && form) {
+                        resultElement.classList.remove('hidden');
+                        resultElement.querySelector('.loader').style.display = 'block';
+                        
+                        test2Result.className = 'status info';
+                        test2Result.innerHTML = '⏳ Testing enhanced report generation...';
+                        
+                        // Collect form data
+                        const formData = new FormData(form);
+                        const responses = {};
+                        
+                        const radioGroups = ['shared-vision', 'implementation-planning', 'equitable-access', 'prepared-educators', 'technical-support', 'learning-content', 'ongoing-evaluation'];
+                        radioGroups.forEach(group => {
+                            responses[group] = parseInt(formData.get(group)) || 0;
+                        });
+                        
+                        // Simulate the enhanced assessment
+                        setTimeout(() => {
+                            resultElement.querySelector('.loader').style.display = 'none';
+                            
+                            // Test if the enhanced functions exist
+                            if (typeof window.calculateIsteAssessment === 'function') {
+                                try {
+                                    const assessment = window.calculateIsteAssessment(responses);
+                                    const reportContent = window.generateComprehensiveIsteReport(assessment, responses);
+                                    resultElement.querySelector('.result-content').innerHTML = reportContent;
+                                    
+                                    test2Result.className = 'status success';
+                                    test2Result.innerHTML = '✅ SUCCESS: Enhanced ISTE report generated with comprehensive analysis, recommendations, and export options!';
+                                    
+                                    // Setup export test handlers
+                                    window.setupIsteExportHandlers(assessment, responses);
+                                    
+                                    // Update export button IDs for test
+                                    document.getElementById('export-pdf').id = 'test-export-pdf';
+                                    document.getElementById('export-doc').id = 'test-export-doc';
+                                    document.getElementById('export-ppt').id = 'test-export-ppt';
+                                    
+                                    // Re-setup with test IDs
+                                    window.setupIsteExportHandlers(assessment, responses);
+                                    
+                                } catch (error) {
+                                    test2Result.className = 'status error';
+                                    test2Result.innerHTML = '❌ ERROR: Enhanced functions exist but failed to execute: ' + error.message;
+                                }
+                            } else {
+                                test2Result.className = 'status error';
+                                test2Result.innerHTML = '❌ ERROR: Enhanced ISTE assessment functions not found. The new code may not be loaded.';
+                            }
+                        }, 1500);
+                    }
+                });
+            }
+        });
+        
+        // Add spinner animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

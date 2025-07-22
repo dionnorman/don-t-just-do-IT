@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAMR Modal Test</title>
+    <link rel="stylesheet" href="css/tools/samr-tool.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f5f5f5;
+        }
+        
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        .test-buttons {
+            margin-bottom: 30px;
+        }
+        
+        .test-btn {
+            margin: 5px;
+            padding: 10px 20px;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .test-btn:hover {
+            background: #2563eb;
+        }
+        
+        .debug-info {
+            background: #fffbeb;
+            border: 1px solid #f59e0b;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        
+        /* Minimal SAMR styles for testing */
+        .samr-ladder-container {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .ladder-level {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .ladder-level:hover {
+            border-color: #3b82f6;
+            transform: translateY(-2px);
+        }
+        
+        .level-redefinition {
+            border-left: 4px solid #10b981;
+        }
+        
+        .level-modification {
+            border-left: 4px solid #f59e0b;
+        }
+        
+        .level-augmentation {
+            border-left: 4px solid #3b82f6;
+        }
+        
+        .level-substitution {
+            border-left: 4px solid #64748b;
+        }
+        
+        .level-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .level-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .level-redefinition .level-icon {
+            background: #10b981;
+        }
+        
+        .level-modification .level-icon {
+            background: #f59e0b;
+        }
+        
+        .level-augmentation .level-icon {
+            background: #3b82f6;
+        }
+        
+        .level-substitution .level-icon {
+            background: #64748b;
+        }
+        
+        .level-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 0 0 5px 0;
+        }
+        
+        .level-description {
+            color: #6b7280;
+            margin: 0;
+        }
+        
+        .learn-more-hint {
+            color: #3b82f6;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        /* Test specific styles */
+        .modal-test-info {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: #1f2937;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 12px;
+            z-index: 1000000;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>SAMR Modal System Test</h1>
+        
+        <div class="debug-info">
+            <h3>Debug Information</h3>
+            <p><strong>Page Load Time:</strong> <span id="load-time"></span></p>
+            <p><strong>SamrModalSystem Status:</strong> <span id="modal-system-status">Checking...</span></p>
+            <p><strong>Event Listeners:</strong> <span id="event-listeners">Checking...</span></p>
+            <p><strong>Active Modal:</strong> <span id="active-modal">None</span></p>
+        </div>
+        
+        <div class="test-buttons">
+            <h3>Direct Test Buttons</h3>
+            <button class="test-btn" onclick="testOpenModal('redefinition')">Test Redefinition Modal</button>
+            <button class="test-btn" onclick="testOpenModal('modification')">Test Modification Modal</button>
+            <button class="test-btn" onclick="testOpenModal('augmentation')">Test Augmentation Modal</button>
+            <button class="test-btn" onclick="testOpenModal('substitution')">Test Substitution Modal</button>
+            <button class="test-btn" onclick="testCloseModal()">Test Close Modal</button>
+        </div>
+        
+        <div class="samr-ladder">
+            <h3>SAMR Ladder (Click to Test)</h3>
+            <div class="samr-ladder-container">
+                <!-- Redefinition Level -->
+                <div class="ladder-level level-redefinition">
+                    <div class="level-content">
+                        <div class="level-icon"><i class="fas fa-rocket"></i></div>
+                        <div class="level-text">
+                            <h5 class="level-name">Redefinition</h5>
+                            <p class="level-description">Technology enables entirely new tasks previously inconceivable</p>
+                            <span class="learn-more-hint">Click to Learn More</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Modal for Redefinition -->
+                    <div class="level-detail-panel" id="redefinition-panel">
+                        <div class="modal-content">
+                            <button class="modal-close"><i class="fas fa-times"></i></button>
+                            <h3 class="modal-title"><i class="fas fa-rocket"></i> Redefinition: Transformative Use</h3>
+                            <div class="modal-body">
+                                <p>This is a test of the Redefinition modal. At the Redefinition level, technology enables entirely new tasks that would be inconceivable without it.</p>
+                                <p>Testing content that should scroll if needed. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                <p>More test content to ensure the modal displays properly and handles scrolling correctly.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Modification Level -->
+                <div class="ladder-level level-modification">
+                    <div class="level-content">
+                        <div class="level-icon"><i class="fas fa-tools"></i></div>
+                        <div class="level-text">
+                            <h5 class="level-name">Modification</h5>
+                            <p class="level-description">Technology enables significant task redesign</p>
+                            <span class="learn-more-hint">Click to Learn More</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Modal for Modification -->
+                    <div class="level-detail-panel" id="modification-panel">
+                        <div class="modal-content">
+                            <button class="modal-close"><i class="fas fa-times"></i></button>
+                            <h3 class="modal-title"><i class="fas fa-tools"></i> Modification: Significant Redesign</h3>
+                            <div class="modal-body">
+                                <p>This is a test of the Modification modal. At the Modification level, technology enables significant task redesign.</p>
+                                <p>Testing the modal system functionality and ensuring no conflicts occur.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Augmentation Level -->
+                <div class="ladder-level level-augmentation">
+                    <div class="level-content">
+                        <div class="level-icon"><i class="fas fa-plus-circle"></i></div>
+                        <div class="level-text">
+                            <h5 class="level-name">Augmentation</h5>
+                            <p class="level-description">Technology acts as a direct substitute with functional improvement</p>
+                            <span class="learn-more-hint">Click to Learn More</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Modal for Augmentation -->
+                    <div class="level-detail-panel" id="augmentation-panel">
+                        <div class="modal-content">
+                            <button class="modal-close"><i class="fas fa-times"></i></button>
+                            <h3 class="modal-title"><i class="fas fa-plus-circle"></i> Augmentation: Functional Improvement</h3>
+                            <div class="modal-body">
+                                <p>This is a test of the Augmentation modal. At the Augmentation level, technology acts as a direct substitute with functional improvement.</p>
+                                <p>Testing modal interaction and ensuring smooth operation.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Substitution Level -->
+                <div class="ladder-level level-substitution">
+                    <div class="level-content">
+                        <div class="level-icon"><i class="fas fa-exchange-alt"></i></div>
+                        <div class="level-text">
+                            <h5 class="level-name">Substitution</h5>
+                            <p class="level-description">Technology acts as a direct substitute with no functional change</p>
+                            <span class="learn-more-hint">Click to Learn More</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Modal for Substitution -->
+                    <div class="level-detail-panel" id="substitution-panel">
+                        <div class="modal-content">
+                            <button class="modal-close"><i class="fas fa-times"></i></button>
+                            <h3 class="modal-title"><i class="fas fa-exchange-alt"></i> Substitution: Direct Tool Replacement</h3>
+                            <div class="modal-body">
+                                <p>This is a test of the Substitution modal. At the Substitution level, technology acts as a direct substitute with no functional change.</p>
+                                <p>Testing that the modal system works correctly for all levels.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal test info overlay -->
+    <div class="modal-test-info" id="modal-info">
+        Modal Status: Closed
+    </div>
+    
+    <script>
+        // Debug and test functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('load-time').textContent = new Date().toLocaleTimeString();
+            
+            // Check if SamrModalSystem exists
+            if (window.SamrModalSystem) {
+                document.getElementById('modal-system-status').textContent = 'Available';
+                document.getElementById('modal-system-status').style.color = 'green';
+            } else {
+                document.getElementById('modal-system-status').textContent = 'Not Found';
+                document.getElementById('modal-system-status').style.color = 'red';
+            }
+            
+            // Count event listeners on SAMR elements
+            const samrElements = document.querySelectorAll('.ladder-level');
+            document.getElementById('event-listeners').textContent = `${samrElements.length} SAMR elements found`;
+            
+            // Initialize our own simple modal system for testing
+            initTestModalSystem();
+        });
+        
+        function testOpenModal(level) {
+            console.log('Test opening modal for level:', level);
+            
+            if (window.SamrModalSystem) {
+                try {
+                    window.SamrModalSystem.open(level);
+                    updateModalInfo('Opened: ' + level);
+                } catch (error) {
+                    console.error('Error opening modal:', error);
+                    updateModalInfo('Error: ' + error.message);
+                }
+            } else {
+                console.log('SamrModalSystem not available, using test system');
+                openTestModal(level);
+            }
+        }
+        
+        function testCloseModal() {
+            console.log('Test closing modal');
+            
+            if (window.SamrModalSystem) {
+                try {
+                    window.SamrModalSystem.close();
+                    updateModalInfo('Closed');
+                } catch (error) {
+                    console.error('Error closing modal:', error);
+                    updateModalInfo('Error: ' + error.message);
+                }
+            } else {
+                closeTestModal();
+            }
+        }
+        
+        function updateModalInfo(status) {
+            document.getElementById('modal-info').textContent = 'Modal Status: ' + status;
+            document.getElementById('active-modal').textContent = status;
+        }
+        
+        // Simple test modal system
+        function initTestModalSystem() {
+            console.log('Initializing test modal system');
+            
+            // Add click handlers to ladder levels
+            document.querySelectorAll('.ladder-level').forEach(level => {
+                level.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    console.log('Ladder level clicked:', this);
+                    
+                    let levelType = '';
+                    if (this.classList.contains('level-redefinition')) levelType = 'redefinition';
+                    else if (this.classList.contains('level-modification')) levelType = 'modification';
+                    else if (this.classList.contains('level-augmentation')) levelType = 'augmentation';
+                    else if (this.classList.contains('level-substitution')) levelType = 'substitution';
+                    
+                    if (levelType) {
+                        testOpenModal(levelType);
+                    }
+                });
+            });
+            
+            // Add click handlers to close buttons
+            document.querySelectorAll('.modal-close').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('Close button clicked');
+                    testCloseModal();
+                });
+            });
+            
+            // Add escape key handler
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    testCloseModal();
+                }
+            });
+        }
+        
+        function openTestModal(level) {
+            console.log('Opening test modal for:', level);
+            
+            const modal = document.getElementById(level + '-panel');
+            if (!modal) {
+                console.error('Modal not found:', level + '-panel');
+                updateModalInfo('Error: Modal not found');
+                return;
+            }
+            
+            // Close any open modals first
+            document.querySelectorAll('.level-detail-panel').forEach(m => {
+                m.style.display = 'none';
+            });
+            
+            // Show the modal with explicit styles
+            modal.style.cssText = `
+                display: flex !important;
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                width: 100vw !important;
+                height: 100vh !important;
+                background-color: rgba(0, 0, 0, 0.7) !important;
+                align-items: center !important;
+                justify-content: center !important;
+                z-index: 999999 !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+                padding: 1rem !important;
+            `;
+            
+            updateModalInfo('Test Opened: ' + level);
+            console.log('Test modal opened successfully');
+        }
+        
+        function closeTestModal() {
+            console.log('Closing test modal');
+            
+            document.querySelectorAll('.level-detail-panel').forEach(modal => {
+                modal.style.display = 'none';
+                modal.removeAttribute('style');
+            });
+            
+            updateModalInfo('Test Closed');
+            console.log('Test modal closed successfully');
+        }
+    </script>
+    
+    <!-- Load the main.js file to test SamrModalSystem -->
+    <script src="js/main.js"></script>
+</body>
+</html>
